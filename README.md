@@ -1,1 +1,2 @@
 # BitReal
+Testing Discord bot
