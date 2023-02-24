@@ -42,7 +42,7 @@ struct Navbar: View {
                                 .font(.system(size: 25, weight: selectedIndex == number ? .bold : .regular, design: .default))
                                 .foregroundColor(selectedIndex == number ? Color("purple") : Color("gray"))
                                 .frame(width: 80, height: 40)
-                                .background(selectedIndex == number ? Color("navbarItemBG") : .white)
+                                .background(selectedIndex == number ? Color("navbarItemBG") : Color("navBG"))
                                 .cornerRadius(32)
                         })
                         .padding(.top, 5)
