@@ -10,8 +10,13 @@ import SwiftUI
 struct FriendsPage: View {
     var body: some View {
         NavigationView {
-            ZStack {
-                Color.blue
+            ScrollView {
+                LazyVStack {
+                    SearchBar()
+                    ForEach(0 ... 25, id: \.self) { _ in
+                        FriendCard()
+                    }
+                }
             }
             .navigationTitle("My Friends")
         }
