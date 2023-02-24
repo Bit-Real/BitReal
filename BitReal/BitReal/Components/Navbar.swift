@@ -39,17 +39,22 @@ struct Navbar: View {
                             self.selectedIndex = number
                         }, label: {
                             Image(systemName: navSFSymbols[number])
-                                .font(.system(size: 25, weight: .regular, design: .default))
-                                .foregroundColor(selectedIndex == number ? .black : Color(UIColor.lightGray))
+                                .font(.system(size: 25, weight: selectedIndex == number ? .bold : .regular, design: .default))
+                                .foregroundColor(selectedIndex == number ? Color("purple") : Color("gray"))
+                                .frame(width: 80, height: 40)
+                                .background(selectedIndex == number ? Color("navbarItemBG") : .white)
+                                .cornerRadius(32)
                         })
+                        .padding(.top, 5)
+                        
                         Text(tabText[number])
                             .font(.system(size: 12, weight: selectedIndex == number ? .bold : .regular))
-                            .foregroundColor(selectedIndex == number ? .black : Color(UIColor.lightGray))
+                            .foregroundColor(selectedIndex == number ? .black : Color("navText"))
                             .padding(.top, 2)
                     }
                     Spacer()
                 }
-            }
+            }.background(Color("navBG"))
         }
     }
 }
