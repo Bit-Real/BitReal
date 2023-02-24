@@ -17,3 +17,10 @@ struct ProfilePage: View {
         }
     }
 }
+
+struct ProfilePage_Previews: PreviewProvider {
+    static var previews: some View {
+        ProfilePage()
+    }
+}
+

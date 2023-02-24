@@ -13,7 +13,14 @@ struct FriendsPage: View {
             ZStack {
                 Color.blue
             }
-            .navigationTitle("Friends")
+            .navigationTitle("My Friends")
         }
     }
 }
+
+struct FriendsPage_Previews: PreviewProvider {
+    static var previews: some View {
+        FriendsPage()
+    }
+}
+

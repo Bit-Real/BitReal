@@ -17,3 +17,9 @@ struct HabitsPage: View {
         }
     }
 }
+
+struct HabitsPage_Previews: PreviewProvider {
+    static var previews: some View {
+        HabitsPage()
+    }
+}
