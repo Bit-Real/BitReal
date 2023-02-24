@@ -40,7 +40,7 @@ struct Navbar: View {
                         }, label: {
                             Image(systemName: navSFSymbols[number])
                                 .font(.system(size: 25, weight: selectedIndex == number ? .bold : .regular, design: .default))
-                                .foregroundColor(selectedIndex == number ? Color("purple") : Color("gray"))
+                                .foregroundColor(selectedIndex == number ? Color("Purple") : Color("gray"))
                                 .frame(width: 80, height: 40)
                                 .background(selectedIndex == number ? Color("navbarItemBG") : Color("navBG"))
                                 .cornerRadius(32)
