@@ -15,6 +15,7 @@
 		241C969C29A8581700DB1855 /* FriendsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241C969B29A8581700DB1855 /* FriendsPage.swift */; };
 		241C969E29A8582800DB1855 /* HabitsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241C969D29A8582800DB1855 /* HabitsPage.swift */; };
 		241C96A029A8583800DB1855 /* ProfilePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241C969F29A8583800DB1855 /* ProfilePage.swift */; };
+		241C96A229A8662600DB1855 /* Navbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241C96A129A8662600DB1855 /* Navbar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		241C969B29A8581700DB1855 /* FriendsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsPage.swift; sourceTree = "<group>"; };
 		241C969D29A8582800DB1855 /* HabitsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsPage.swift; sourceTree = "<group>"; };
 		241C969F29A8583800DB1855 /* ProfilePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePage.swift; sourceTree = "<group>"; };
+		241C96A129A8662600DB1855 /* Navbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navbar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +93,7 @@
 		241C969829A857BA00DB1855 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				241C96A129A8662600DB1855 /* Navbar.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -165,6 +168,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				241C96A229A8662600DB1855 /* Navbar.swift in Sources */,
 				241C96A029A8583800DB1855 /* ProfilePage.swift in Sources */,
 				241C969C29A8581700DB1855 /* FriendsPage.swift in Sources */,
 				241C968B29A6FA6300DB1855 /* ContentView.swift in Sources */,
