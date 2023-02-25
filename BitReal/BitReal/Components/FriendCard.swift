@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct FriendCard: View {
+    
+    let name: String
+    
     var body: some View {
         HStack {
             // freind's image
@@ -18,7 +21,7 @@ struct FriendCard: View {
                 .cornerRadius(32)
                 .padding(.leading, 25)
             // friend's name
-            Text("Casper")
+            Text(name)
                 .fontWeight(.bold)
                 .padding(.leading, 15)
             Spacer()
@@ -37,6 +40,6 @@ struct FriendCard: View {
 
 struct FriendCard_Previews: PreviewProvider {
     static var previews: some View {
-        FriendCard()
+        FriendCard(name: "String")
     }
 }
