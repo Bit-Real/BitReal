@@ -44,6 +44,7 @@ struct LoginPage: View {
                     .foregroundColor(.white)
                     .frame(width: 300, height: 50)
                     .background(Color("Purple"))
+                    .cornerRadius(10)
                     .offset(y: -200)
             }
         }
