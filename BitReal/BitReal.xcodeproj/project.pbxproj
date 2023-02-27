@@ -10,6 +10,7 @@
 		1BD3C81029AC6D0400BFC22F /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD3C80F29AC6D0400BFC22F /* SplashView.swift */; };
 		1BD3C81429AD410100BFC22F /* LoginPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD3C81329AD410100BFC22F /* LoginPage.swift */; };
 		1BD3C81629AD432000BFC22F /* RegisterIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD3C81529AD432000BFC22F /* RegisterIView.swift */; };
+		1BD3C81829AD6B2D00BFC22F /* RegisterInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD3C81729AD6B2D00BFC22F /* RegisterInfoView.swift */; };
 		241C968929A6FA6300DB1855 /* BitRealApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241C968829A6FA6300DB1855 /* BitRealApp.swift */; };
 		241C968B29A6FA6300DB1855 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241C968A29A6FA6300DB1855 /* ContentView.swift */; };
 		241C968D29A6FA6500DB1855 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 241C968C29A6FA6500DB1855 /* Assets.xcassets */; };
@@ -27,6 +28,7 @@
 		1BD3C80F29AC6D0400BFC22F /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		1BD3C81329AD410100BFC22F /* LoginPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPage.swift; sourceTree = "<group>"; };
 		1BD3C81529AD432000BFC22F /* RegisterIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterIView.swift; sourceTree = "<group>"; };
+		1BD3C81729AD6B2D00BFC22F /* RegisterInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterInfoView.swift; sourceTree = "<group>"; };
 		241C968529A6FA6300DB1855 /* BitReal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BitReal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		241C968829A6FA6300DB1855 /* BitRealApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitRealApp.swift; sourceTree = "<group>"; };
 		241C968A29A6FA6300DB1855 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 				1BD3C80F29AC6D0400BFC22F /* SplashView.swift */,
 				1BD3C81329AD410100BFC22F /* LoginPage.swift */,
 				1BD3C81529AD432000BFC22F /* RegisterIView.swift */,
+				1BD3C81729AD6B2D00BFC22F /* RegisterInfoView.swift */,
 				241C969929A8580600DB1855 /* HomePage.swift */,
 				241C969B29A8581700DB1855 /* FriendsPage.swift */,
 				241C969D29A8582800DB1855 /* HabitsPage.swift */,
@@ -193,6 +196,7 @@
 			files = (
 				241C96A229A8662600DB1855 /* Navbar.swift in Sources */,
 				24BE17CA29A966450070AEE6 /* PostsRowView.swift in Sources */,
+				1BD3C81829AD6B2D00BFC22F /* RegisterInfoView.swift in Sources */,
 				241C96A029A8583800DB1855 /* ProfilePage.swift in Sources */,
 				1BD3C81629AD432000BFC22F /* RegisterIView.swift in Sources */,
 				241C969C29A8581700DB1855 /* FriendsPage.swift in Sources */,
