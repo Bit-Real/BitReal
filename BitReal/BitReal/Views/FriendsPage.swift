@@ -29,6 +29,7 @@ struct FriendsPage: View {
             }
             .navigationTitle("My Friends")
         }
+        .navigationBarBackButtonHidden()
     }
     
     // filtering method, takes in friends array, lower case it

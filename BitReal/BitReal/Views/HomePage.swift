@@ -19,6 +19,7 @@ struct HomePage: View {
             }
             .navigationTitle("Home")
         }
+        .navigationBarBackButtonHidden()
     }
 }
 

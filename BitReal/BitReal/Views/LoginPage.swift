@@ -36,17 +36,10 @@ struct LoginPage: View {
                 .offset(y: -220)
                 .padding(.top, 20)
             
-            Button(action: {if userName == "Longhorn" && password == "longhorn12345"{
-                loginSuccess = true
-            }}){
-                Text("Log in")
-                    .font(.headline)
-                    .foregroundColor(.white)
-                    .frame(width: 300, height: 50)
-                    .background(Color("Purple"))
-                    .cornerRadius(10)
-                    .offset(y: -200)
+            NavigationLink(destination: Navbar()) {
+                CustomButton(color: .white, outline: true, label: "Log In")
             }
+            .disabled(userName != "Longhorn" || password != "longhorn12345")
         }
     }
 }
