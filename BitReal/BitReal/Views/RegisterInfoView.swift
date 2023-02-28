@@ -24,7 +24,7 @@ struct RegisterInfoView: View {
             
             TextField("Username", text: $username)
                 .padding()
-                .frame(width: 300)
+                .frame(width: 350)
                 .background(Color.white.opacity(0.1))
                 .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.black))
                 .offset(y: -155)
@@ -32,7 +32,7 @@ struct RegisterInfoView: View {
             
             TextField("Full Name", text: $fullName)
                 .padding()
-                .frame(width: 300)
+                .frame(width: 350)
                 .background(Color.white.opacity(0.1))
                 .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.black))
                 .offset(y: -170)
@@ -40,7 +40,7 @@ struct RegisterInfoView: View {
             
             SecureField("Password", text: $password)
                 .padding()
-                .frame(width: 300)
+                .frame(width: 350)
                 .background(Color.white.opacity(0.1))
                 .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.black))
                 .offset(y: -180)
@@ -48,7 +48,7 @@ struct RegisterInfoView: View {
             
             SecureField("Confirm Password", text: $confirmPassword)
                 .padding()
-                .frame(width: 300)
+                .frame(width: 350)
                 .background(Color.white.opacity(0.1))
                 .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.black))
                 .offset(y: -190)
@@ -61,17 +61,23 @@ struct RegisterInfoView: View {
                     .font(.system(size: 13))
                     .offset(y: -160)
             }
-            Button(action: {if username == "Longhorn" && fullName == "Bevo Longhron" && password == "Longhorn12345" && confirmPassword == password{
-                registerSuccess = true
-            }}){
-                Text("NEXT")
-                    .font(.headline)
-                    .foregroundColor(.white)
-                    .frame(width: 300, height: 50)
-                    .background(Color("Purple"))
-                    .cornerRadius(10)
-                    .offset(y: -150)
+            
+            NavigationLink(destination: Navbar()) {
+                CustomButton(color: .white, outline: true, label: "SIGN UP")
             }
+//            .disabled(username != "Longhorn" || password != "longhorn12345")
+            
+//            Button(action: {if username == "Longhorn" && fullName == "Bevo Longhron" && password == "Longhorn12345" && confirmPassword == password{
+//                registerSuccess = true
+//            }}){
+//                Text("NEXT")
+//                    .font(.headline)
+//                    .foregroundColor(.white)
+//                    .frame(width: 300, height: 50)
+//                    .background(Color("Purple"))
+//                    .cornerRadius(10)
+//                    .offset(y: -150)
+//            }
         }
     }
 }
