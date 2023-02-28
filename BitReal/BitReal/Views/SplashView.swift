@@ -26,23 +26,16 @@ struct SplashView: View {
                         .frame(width: 60, height: 60)
                         .offset(x: -90, y: -70)
                     
-                    NavigationLink(destination: LoginPage()) {
-                        Text("LOG IN")
-                            .frame(width: 160, height: 50)
-                            .foregroundColor(.purple)
-                            .background(Color.white)
-                            .cornerRadius(10)
-                            .offset(CGSize(width: -88, height: 268))
-                        
+                    HStack {
+                        NavigationLink(destination: LoginPage()) {
+                            CustomButton(color: Color("Purple"), outline: false, label: "LOGIN")
+                            
+                        }
+                        NavigationLink(destination: RegisterIView()) {
+                            CustomButton(color: .white, outline: true, label: "REGISTER")
+                        }
                     }
-                    NavigationLink(destination: RegisterIView()) {
-                        Text("REGISTER")
-                            .frame(width: 160, height: 50)
-                            .foregroundColor(.white)
-                            .background(Color.purple)
-                            .cornerRadius(10)
-                            .offset(CGSize(width: 88, height: 210))
-                    }
+                    .offset(x: 0, y: 250)
                 }
             }
             .navigationBarHidden(true)
