@@ -8,13 +8,36 @@
 import SwiftUI
 
 struct HabitsPage: View {
+    
+    var habits: [Habit] = HabitList.habits
+    
     var body: some View {
         NavigationView {
             ZStack {
-                Color.green
+                List(habits, id: \.id) { habit in
+                    VStack {
+                        Text(habit.name)
+                    }
+                }
+                VStack {
+                    Spacer()
+                    NavigationLink(destination: CreateHabitPage()) {
+                        Image(systemName: "plus")
+                            .padding()
+                            .background(Color.white)
+                            .foregroundColor(Color.purple)
+                            .clipShape(Circle())
+                            .shadow(radius: 8)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+                    .padding()
+                }
+                .navigationTitle("Your Habits")
+                
             }
-            .navigationTitle("Habits")
         }
+        .navigationBarBackButtonHidden()
+        
     }
 }
 
@@ -23,3 +46,4 @@ struct HabitsPage_Previews: PreviewProvider {
         HabitsPage()
     }
 }
+
