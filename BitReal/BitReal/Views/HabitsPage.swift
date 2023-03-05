@@ -17,7 +17,15 @@ struct HabitsPage: View {
                 ScrollView {
                     LazyVStack {
                         ForEach(habits, id: \.id) { habit in
-                            HabitCard(habitName: habit.name, habitColor: habit.color)
+                            HStack {
+                                DisclosureGroup(
+                                    content: {Text("Expanded View")},
+                                    label: {HabitCard(habitName: habit.name, habitColor: habit.color)}
+                                )
+                                .buttonStyle(PlainButtonStyle()).accentColor(.clear)
+                                .padding(.leading, 20)
+                            }
+                            
                         }
                     }
                 }
