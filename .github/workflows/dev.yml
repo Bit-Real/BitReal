@@ -1,0 +1,21 @@
+name: Dev-Build
+
+on: 
+  push:
+    branches: ["dev"]
+
+jobs:
+  test:
+    name: Dev-Build
+    runs-on: macos-latest
+    strategy:
+        matrix:
+          destination: ['platform=iOS Simulator,OS=16.2,name=iPhone 14 Pro']
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Build
+        run: |
+          xcodebuild clean build -project BitReal.xcodeproj -scheme BitReal -destination "${destination}" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
+        env: 
+         destination: ${{ matrix.destination }}

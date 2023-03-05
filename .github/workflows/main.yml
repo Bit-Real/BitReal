@@ -1,0 +1,26 @@
+name: Main-Build
+
+on: 
+  push:
+    branches: ["main"]
+
+jobs:
+  test:
+    name: Main-Build
+    runs-on: macos-latest
+    strategy:
+        matrix:
+          destination: ['platform=iOS Simulator,OS=16.2,name=iPhone 14 Pro']
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Build
+        run: |
+          xcodebuild clean build -project BitReal.xcodeproj -scheme BitReal -destination "${destination}" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
+        env: 
+         destination: ${{ matrix.destination }}
+      # - name: Test
+      #   run: |
+      #     xcodebuild clean test -project "Workflow Test".xcodeproj -scheme GHFollowersTests -destination "${destination}" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
+      #   env: 
+      #    destination: ${{ matrix.destination }}
