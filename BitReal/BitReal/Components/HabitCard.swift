@@ -10,12 +10,12 @@ import SwiftUI
 struct HabitCard: View {
     
     var habitName: String
-    var dotsColor: Color
+    var habitColor: Color
     
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 12)
-                .fill(dotsColor)
+                .fill(habitColor)
                 .frame(width: 350, height: 50)
                 .offset(x: -5)
             HStack {
@@ -24,13 +24,13 @@ struct HabitCard: View {
                     .padding()
                 Spacer()
                 HStack {
-                    HabitDots(color: dotsColor, fill: true)
-                    HabitDots(color: dotsColor, fill: true)
-                    HabitDots(color: dotsColor, fill: true)
-                    HabitDots(color: dotsColor, fill: false)
-                    HabitDots(color: dotsColor, fill: false)
-                    HabitDots(color: dotsColor, fill: false)
-                    HabitDots(color: dotsColor, fill: true)
+                    HabitDots(color: habitColor, fill: true)
+                    HabitDots(color: habitColor, fill: true)
+                    HabitDots(color: habitColor, fill: true)
+                    HabitDots(color: habitColor, fill: false)
+                    HabitDots(color: habitColor, fill: false)
+                    HabitDots(color: habitColor, fill: false)
+                    HabitDots(color: habitColor, fill: true)
                 }
                 .padding()
             }
@@ -46,6 +46,6 @@ struct HabitCard: View {
 
 struct HabitCard_Previews: PreviewProvider {
     static var previews: some View {
-        HabitCard(habitName: "Run 4 Miles", dotsColor: .green)
+        HabitCard(habitName: "Run 4 Miles", habitColor: .green)
     }
 }

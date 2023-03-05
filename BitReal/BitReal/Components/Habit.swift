@@ -30,7 +30,7 @@ class Habit: Identifiable {
 }
 
 struct HabitList {
-    static let habits = [Habit(name: "Walk a milke", color: Color.red),
+    static let habits = [Habit(name: "Walk a mile", color: Color.red),
                          Habit(name: "Eat an Apple", color: Color.green),
                          Habit(name: "Read a book", color: Color.yellow)]
     

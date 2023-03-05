@@ -22,7 +22,7 @@ struct HabitsPage: View {
                 ScrollView {
                     LazyVStack {
                         ForEach(habits, id: \.id) { habit in
-                            HabitCard(habitName: habit.name, dotsColor: habit.color)
+                            HabitCard(habitName: habit.name, habitColor: habit.color)
                         }
                     }
                 }
@@ -31,6 +31,7 @@ struct HabitsPage: View {
                     NavigationLink(destination: CreateHabitPage()) {
                         AddButton()
                     }
+                    .padding(.trailing, 10)
                     .frame(maxWidth: .infinity, alignment: .trailing)
                     .padding()
                 }
