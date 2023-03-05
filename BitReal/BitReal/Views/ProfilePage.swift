@@ -38,13 +38,11 @@ struct ProfilePage: View {
                         }
                         .listRowSeparator(.hidden)
                     } .listStyle(.plain)
-                    
-                    
-                    
                 }
             }
             .navigationTitle("Profile")
         }
+        .navigationBarBackButtonHidden()
     }
 }
 

@@ -14,11 +14,6 @@ struct HabitsPage: View {
     var body: some View {
         NavigationView {
             ZStack {
-//                List(habits, id: \.id) { habit in
-//                    VStack {
-//                        Text(habit.name)
-//                    }
-//                }
                 ScrollView {
                     LazyVStack {
                         ForEach(habits, id: \.id) { habit in
@@ -37,7 +32,6 @@ struct HabitsPage: View {
                 }
                 .navigationTitle("Your Habits")
             }
-            
         }
         .navigationBarBackButtonHidden()
     }

@@ -19,21 +19,29 @@ struct FriendsPage: View {
     @State var searchText = ""
     var body: some View {
         NavigationView {
-            ScrollView {
-                LazyVStack {
-                    ForEach(friends, id: \.self) { friend in
-                        FriendCard(name: friend.capitalized)
+            ZStack {
+                ScrollView {
+                    LazyVStack {
+                        ForEach(friends, id: \.self) { friend in
+                            FriendCard(name: friend.capitalized)
+                        }
                     }
+                    .searchable(text: $searchText)
                 }
-                .searchable(text: $searchText)
+                .navigationTitle("My Friends")
+                Group {
+                    AddButton()
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
+                .padding()
+                .padding(.trailing, 10)
             }
-            .navigationTitle("My Friends")
         }
         .navigationBarBackButtonHidden()
     }
     
     // filtering method, takes in friends array, lower case it
-    // and search the array beased on the searchText state variables
+    // and search the array beased on the searchText state variable
     var friends: [String] {
         let friendsLC = friendsList.map { $0.lowercased() }
         return searchText == "" ? friendsLC : friendsLC.filter {
