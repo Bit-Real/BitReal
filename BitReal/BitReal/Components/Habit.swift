@@ -12,11 +12,13 @@ class Habit: Identifiable {
     var name: String
     var streak: Int
     var totalCount: Int
+    var color: Color = Color.purple
     
-    init(name: String) {
+    init(name: String, color: Color) {
         self.name = name
         self.streak = 0
         self.totalCount = 0
+        self.color = color
     }
     
     func logHabit() {
@@ -28,6 +30,8 @@ class Habit: Identifiable {
 }
 
 struct HabitList {
-    static let habits = [Habit(name: "Walk a milke"), Habit(name: "Eat an Apple"), Habit(name: "Read a book")]
+    static let habits = [Habit(name: "Walk a milke", color: Color.red),
+                         Habit(name: "Eat an Apple", color: Color.green),
+                         Habit(name: "Read a book", color: Color.yellow)]
     
 }

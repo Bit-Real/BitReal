@@ -14,30 +14,31 @@ struct HabitsPage: View {
     var body: some View {
         NavigationView {
             ZStack {
-                List(habits, id: \.id) { habit in
-                    VStack {
-                        Text(habit.name)
+//                List(habits, id: \.id) { habit in
+//                    VStack {
+//                        Text(habit.name)
+//                    }
+//                }
+                ScrollView {
+                    LazyVStack {
+                        ForEach(habits, id: \.id) { habit in
+                            HabitCard(habitName: habit.name, dotsColor: habit.color)
+                        }
                     }
                 }
                 VStack {
                     Spacer()
                     NavigationLink(destination: CreateHabitPage()) {
-                        Image(systemName: "plus")
-                            .padding()
-                            .background(Color.white)
-                            .foregroundColor(Color.purple)
-                            .clipShape(Circle())
-                            .shadow(radius: 8)
+                        AddButton()
                     }
                     .frame(maxWidth: .infinity, alignment: .trailing)
                     .padding()
                 }
                 .navigationTitle("Your Habits")
-                
             }
+            
         }
         .navigationBarBackButtonHidden()
-        
     }
 }
 
