@@ -13,61 +13,65 @@ struct CreateHabitPage: View {
     @State private var freq = ""
     @State private var alarm = ""
     @State private var privacy = ""
+    @State private var isOn = false
+    
     var body: some View {
-        VStack{
-            Text("New Habit")
-                .padding(.top, 50)
-                .font(.system(size: 40))
-                .fontWeight(.bold)
-                .offset(x: -90, y: -90)
-            TextField("Habit Name", text: $habitName)
+        NavigationView {
+            VStack () {
+                TextField("Habit Name", text: $habitName)
+                    .padding()
+                    .frame(width: 350)
+                    .background(Color.white.opacity(01))
+                    .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.black))
+                    .padding(.top, 25)
+                
+                TextField("Description", text: $description)
+                    .padding()
+                    .frame(width: 350)
+                    .background(Color.white.opacity(0.1))
+                    .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.black))
+                    .padding(.top, 20)
+                
+                TextField("Frequency", text: $freq)
+                    .padding()
+                    .frame(width: 350)
+                    .background(Color.white.opacity(0.1))
+                    .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.black))
+                    .padding(.top, 20)
+                
+                TextField("Alarm", text: $alarm)
+                    .padding()
+                    .frame(width: 350)
+                    .background(Color.white.opacity(0.1))
+                    .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.black))
+                    .padding(.top, 20)
+                
+                HStack {
+                    Toggle("Private to friends", isOn: $isOn)
+                        .toggleStyle(SwitchToggleStyle(tint: .purple))
+                        .padding(.leading, 17)
+                        .padding(.trailing, 20)
+                }
                 .padding()
-                .frame(width: 350)
-                .background(Color.white.opacity(01))
-                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.black))
-                .offset(y: -145)
-                .padding(.top, 30)
-            
-            TextField("Description", text: $description)
-                .padding()
-                .frame(width: 350)
-                .background(Color.white.opacity(0.1))
-                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.black))
-                .offset(y: -170)
-                .padding(.top, 30)
-            
-            TextField("Frequency", text: $freq)
-                .padding()
-                .frame(width: 350)
-                .background(Color.white.opacity(0.1))
-                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.black))
-                .offset(y: -180)
-                .padding(.top, 15)
-            
-            TextField("Alarm", text: $alarm)
-                .padding()
-                .frame(width: 350)
-                .background(Color.white.opacity(0.1))
-                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.black))
-                .offset(y: -190)
-                .padding(.top, 15)
-            
-            SecureField("Private to Friends", text: $privacy)
-                .padding()
-                .frame(width: 350)
-                .background(Color.white.opacity(0.1))
-                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.black))
-                .offset(y: -200)
-                .padding(.top, 15)
-            
-            Button(action: {}) {
-                Text("Create Habit")
-                    .frame(width: 100, height: 5)
+                
+                Button(action: {}) {
+                    HStack {
+                        Image(systemName: "plus")
+                            .foregroundColor(Color.purple)
+                        Text("Create Habit")
+                    }
+                    .frame(width: 125, height: 5)
                     .foregroundColor(Color.purple)
                     .padding()
-                    .border(Color.purple, width: 2)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 5)
+                            .stroke(.purple, lineWidth: 2)
+                    )
+                }
+                .padding()
+                Spacer()
             }
-            .offset(y: -150)
+            .navigationTitle("New Habit")
         }
     }
 }

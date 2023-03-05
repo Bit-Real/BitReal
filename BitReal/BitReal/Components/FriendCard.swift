@@ -25,9 +25,7 @@ struct FriendCard: View {
                 .fontWeight(.bold)
                 .padding(.leading, 15)
             Spacer()
-            Button {
-                //
-            } label: {
+            Button(action: {}) {
                 Image(systemName: "ellipsis")
                     .rotationEffect(.degrees(90))
                     .padding(.trailing, 25)

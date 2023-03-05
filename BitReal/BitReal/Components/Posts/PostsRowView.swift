@@ -41,21 +41,16 @@ struct PostsRowView: View {
             // like and comment buttons
             HStack {
                 Spacer()
-                Button {
-                    //
-                } label: {
+                Button (action: {}) {
                     Image(systemName: "face.smiling")
                         .font(.system(size: 20))
                         .foregroundColor(.gray)
                 }
-                Button {
-                    //
-                } label: {
+                Button (action: {}) {
                     Image(systemName: "text.bubble")
                         .font(.system(size: 20))
                         .foregroundColor(.gray)
                 }
-
             }
             .padding(.trailing, 15)
             .padding(.bottom, 5)

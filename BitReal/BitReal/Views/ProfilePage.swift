@@ -23,6 +23,7 @@ struct ProfilePage: View {
                     
                     Text("Mr. Woofington")
                         .bold()
+                        .font(.system(size: 20))
                     
                     Divider()
                         .frame(height: 4)
