@@ -5,7 +5,7 @@
 ## About
 **Login credentials:**
 - Username: Longhorn
-- Password: longhorn12345
+- Password: Longhorn12345
 
 ## Team Members
 Developers      |
