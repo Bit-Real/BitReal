@@ -3,6 +3,9 @@
 # BitReal
 [GitHub](https://github.com/Bit-Real/BitReal/tree/main)
 ## About
+**Login credentials:**
+- Username: Longhorn
+- Password: longhorn12345
 
 ## Team Members
 Developers      |
