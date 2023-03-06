@@ -23,6 +23,7 @@
 		248084A929B42AE700A674F8 /* AddButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248084A829B42AE700A674F8 /* AddButton.swift */; };
 		248084AB29B430ED00A674F8 /* HabitCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248084AA29B430ED00A674F8 /* HabitCard.swift */; };
 		248084AD29B435EC00A674F8 /* HabitDots.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248084AC29B435EC00A674F8 /* HabitDots.swift */; };
+		248084AF29B53AD900A674F8 /* HabitDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248084AE29B53AD900A674F8 /* HabitDescription.swift */; };
 		24BE17CA29A966450070AEE6 /* PostsRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BE17C929A966450070AEE6 /* PostsRowView.swift */; };
 		24BE17CC29A978D50070AEE6 /* FriendCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BE17CB29A978D50070AEE6 /* FriendCard.swift */; };
 		24BE17EA29AD76630070AEE6 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BE17E929AD76630070AEE6 /* CustomButton.swift */; };
@@ -48,6 +49,7 @@
 		248084A829B42AE700A674F8 /* AddButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddButton.swift; sourceTree = "<group>"; };
 		248084AA29B430ED00A674F8 /* HabitCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitCard.swift; sourceTree = "<group>"; };
 		248084AC29B435EC00A674F8 /* HabitDots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDots.swift; sourceTree = "<group>"; };
+		248084AE29B53AD900A674F8 /* HabitDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDescription.swift; sourceTree = "<group>"; };
 		24BE17C929A966450070AEE6 /* PostsRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsRowView.swift; sourceTree = "<group>"; };
 		24BE17CB29A978D50070AEE6 /* FriendCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCard.swift; sourceTree = "<group>"; };
 		24BE17E929AD76630070AEE6 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 				248084A829B42AE700A674F8 /* AddButton.swift */,
 				24BE17E929AD76630070AEE6 /* CustomButton.swift */,
 				248084AC29B435EC00A674F8 /* HabitDots.swift */,
+				248084AE29B53AD900A674F8 /* HabitDescription.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -213,6 +216,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				241C96A229A8662600DB1855 /* Navbar.swift in Sources */,
+				248084AF29B53AD900A674F8 /* HabitDescription.swift in Sources */,
 				24BE17CA29A966450070AEE6 /* PostsRowView.swift in Sources */,
 				1BD3C81829AD6B2D00BFC22F /* RegisterInfoView.swift in Sources */,
 				241C96A029A8583800DB1855 /* ProfilePage.swift in Sources */,

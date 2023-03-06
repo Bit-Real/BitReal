@@ -10,12 +10,14 @@ import SwiftUI
 class Habit: Identifiable {
     let id = UUID()
     var name: String
+    var description: String
     var streak: Int
     var totalCount: Int
     var color: Color = Color.purple
     
-    init(name: String, color: Color) {
+    init(name: String, description: String, color: Color) {
         self.name = name
+        self.description = description
         self.streak = 0
         self.totalCount = 0
         self.color = color
@@ -30,8 +32,14 @@ class Habit: Identifiable {
 }
 
 struct HabitList {
-    static let habits = [Habit(name: "Walk a mile", color: Color.red),
-                         Habit(name: "Eat an Apple", color: Color.green),
-                         Habit(name: "Read a book", color: Color.yellow)]
+    static let habits = [Habit(name: "Walk a mile",
+                               description:"Complete my daily one mile walk",
+                               color: Color.red),
+                         Habit(name: "Eat an Apple",
+                               description:"One apple a day keeps the doctor away!",
+                               color: Color.green),
+                         Habit(name: "Read a book",
+                               description: "Reading The Millionaire Next Door: The Surprising Secrets of America's Wealthy",
+                               color: Color.yellow)]
     
 }

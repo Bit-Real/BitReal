@@ -19,11 +19,14 @@ struct HabitsPage: View {
                         ForEach(habits, id: \.id) { habit in
                             HStack {
                                 DisclosureGroup(
-                                    content: {Text("Expanded View")},
-                                    label: {HabitCard(habitName: habit.name, habitColor: habit.color)}
+                                    content: { HabitDescription(description: habit.description, habitColor: habit.color)
+                                    },
+                                    label: { HabitCard(
+                                        habitName: habit.name,
+                                        habitDescription: habit.description,
+                                        habitColor: habit.color).padding(.leading, 20) }
                                 )
                                 .buttonStyle(PlainButtonStyle()).accentColor(.clear)
-                                .padding(.leading, 20)
                             }
                             
                         }

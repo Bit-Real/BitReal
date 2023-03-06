@@ -10,6 +10,7 @@ import SwiftUI
 struct HabitCard: View {
     
     var habitName: String
+    var habitDescription: String
     var habitColor: Color
     
     var body: some View {
@@ -46,6 +47,6 @@ struct HabitCard: View {
 
 struct HabitCard_Previews: PreviewProvider {
     static var previews: some View {
-        HabitCard(habitName: "Run 4 Miles", habitColor: .green)
+        HabitCard(habitName: "Run 4 Miles", habitDescription: "Run your daily 4 miles", habitColor: .green)
     }
 }
