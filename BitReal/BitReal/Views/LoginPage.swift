@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import Firebase
+import FirebaseAuth
 
 struct LoginPage: View {
     @State private var userName = ""
@@ -36,10 +38,21 @@ struct LoginPage: View {
                 .offset(y: -220)
                 .padding(.top, 20)
             
-            NavigationLink(destination: Navbar()) {
-                CustomButton(color: .white, outline: true, label: "Log In")
+            Button(action: {
+                Auth.auth().signIn(withEmail: userName, password: password) { (result, error) in
+                    if let error = error as NSError? {
+                        // self.statusMessage.text = "\(error.localizedDescription)"
+                        print("\(error.localizedDescription)")
+                    } else {
+                        loginSuccess = true
+                    }
+                }
+            }) {
+                NavigationLink(destination: Navbar()) {
+                    CustomButton(color: .white, outline: true, label: "Log In")
+                }
+                .disabled(!loginSuccess)
             }
-            .disabled(userName != "Longhorn" || password != "longhorn12345")
         }
     }
 }
