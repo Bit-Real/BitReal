@@ -22,7 +22,7 @@ struct LoginPage: View {
                 .fontWeight(.bold)
                 .offset(x: -100, y: -200)
             
-            TextField("Username", text: $userName)
+            TextField("Email Address", text: $userName)
                 .padding()
                 .frame(width: 300)
                 .background(Color.white.opacity(0.1))

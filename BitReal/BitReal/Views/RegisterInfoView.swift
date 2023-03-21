@@ -6,8 +6,12 @@
 //
 
 import SwiftUI
+import Firebase
+import FirebaseAuth
 
 struct RegisterInfoView: View {
+    var email: String
+    
     @State private var username = ""
     @State private var fullName = ""
     @State private var password = ""
@@ -61,29 +65,30 @@ struct RegisterInfoView: View {
                     .font(.system(size: 13))
                     .offset(y: -160)
             }
-            
-            NavigationLink(destination: Navbar()) {
-                CustomButton(color: .white, outline: true, label: "SIGN UP")
+            Button(action: {
+                if confirmPassword != password{
+                    print("Please enter correct password!")
+                }else{
+                    Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
+                        if let error = error as NSError? {
+                            print("\(error.localizedDescription)")
+                        } else {
+                            registerSuccess = true
+                        }
+                    }
+                }
+            }){
+                NavigationLink(destination: Navbar()) {
+                    CustomButton(color: .white, outline: true, label: "SIGN UP")
+                }
+                .disabled(!registerSuccess)
             }
-//            .disabled(username != "Longhorn" || password != "longhorn12345")
-            
-//            Button(action: {if username == "Longhorn" && fullName == "Bevo Longhron" && password == "Longhorn12345" && confirmPassword == password{
-//                registerSuccess = true
-//            }}){
-//                Text("NEXT")
-//                    .font(.headline)
-//                    .foregroundColor(.white)
-//                    .frame(width: 300, height: 50)
-//                    .background(Color("Purple"))
-//                    .cornerRadius(10)
-//                    .offset(y: -150)
-//            }
         }
     }
 }
 
 struct RegisterInfoView_Previews: PreviewProvider {
     static var previews: some View {
-        RegisterInfoView()
+        RegisterInfoView(email: "example@test.com")
     }
 }
