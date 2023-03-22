@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ProfilePage: View {
+    @EnvironmentObject var viewModel: AuthViewModel
+    
     let settingsOptions = ["Change Password", "Notifications", "Themes"]
     
     var body: some View {
@@ -39,6 +41,13 @@ struct ProfilePage: View {
                         }
                         .listRowSeparator(.hidden)
                     } .listStyle(.plain)
+                    
+                    Button {
+                        viewModel.signout()
+                    } label: {
+                        Text("Sign Out")
+                    }
+
                 }
             }
             .navigationTitle("Profile")

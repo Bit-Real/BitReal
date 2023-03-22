@@ -17,6 +17,7 @@ struct RegisterInfoView: View {
     @State private var password = ""
     @State private var confirmPassword = ""
     @State private var registerSuccess = false
+    @EnvironmentObject var viewModel: AuthViewModel
     
     var body: some View {
         VStack{
@@ -60,23 +61,16 @@ struct RegisterInfoView: View {
             
             VStack{
                 Text("By signing up, you agree to BitReal’s Terms of Service and Privacy Policy.")
-//                    .multilineTextAlignment(.center)
                     .frame(alignment: .center)
                     .font(.system(size: 13))
                     .offset(y: -160)
             }
             Button(action: {
-                if confirmPassword != password{
-                    print("Please enter correct password!")
-                }else{
-                    Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
-                        if let error = error as NSError? {
-                            print("\(error.localizedDescription)")
-                        } else {
-                            registerSuccess = true
-                        }
-                    }
-                }
+                viewModel.signup(withEmail: email,
+                                 password: password,
+                                 confirmPassword: confirmPassword,
+                                 fullname: fullName,
+                                 username: username)
             }){
                 NavigationLink(destination: Navbar()) {
                     CustomButton(color: .white, outline: true, label: "SIGN UP")

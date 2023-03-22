@@ -25,6 +25,7 @@
 		2426956629C8B1000078C5B8 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 2426956529C8B1000078C5B8 /* FirebaseFirestoreSwift */; };
 		2426956829C8B1000078C5B8 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 2426956729C8B1000078C5B8 /* FirebaseStorage */; };
 		2426956A29C8BBC40078C5B8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2426956929C8BBC40078C5B8 /* GoogleService-Info.plist */; };
+		2426956D29CA857F0078C5B8 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2426956C29CA857F0078C5B8 /* AuthViewModel.swift */; };
 		248084A929B42AE700A674F8 /* AddButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248084A829B42AE700A674F8 /* AddButton.swift */; };
 		248084AB29B430ED00A674F8 /* HabitCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248084AA29B430ED00A674F8 /* HabitCard.swift */; };
 		248084AD29B435EC00A674F8 /* HabitDots.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248084AC29B435EC00A674F8 /* HabitDots.swift */; };
@@ -51,6 +52,7 @@
 		241C969F29A8583800DB1855 /* ProfilePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePage.swift; sourceTree = "<group>"; };
 		241C96A129A8662600DB1855 /* Navbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navbar.swift; sourceTree = "<group>"; };
 		2426956929C8BBC40078C5B8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		2426956C29CA857F0078C5B8 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		248084A829B42AE700A674F8 /* AddButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddButton.swift; sourceTree = "<group>"; };
 		248084AA29B430ED00A674F8 /* HabitCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitCard.swift; sourceTree = "<group>"; };
 		248084AC29B435EC00A674F8 /* HabitDots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDots.swift; sourceTree = "<group>"; };
@@ -97,6 +99,7 @@
 			children = (
 				241C968829A6FA6300DB1855 /* BitRealApp.swift */,
 				241C968A29A6FA6300DB1855 /* ContentView.swift */,
+				2426956B29CA85410078C5B8 /* Models */,
 				241C969829A857BA00DB1855 /* Components */,
 				241C969729A857AE00DB1855 /* Views */,
 				241C968C29A6FA6500DB1855 /* Assets.xcassets */,
@@ -143,6 +146,14 @@
 				248084AC29B435EC00A674F8 /* HabitDots.swift */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		2426956B29CA85410078C5B8 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				2426956C29CA857F0078C5B8 /* AuthViewModel.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		24BE17C729A9653C0070AEE6 /* Posts */ = {
@@ -233,6 +244,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2426956D29CA857F0078C5B8 /* AuthViewModel.swift in Sources */,
 				241C96A229A8662600DB1855 /* Navbar.swift in Sources */,
 				24BE17CA29A966450070AEE6 /* PostsRowView.swift in Sources */,
 				1BD3C81829AD6B2D00BFC22F /* RegisterInfoView.swift in Sources */,

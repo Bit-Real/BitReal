@@ -13,6 +13,7 @@ struct LoginPage: View {
     @State private var userName = ""
     @State private var password = ""
     @State private var loginSuccess = false
+    @EnvironmentObject var viewModel: AuthViewModel
     
     var body: some View {
         VStack{
@@ -39,14 +40,7 @@ struct LoginPage: View {
                 .padding(.top, 20)
             
             Button(action: {
-                Auth.auth().signIn(withEmail: userName, password: password) { (result, error) in
-                    if let error = error as NSError? {
-                        // self.statusMessage.text = "\(error.localizedDescription)"
-                        print("\(error.localizedDescription)")
-                    } else {
-                        loginSuccess = true
-                    }
-                }
+                viewModel.login(withEmail: userName, password: password)
             }) {
                 NavigationLink(destination: Navbar()) {
                     CustomButton(color: .white, outline: true, label: "Log In")

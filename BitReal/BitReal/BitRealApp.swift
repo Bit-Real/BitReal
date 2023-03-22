@@ -22,9 +22,13 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 struct BitRealApp: App {
     // register app delegate for Firebase setup
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    // initialize user session env-obj
+    @StateObject var viewModel = AuthViewModel()
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(viewModel)
         }
     }
 }
