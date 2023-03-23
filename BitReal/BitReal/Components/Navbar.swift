@@ -54,7 +54,8 @@ struct Navbar: View {
                     }
                     Spacer()
                 }
-            }.background(Color("navBG"))
+            }
+            .background(Color("navBG"))
         }
     }
 }
