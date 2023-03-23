@@ -7,7 +7,7 @@
 
 import FirebaseFirestoreSwift
 
-struct User: Identifiable, Decodable {
+struct User: Identifiable, Decodable, Hashable {
     // fields name should match what is on Firestore
     @DocumentID var id: String?
     let email: String

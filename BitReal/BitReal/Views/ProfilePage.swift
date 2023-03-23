@@ -29,10 +29,15 @@ struct ProfilePage: View {
                             .bold()
                             .font(.system(size: 20))
                         
+                        Text("@\(user.username)")
+                            .font(.system(size: 15))
+                            .foregroundColor(.gray)
+                        
                         Divider()
                             .frame(height: 4)
                             .frame(width: 80)
                             .overlay(Color("Purple"))
+                            .cornerRadius(10)
                             .padding(.bottom, 25)
                         
                         List(settingsOptions, id: \.self) { setting in
