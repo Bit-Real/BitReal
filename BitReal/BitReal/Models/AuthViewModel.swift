@@ -26,6 +26,7 @@ class AuthViewModel: ObservableObject {
             } else {
                 guard let user = result?.user else { return }
                 self.userSession = user
+                self.fetchUser()
                 print("Sign In with email \(email)")
             }
         }
@@ -49,11 +50,13 @@ class AuthViewModel: ObservableObject {
                                     "username": username.lowercased(),
                                     "fullname": fullname,
                                     "uid": user.uid,
+                                    "friends": [String()],
                                     "profileImageURL": "https://images.unsplash.com/photo-1517849845537-4d257902454a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"]
                     Firestore.firestore().collection("users").document(user.uid)
                         .setData(userData) { _ in
                             print("Uploaded user data to Firestore")
                         }
+                    self.fetchUser()
                 }
             }
         }

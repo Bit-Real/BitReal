@@ -18,12 +18,6 @@ struct ProfilePage: View {
             NavigationView {
                 ZStack {
                     VStack {
-//                        Image("dogImage")
-//                            .resizable()
-//                            .aspectRatio(contentMode: .fill)
-//                            .frame(width: 150, height: 150)
-//                            .clipShape(Circle())
-//                            .padding()
                         KFImage(URL(string: user.profileImageURL))
                             .resizable()
                             .aspectRatio(contentMode: .fill)

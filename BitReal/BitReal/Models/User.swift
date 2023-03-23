@@ -13,5 +13,6 @@ struct User: Identifiable, Decodable {
     let email: String
     let username: String
     let fullname: String
+    let friends: [String]
     let profileImageURL: String
 }
