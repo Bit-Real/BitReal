@@ -13,12 +13,6 @@ struct HomePage: View {
         NavigationView {
             ScrollView {
                 LazyVStack {
-                    Button {
-                        viewModel.signout()
-                    } label: {
-                        Text("Sign Out")
-                    }
-                    .padding(.bottom, 10)
                     ForEach(0 ... 25, id: \.self) { _ in
                         PostsRowView()
                     }
