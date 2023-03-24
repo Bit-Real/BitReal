@@ -13,7 +13,6 @@ struct User: Identifiable, Decodable, Hashable {
     let email: String
     let username: String
     let fullname: String
-    let friends: [String]
     let profileImageURL: String
     
     // to keep track if currentUser is friend with this user
