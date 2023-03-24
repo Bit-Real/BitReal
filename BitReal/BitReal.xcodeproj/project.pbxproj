@@ -30,6 +30,7 @@
 		2430BF8A29CBFAB000A9124E /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 2430BF8929CBFAB000A9124E /* Kingfisher */; };
 		2430BF8E29CCDC8C00A9124E /* FriendsSearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2430BF8D29CCDC8C00A9124E /* FriendsSearchModel.swift */; };
 		2430BF9029CCE92900A9124E /* FriendProfilePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2430BF8F29CCE92900A9124E /* FriendProfilePage.swift */; };
+		2430BF9229CE1DB500A9124E /* FriendProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2430BF9129CE1DB500A9124E /* FriendProfileViewModel.swift */; };
 		248084A929B42AE700A674F8 /* AddButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248084A829B42AE700A674F8 /* AddButton.swift */; };
 		248084AB29B430ED00A674F8 /* HabitCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248084AA29B430ED00A674F8 /* HabitCard.swift */; };
 		248084AD29B435EC00A674F8 /* HabitDots.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248084AC29B435EC00A674F8 /* HabitDots.swift */; };
@@ -61,6 +62,7 @@
 		2430BF8629CBF3C200A9124E /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		2430BF8D29CCDC8C00A9124E /* FriendsSearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsSearchModel.swift; sourceTree = "<group>"; };
 		2430BF8F29CCE92900A9124E /* FriendProfilePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendProfilePage.swift; sourceTree = "<group>"; };
+		2430BF9129CE1DB500A9124E /* FriendProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendProfileViewModel.swift; sourceTree = "<group>"; };
 		248084A829B42AE700A674F8 /* AddButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddButton.swift; sourceTree = "<group>"; };
 		248084AA29B430ED00A674F8 /* HabitCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitCard.swift; sourceTree = "<group>"; };
 		248084AC29B435EC00A674F8 /* HabitDots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDots.swift; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 				2426956C29CA857F0078C5B8 /* AuthViewModel.swift */,
 				2430BF8629CBF3C200A9124E /* User.swift */,
 				2430BF8D29CCDC8C00A9124E /* FriendsSearchModel.swift */,
+				2430BF9129CE1DB500A9124E /* FriendProfileViewModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -285,6 +288,7 @@
 				2430BF8E29CCDC8C00A9124E /* FriendsSearchModel.swift in Sources */,
 				248084A929B42AE700A674F8 /* AddButton.swift in Sources */,
 				2430BF9029CCE92900A9124E /* FriendProfilePage.swift in Sources */,
+				2430BF9229CE1DB500A9124E /* FriendProfileViewModel.swift in Sources */,
 				24D762D729CBF1BA00E1B436 /* UserService.swift in Sources */,
 				241C969A29A8580600DB1855 /* HomePage.swift in Sources */,
 				248084AD29B435EC00A674F8 /* HabitDots.swift in Sources */,

@@ -9,18 +9,9 @@ import SwiftUI
 import Firebase
 
 struct FriendsPage: View {
-//    @EnvironmentObject var viewModel: AuthViewModel
-    @ObservedObject var viewModel = FriendsSearchModel()
-    private var friendsList = ["casper",
-                               "casper the ghost",
-                               "not casper the ghost",
-                               "who am I?",
-                               "I got no name",
-                               "Boo!",
-                               "not scared, huh?",
-                               "BitReal, more like bitUnreal" ]
     
-//    @State var searchText = ""
+    @ObservedObject var viewModel = FriendsSearchModel()
+
     var body: some View {
         NavigationView {
             ZStack {

@@ -6,19 +6,26 @@
 //
 
 import Foundation
+import Firebase
 
 class FriendsSearchModel: ObservableObject {
     @Published var users = [User]()
     @Published var searchText = ""
     
     var searchableUsers: [User] {
+        let uid = Auth.auth().currentUser?.uid ?? ""
         if searchText.isEmpty {
-            return users
+            return users.filter({
+                $0.id != uid
+            })
         }
         let queryLC = searchText.lowercased()
         return users.filter({
-            $0.username.lowercased().contains(queryLC) ||
-            $0.fullname.lowercased().contains(queryLC)
+            (
+                $0.username.lowercased().contains(queryLC) ||
+                $0.fullname.lowercased().contains(queryLC)
+            ) &&
+            $0.id != uid
         })
     }
     
@@ -34,4 +41,5 @@ class FriendsSearchModel: ObservableObject {
             self.users = users
         }
     }
+    
 }
