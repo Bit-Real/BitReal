@@ -14,7 +14,6 @@ struct CreateHabitPage: View {
     @State private var description = ""
     @State private var freq = 0
     @State private var alarm = ""
-    //@State private var privacy = ""
     @State private var isOn = false
     
     var body: some View {
