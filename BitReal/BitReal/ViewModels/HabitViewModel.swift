@@ -12,6 +12,21 @@ class HabitViewModel: ObservableObject {
     
     @Published var list = [HabitModel]()
     
+    func addData(uid: String, name: String, description: String, frequency: Int, alarm: String, privacy: Bool, streak: Int) {
+        let db = Firestore.firestore()
+        db.collection("habits").addDocument(data: ["uid": uid, "name": name, "description": description, "frequency": frequency, "alarm": alarm, "privacy": privacy, "streak": streak]) { error in
+            
+            if error == nil {
+                self.getData()
+            }
+            else {
+                //self.getData()
+                // error handling to be added
+            }
+        }
+        
+    }
+    
     func getData() {
         let db = Firestore.firestore()
         db.collection("habits").getDocuments { snapshot, error in
