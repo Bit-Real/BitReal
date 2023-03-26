@@ -40,6 +40,8 @@
 		24D762D729CBF1BA00E1B436 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D762D629CBF1BA00E1B436 /* UserService.swift */; };
 		F135D04129B0413B0025F23B /* Habit.swift in Sources */ = {isa = PBXBuildFile; fileRef = F135D04029B0413B0025F23B /* Habit.swift */; };
 		F135D04929B17C010025F23B /* CreateHabitPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F135D04829B17C010025F23B /* CreateHabitPage.swift */; };
+		F14383A829CFC528007D6F4D /* HabitViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F14383A729CFC528007D6F4D /* HabitViewModel.swift */; };
+		F14383AA29CFC5D8007D6F4D /* HabitModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F14383A929CFC5D8007D6F4D /* HabitModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,6 +74,8 @@
 		24D762D629CBF1BA00E1B436 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		F135D04029B0413B0025F23B /* Habit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Habit.swift; sourceTree = "<group>"; };
 		F135D04829B17C010025F23B /* CreateHabitPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateHabitPage.swift; sourceTree = "<group>"; };
+		F14383A729CFC528007D6F4D /* HabitViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitViewModel.swift; sourceTree = "<group>"; };
+		F14383A929CFC5D8007D6F4D /* HabitModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +113,7 @@
 		241C968729A6FA6300DB1855 /* BitReal */ = {
 			isa = PBXGroup;
 			children = (
+				F10D900929CFBF69008E5A76 /* ViewModels */,
 				241C968829A6FA6300DB1855 /* BitRealApp.swift */,
 				241C968A29A6FA6300DB1855 /* ContentView.swift */,
 				24D762D529CBF1A200E1B436 /* Service */,
@@ -169,6 +174,7 @@
 				2430BF8629CBF3C200A9124E /* User.swift */,
 				2430BF8D29CCDC8C00A9124E /* FriendsSearchModel.swift */,
 				2430BF9129CE1DB500A9124E /* FriendProfileViewModel.swift */,
+				F14383A929CFC5D8007D6F4D /* HabitModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -187,6 +193,14 @@
 				24D762D629CBF1BA00E1B436 /* UserService.swift */,
 			);
 			path = Service;
+			sourceTree = "<group>";
+		};
+		F10D900929CFBF69008E5A76 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				F14383A729CFC528007D6F4D /* HabitViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -280,11 +294,13 @@
 				241C969C29A8581700DB1855 /* FriendsPage.swift in Sources */,
 				F135D04129B0413B0025F23B /* Habit.swift in Sources */,
 				241C968B29A6FA6300DB1855 /* ContentView.swift in Sources */,
+				F14383AA29CFC5D8007D6F4D /* HabitModel.swift in Sources */,
 				24BE17EA29AD76630070AEE6 /* CustomButton.swift in Sources */,
 				2430BF8729CBF3C200A9124E /* User.swift in Sources */,
 				F135D04929B17C010025F23B /* CreateHabitPage.swift in Sources */,
 				1BD3C81429AD410100BFC22F /* LoginPage.swift in Sources */,
 				24BE17CC29A978D50070AEE6 /* FriendCard.swift in Sources */,
+				F14383A829CFC528007D6F4D /* HabitViewModel.swift in Sources */,
 				2430BF8E29CCDC8C00A9124E /* FriendsSearchModel.swift in Sources */,
 				248084A929B42AE700A674F8 /* AddButton.swift in Sources */,
 				2430BF9029CCE92900A9124E /* FriendProfilePage.swift in Sources */,

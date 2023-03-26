@@ -6,18 +6,23 @@
 //
 
 import SwiftUI
+import Firebase
 
 struct HabitsPage: View {
     
-    var habits: [Habit] = HabitList.habits
+    @ObservedObject var model = HabitViewModel()
+    
+    init() {
+        model.getData()
+    }
     
     var body: some View {
         NavigationView {
             ZStack {
                 ScrollView {
                     LazyVStack {
-                        ForEach(habits, id: \.id) { habit in
-                            HabitCard(habitName: habit.name, habitColor: habit.color)
+                        ForEach(model.list) {
+                            habit in HabitCard(habitName: habit.name, habitColor: Color.red)
                         }
                     }
                 }
