@@ -27,7 +27,7 @@ struct RegisterIView: View {
                 .offset(y: -235)
                 .padding(.top, 30)
             
-            NavigationLink(destination: RegisterInfoView()) {
+            NavigationLink(destination: RegisterInfoView(email: email)) {
                 CustomButton(color: .white, outline: true, label: "Log In")
             }
             .offset(y: -200)

@@ -6,11 +6,14 @@
 //
 
 import SwiftUI
+import Firebase
+import FirebaseAuth
 
 struct LoginPage: View {
     @State private var userName = ""
     @State private var password = ""
     @State private var loginSuccess = false
+    @EnvironmentObject var viewModel: AuthViewModel
     
     var body: some View {
         VStack{
@@ -20,7 +23,7 @@ struct LoginPage: View {
                 .fontWeight(.bold)
                 .offset(x: -100, y: -200)
             
-            TextField("Username", text: $userName)
+            TextField("Email Address", text: $userName)
                 .padding()
                 .frame(width: 300)
                 .background(Color.white.opacity(0.1))
@@ -36,10 +39,14 @@ struct LoginPage: View {
                 .offset(y: -220)
                 .padding(.top, 20)
             
-            NavigationLink(destination: Navbar()) {
-                CustomButton(color: .white, outline: true, label: "Log In")
+            Button(action: {
+                viewModel.login(withEmail: userName, password: password)
+            }) {
+                NavigationLink(destination: Navbar()) {
+                    CustomButton(color: .white, outline: true, label: "Log In")
+                }
+                .disabled(!loginSuccess)
             }
-            .disabled(userName != "Longhorn" || password != "longhorn12345")
         }
     }
 }
