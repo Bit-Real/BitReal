@@ -29,8 +29,9 @@ class HabitViewModel: ObservableObject {
     
     func getData() {
         let db = Firestore.firestore()
-        db.collection("habits").getDocuments { snapshot, error in
-            
+//        access document for a specific user NOT SURE IF IT'S WORKING
+        db.collection("habits").whereField("uid", isEqualTo:Auth.auth().currentUser!.uid).getDocuments{ snapshot, error in
+
             if error == nil {
                 
                 if let snapshot = snapshot {

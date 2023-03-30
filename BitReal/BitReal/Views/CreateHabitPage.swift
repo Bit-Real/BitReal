@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 struct CreateHabitPage: View {
     
@@ -56,7 +57,8 @@ struct CreateHabitPage: View {
             .padding()
             
             Button(action: {
-                model.addData(uid: "0000", name: habitName, description: description, frequency: freq, alarm: alarm, privacy: isOn, streak: 0)
+                model.addData(uid: String(Auth.auth().currentUser!.uid), name: habitName, description: description, frequency: freq, alarm: alarm, privacy: isOn, streak: 0)
+//                print(String(Auth.auth().currentUser!.uid))
                 habitName = ""
                 description = ""
                 freq = 0

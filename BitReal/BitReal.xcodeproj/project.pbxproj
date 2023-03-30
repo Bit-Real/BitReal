@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1B2C3E8629D62B82000EA6FD /* HabitExpand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2C3E8529D62B82000EA6FD /* HabitExpand.swift */; };
 		1BD3C81029AC6D0400BFC22F /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD3C80F29AC6D0400BFC22F /* SplashView.swift */; };
 		1BD3C81429AD410100BFC22F /* LoginPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD3C81329AD410100BFC22F /* LoginPage.swift */; };
 		1BD3C81629AD432000BFC22F /* RegisterIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD3C81529AD432000BFC22F /* RegisterIView.swift */; };
@@ -45,6 +46,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1B2C3E8529D62B82000EA6FD /* HabitExpand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitExpand.swift; sourceTree = "<group>"; };
 		1BD3C80F29AC6D0400BFC22F /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		1BD3C81329AD410100BFC22F /* LoginPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPage.swift; sourceTree = "<group>"; };
 		1BD3C81529AD432000BFC22F /* RegisterIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterIView.swift; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 				248084A829B42AE700A674F8 /* AddButton.swift */,
 				24BE17E929AD76630070AEE6 /* CustomButton.swift */,
 				248084AC29B435EC00A674F8 /* HabitDots.swift */,
+				1B2C3E8529D62B82000EA6FD /* HabitExpand.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -286,6 +289,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2426956D29CA857F0078C5B8 /* AuthViewModel.swift in Sources */,
+				1B2C3E8629D62B82000EA6FD /* HabitExpand.swift in Sources */,
 				241C96A229A8662600DB1855 /* Navbar.swift in Sources */,
 				24BE17CA29A966450070AEE6 /* PostsRowView.swift in Sources */,
 				1BD3C81829AD6B2D00BFC22F /* RegisterInfoView.swift in Sources */,
