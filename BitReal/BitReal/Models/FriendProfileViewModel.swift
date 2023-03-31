@@ -9,30 +9,44 @@ import Foundation
 
 class FriendProfileViewModel: ObservableObject {
     @Published var user: User
-    private let service = UserService()
+    @Published var posts = [Post]()
+    private let postService = PostService()
+    private let userService = UserService()
     
     init(user: User) {
         self.user = user
+        self.fetchUserPosts()
         isFriends()
     }
     
     func beFriends() {
-        service.beFriends(user) {
+        userService.beFriends(user) {
             self.user.isFriend = true
         }
     }
     
     func unfriend() {
-        service.unfriend(user) {
+        userService.unfriend(user) {
             self.user.isFriend = false
         }
     }
     
     func isFriends() {
-        service.isFriends(user) { result in
+        userService.isFriends(user) { result in
             if (result) {
                 self.user.isFriend = result
             }
         }
     }
+    
+    func fetchUserPosts() {
+        guard let uid = user.id else { return }
+        postService.fetchPost(forUid: uid) { posts in
+            self.posts = posts
+            for i in 0 ..< posts.count {
+                self.posts[i].user = self.user
+            }
+        }
+    }
+    
 }

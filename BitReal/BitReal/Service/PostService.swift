@@ -37,4 +37,14 @@ struct PostService {
         }
     }
     
+    func fetchPost(forUid uid: String, completion: @escaping([Post]) -> Void) {
+        Firestore.firestore().collection("posts")
+            .whereField("uid", isEqualTo: uid)
+            .getDocuments { snapshot, _ in
+                guard let documents = snapshot?.documents else { return }
+                let posts = documents.compactMap({ try? $0.data(as: Post.self) })
+                completion(posts.sorted(by: {$0.timestamp.dateValue() > $1.timestamp.dateValue()} ))
+            }
+    }
+    
 }
