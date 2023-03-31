@@ -10,7 +10,9 @@ import Firebase
 
 struct HabitsPage: View {
     
+    @State private var revealDetails = false
     @ObservedObject var model = HabitViewModel()
+    @ObservedObject var viewModel = PostViewModel()
     
     init() {
         model.getData()
@@ -22,8 +24,10 @@ struct HabitsPage: View {
                 ScrollView {
                     LazyVStack {
                         ForEach(model.list) { habit in
-                            DisclosureGroup {
-                                HabitExpand(description: habit.description, habitColor: .red)
+                            DisclosureGroup(isExpanded: $revealDetails) {
+                                HabitExpand(description: habit.description,
+                                            habitColor: .red,
+                                            viewModel: viewModel)
                             } label: {
                                 HabitCard(habitName: habit.name, habitColor: Color.red)
                                     .padding(.leading, 20)
@@ -42,6 +46,11 @@ struct HabitsPage: View {
                     .padding()
                 }
                 .navigationTitle("Your Habits")
+            }
+            .onReceive(viewModel.$didUploadPost) { success in
+                if success {
+                    revealDetails = false
+                }
             }
         }
         .navigationBarBackButtonHidden()

@@ -8,8 +8,12 @@
 import SwiftUI
 
 struct HabitExpand: View {
+    
+    @State private var text = ""
+    private let placeholder = "Post your habit!"
     var description: String
     var habitColor: Color
+    @ObservedObject var viewModel: PostViewModel
     
     var body: some View {
         VStack {
@@ -18,6 +22,14 @@ struct HabitExpand: View {
                     .font(.system(size: 15))
                     .padding()
                 Spacer()
+            }
+            HStack {
+                TextEditor(text: self.$text)
+                    .frame(height: 100)
+                    .textFieldStyle(PlainTextFieldStyle())
+                    .padding([.horizontal], 4)
+                    .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.gray))
+                    .padding([.horizontal], 16)
             }
             HStack {
                 ZStack {
@@ -31,6 +43,18 @@ struct HabitExpand: View {
                         }
                         .foregroundColor(habitColor)
                         .padding(.leading, -5)
+                        
+                        Button(action: {
+                            // upload post only if textfield is not empty
+                            if (!text.isEmpty) {
+                                viewModel.uploadPost(withCaption: text)
+                            }
+                        }) {
+                            Text("Post")
+                                .fontWeight(.medium)
+                        }
+                        .foregroundColor(habitColor)
+                        .padding(.leading, 15)
                     }
                     HStack {
                         Spacer()
@@ -44,7 +68,7 @@ struct HabitExpand: View {
             }
             .cornerRadius(10, corners: [.bottomLeft, .bottomRight])
         }
-        .frame(width: 350, height: 96)
+        .frame(width: 350, height: 225)
         .overlay(
             RoundedRectangle(cornerRadius: 10)
                 .stroke(Color.gray, lineWidth: 1)
@@ -70,8 +94,8 @@ extension View {
     }
 }
 
-struct HabitExpand_Previews: PreviewProvider {
-    static var previews: some View {
-        HabitExpand(description: "Test desc", habitColor: .red)
-    }
-}
+//struct HabitExpand_Previews: PreviewProvider {
+//    static var previews: some View {
+//        HabitExpand(description: "Test desc", habitColor: .red)
+//    }
+//}
