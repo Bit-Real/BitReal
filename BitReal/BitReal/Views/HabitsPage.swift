@@ -21,8 +21,14 @@ struct HabitsPage: View {
             ZStack {
                 ScrollView {
                     LazyVStack {
-                        ForEach(model.list) {
-                            habit in HabitCard(habitName: habit.name, habitColor: Color.red)
+                        ForEach(model.list) { habit in
+                            DisclosureGroup {
+                                HabitExpand(description: habit.description, habitColor: .red)
+                            } label: {
+                                HabitCard(habitName: habit.name, habitColor: Color.red)
+                                    .padding(.leading, 20)
+                            }
+                            .buttonStyle(PlainButtonStyle()).accentColor(.clear)
                         }
                     }
                 }
