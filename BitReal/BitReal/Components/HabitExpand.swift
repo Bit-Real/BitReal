@@ -35,34 +35,19 @@ struct HabitExpand: View {
                 ZStack {
                     Color("cardGray")
                     HStack {
-                        Image(systemName: "plus.circle")
-                            .foregroundColor(habitColor)
-                        Button(action: {}) {
-                            Text("Done!")
-                                .fontWeight(.medium)
-                        }
-                        .foregroundColor(habitColor)
-                        .padding(.leading, -5)
-                        
-                        Button(action: {
+                        Button {
                             // upload post only if textfield is not empty
                             if (!text.isEmpty) {
                                 viewModel.uploadPost(withCaption: text)
                             }
-                        }) {
-                            Text("Post")
+                        } label: {
+                            Image(systemName: text.isEmpty ? "checkmark.circle" : "paperplane")
+                                .foregroundColor(habitColor)
+                            Text(text.isEmpty ? "Mark Done" : "Mark & Post")
                                 .fontWeight(.medium)
                         }
                         .foregroundColor(habitColor)
-                        .padding(.leading, 15)
-                    }
-                    HStack {
-                        Spacer()
-                        Button(action: {}) {
-                            Image(systemName: "arrow.down.circle")
-                        }
-                        .foregroundColor(habitColor)
-                        .padding(.trailing, 10)
+                        .padding(.leading, -5)
                     }
                 }
             }
