@@ -11,6 +11,7 @@ import Firebase
 class PostViewModel: ObservableObject {
     
     @Published var didUploadPost = false
+    @Published var revealDetails = false
     let service = PostService()
     
     func uploadPost(withCaption caption: String) {

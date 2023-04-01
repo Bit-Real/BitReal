@@ -10,7 +10,8 @@ import Firebase
 
 struct HabitsPage: View {
     
-    @State private var revealDetails = false
+    @State private var revealDetails: [Bool] = Array(repeating: false, count: 1000)
+    @State private var lastClickedHabit = 0
     @ObservedObject var model = HabitViewModel()
     @ObservedObject var viewModel = PostViewModel()
     
@@ -23,8 +24,8 @@ struct HabitsPage: View {
             ZStack {
                 ScrollView {
                     LazyVStack {
-                        ForEach(model.list) { habit in
-                            DisclosureGroup(isExpanded: $revealDetails) {
+                        ForEach(Array(model.list.enumerated()), id: \.1) { index, habit in
+                            DisclosureGroup(isExpanded: $revealDetails[index]) {
                                 HabitExpand(description: habit.description,
                                             habitColor: .red,
                                             viewModel: viewModel)
@@ -33,6 +34,14 @@ struct HabitsPage: View {
                                     .padding(.leading, 20)
                             }
                             .buttonStyle(PlainButtonStyle()).accentColor(.clear)
+                            .onTapGesture {
+                                self.lastClickedHabit = index
+                            }
+                        }
+                        .onReceive(viewModel.$didUploadPost) { success in
+                            if success {
+                                revealDetails[lastClickedHabit] = false
+                            }
                         }
                     }
                 }
@@ -46,11 +55,6 @@ struct HabitsPage: View {
                     .padding()
                 }
                 .navigationTitle("Your Habits")
-            }
-            .onReceive(viewModel.$didUploadPost) { success in
-                if success {
-                    revealDetails = false
-                }
             }
         }
         .navigationBarBackButtonHidden()
