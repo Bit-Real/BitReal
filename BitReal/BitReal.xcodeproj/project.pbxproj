@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		14C9407329D96930007EB7BA /* ChangeUsernamePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C9407229D96930007EB7BA /* ChangeUsernamePage.swift */; };
 		1B2C3E8629D62B82000EA6FD /* HabitExpand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2C3E8529D62B82000EA6FD /* HabitExpand.swift */; };
 		1BD3C81029AC6D0400BFC22F /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD3C80F29AC6D0400BFC22F /* SplashView.swift */; };
 		1BD3C81429AD410100BFC22F /* LoginPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD3C81329AD410100BFC22F /* LoginPage.swift */; };
@@ -46,6 +47,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		14C9407229D96930007EB7BA /* ChangeUsernamePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeUsernamePage.swift; sourceTree = "<group>"; };
 		1B2C3E8529D62B82000EA6FD /* HabitExpand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitExpand.swift; sourceTree = "<group>"; };
 		1BD3C80F29AC6D0400BFC22F /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		1BD3C81329AD410100BFC22F /* LoginPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPage.swift; sourceTree = "<group>"; };
@@ -148,6 +150,7 @@
 				241C969B29A8581700DB1855 /* FriendsPage.swift */,
 				241C969D29A8582800DB1855 /* HabitsPage.swift */,
 				241C969F29A8583800DB1855 /* ProfilePage.swift */,
+				14C9407229D96930007EB7BA /* ChangeUsernamePage.swift */,
 				F135D04829B17C010025F23B /* CreateHabitPage.swift */,
 				2430BF8F29CCE92900A9124E /* FriendProfilePage.swift */,
 			);
@@ -290,6 +293,7 @@
 			files = (
 				2426956D29CA857F0078C5B8 /* AuthViewModel.swift in Sources */,
 				1B2C3E8629D62B82000EA6FD /* HabitExpand.swift in Sources */,
+				14C9407329D96930007EB7BA /* ChangeUsernamePage.swift in Sources */,
 				241C96A229A8662600DB1855 /* Navbar.swift in Sources */,
 				24BE17CA29A966450070AEE6 /* PostsRowView.swift in Sources */,
 				1BD3C81829AD6B2D00BFC22F /* RegisterInfoView.swift in Sources */,
