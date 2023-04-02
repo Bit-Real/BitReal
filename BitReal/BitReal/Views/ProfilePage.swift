@@ -71,10 +71,11 @@ struct ProfilePage: View {
         let ref = db.collection("users")
         let user = Auth.auth().currentUser
         let userID = user?.uid
-            
+        
         if(setting == "Change Username") {
             return VStack {
                 Spacer()
+                
                 Text("New Username")
                     .font(.system(size: 32, weight: .bold))
                     .padding(.top, 50)
@@ -89,6 +90,7 @@ struct ProfilePage: View {
                             if let error = error {
                                 print("Error updating username: \(error.localizedDescription)")
                             } else {
+                                viewModel.fetchUser()
                                 print("Username updated successfully")
                             }
                         }
@@ -108,11 +110,12 @@ struct ProfilePage: View {
         } else {
             return VStack {
                 Spacer()
+                
                 Text("New Password")
                     .font(.system(size: 32, weight: .bold))
                     .padding(.top, 50)
                 
-                TextField("Enter New Password", text: $newPassword)
+                TextField("Password (must be > 6 characters)", text: $newPassword)
                     .padding()
                     .background(Color.gray.opacity(0.3).cornerRadius(20))
                 
