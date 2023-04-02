@@ -57,8 +57,8 @@ struct CreateHabitPage: View {
             .padding()
             
             Button(action: {
-                model.addData(uid: String(Auth.auth().currentUser!.uid), name: habitName, description: description, frequency: freq, alarm: alarm, privacy: isOn, streak: 0)
-//                print(String(Auth.auth().currentUser!.uid))
+                let progress = Array(repeating: false, count: 7)
+                model.addData(uid: String(Auth.auth().currentUser!.uid), name: habitName, description: description, frequency: freq, alarm: alarm, privacy: isOn, streak: 0, progress: progress)
                 habitName = ""
                 description = ""
                 freq = 0

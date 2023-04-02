@@ -12,8 +12,10 @@ struct HabitExpand: View {
     @State private var text = ""
     private let placeholder = "Post your habit!"
     var description: String
+    var habitID: String
     var habitColor: Color
-    @ObservedObject var viewModel: PostViewModel
+    @ObservedObject var postModel: PostViewModel
+    @ObservedObject var habitModel: HabitViewModel
     
     var body: some View {
         VStack {
@@ -38,8 +40,10 @@ struct HabitExpand: View {
                         Button {
                             // upload post only if textfield is not empty
                             if (!text.isEmpty) {
-                                viewModel.uploadPost(withCaption: text)
+                                postModel.uploadPost(withCaption: text)
                             }
+                            let dayOfweek = getCurrentDayOfWeek()
+                            habitModel.updateHabitProgress(habitId: habitID, dayIndex: dayOfweek, completed: true)
                         } label: {
                             Image(systemName: text.isEmpty ? "checkmark.circle" : "paperplane")
                                 .foregroundColor(habitColor)
@@ -60,6 +64,15 @@ struct HabitExpand: View {
         )
     }
 }
+
+func getCurrentDayOfWeek() -> Int {
+    let calendar = Calendar.current
+    let today = Date()
+    let weekday = calendar.component(.weekday, from: today)
+    print("Day is: \(weekday - 1)")
+    return weekday - 1
+}
+
 
 // Used to specify which corner to round
 struct RoundedCorner: Shape {

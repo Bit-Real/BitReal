@@ -168,12 +168,12 @@
 				24BE17C729A9653C0070AEE6 /* Posts */,
 				241C96A129A8662600DB1855 /* Navbar.swift */,
 				24BE17CB29A978D50070AEE6 /* FriendCard.swift */,
-				248084AA29B430ED00A674F8 /* HabitCard.swift */,
 				F135D04029B0413B0025F23B /* Habit.swift */,
-				248084A829B42AE700A674F8 /* AddButton.swift */,
-				24BE17E929AD76630070AEE6 /* CustomButton.swift */,
+				248084AA29B430ED00A674F8 /* HabitCard.swift */,
 				248084AC29B435EC00A674F8 /* HabitDots.swift */,
 				1B2C3E8529D62B82000EA6FD /* HabitExpand.swift */,
+				248084A829B42AE700A674F8 /* AddButton.swift */,
+				24BE17E929AD76630070AEE6 /* CustomButton.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
