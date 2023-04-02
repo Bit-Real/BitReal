@@ -10,6 +10,7 @@ import Kingfisher
 
 struct PostsRowView: View {
     let post: Post
+    @State var isLiked: Bool = false
     var body: some View {
         // profile image, user info, and post
         VStack (alignment: .leading) {
@@ -45,6 +46,18 @@ struct PostsRowView: View {
             // like and comment buttons
             HStack {
                 Spacer()
+                Button(action: {
+                    isLiked.toggle()
+                    saveLikeState(post: post, isLiked: isLiked)
+                }) {
+                    Image(systemName: isLiked ? "heart.fill" : "heart")
+                        .font(.system(size: 20))
+                        .foregroundColor(isLiked ? .red : .gray)
+                }
+                .onAppear {
+                    isLiked = UserDefaults.standard.bool(forKey: "\(String(describing: post.id))_isLiked")
+                }
+
                 Button (action: {}) {
                     Image(systemName: "face.smiling")
                         .font(.system(size: 20))
@@ -62,6 +75,10 @@ struct PostsRowView: View {
         }
         .padding()
     }
+    func saveLikeState(post: Post, isLiked: Bool) {
+        UserDefaults.standard.set(isLiked, forKey: "\(String(describing: post.id))_isLiked")
+    }
+
 }
 
 //struct PostsRowView_Previews: PreviewProvider {
