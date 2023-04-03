@@ -21,6 +21,8 @@ struct HabitModel: Identifiable, Hashable, Decodable {
     var progress: [Bool]
     let timestamp: Timestamp
     var nextSundayDate: Timestamp
+    var lastUpdate: Timestamp
+    var skipDays: Int
 }
 
 

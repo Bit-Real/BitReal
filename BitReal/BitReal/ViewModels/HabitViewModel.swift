@@ -36,7 +36,9 @@ class HabitViewModel: ObservableObject {
                     "streak": streak,
                     "progress": progress,
                     "timestamp": Timestamp(date: Date()),
-                    "nextSundayDate": nextSunday()] as [String : Any]
+                    "nextSundayDate": nextSunday(),
+                    "lastUpdate": Timestamp(date: Date()),
+                    "skipDays": 7 - frequency] as [String : Any]
         db.collection("habits").addDocument(data: data) { error in
             
             if error == nil {
@@ -84,28 +86,44 @@ class HabitViewModel: ObservableObject {
                 print("Error retrieving progress array")
                 return
             }
-            
+            let originalValue = progress[dayIndex]
             progress[dayIndex] = completed
-            habitRef.updateData(["progress": progress]) { error in
-                if let error = error {
-                    print("Error updating habit progress: \(error.localizedDescription)")
-                } else {
-                    print("Habit progress updated successfully")
-                }
-            }
             
             guard var streak = document.get("streak") as? Int else {
                 print("Error retrieving streak count")
                 return
             }
             
-            streak = streak + 1
-            habitRef.updateData(["streak": streak]) { error in
-                if let error = error {
-                    print("Error updating streak count: \(error.localizedDescription)")
-                }
+            guard var skipDays = document.get("skipDays") as? Int else {
+                print("Error retrieving skipDays")
+                return
             }
             
+            guard let lastUpdated = document.get("lastUpdate") as? Timestamp else {
+                print("Error retrieving last updated date")
+                return
+            }
+            let daysSinceLastUpdate = Calendar.current.dateComponents([.day], from: lastUpdated.dateValue(), to: Date()).day ?? 0
+            var updatedStreak = streak
+            
+            
+            if daysSinceLastUpdate > skipDays {
+                updatedStreak = 0
+            } else {
+                // prevents double logging as complete
+                if (originalValue == false) {
+                    skipDays -= daysSinceLastUpdate
+                    updatedStreak += 1
+                }
+            }
+            habitRef.updateData(["progress": progress,
+                                 "streak": updatedStreak,
+                                 "skipDays": skipDays,
+                                 "lastUpdate": Timestamp(date: Date())]) { error in
+                if let error = error {
+                    print("Error updating habit progress: \(error.localizedDescription)")
+                }
+            }
         }
     }
     
@@ -142,6 +160,16 @@ class HabitViewModel: ObservableObject {
         }
     }
     
+    func nextSunday() -> Timestamp {
+        let calendar = Calendar.current
+        let today = Date()
+        let components = DateComponents(weekday: 1)
+        guard let sunday = calendar.nextDate(after: today, matching: components, matchingPolicy: .nextTime) else {
+            fatalError("Could not calculate next Sunday")
+        }
+        return Timestamp(date: sunday)
+    }
+    
     func assignNewSunday(habitID: String) {
         let db = Firestore.firestore()
         let habitRef = db.collection("habits").document(habitID)
@@ -158,16 +186,6 @@ class HabitViewModel: ObservableObject {
         }
     }
     
-    func nextSunday() -> Timestamp {
-        let calendar = Calendar.current
-        let today = Date()
-        let components = DateComponents(weekday: 1)
-        guard let sunday = calendar.nextDate(after: today, matching: components, matchingPolicy: .nextTime) else {
-            fatalError("Could not calculate next Sunday")
-        }
-        return Timestamp(date: sunday)
-    }
-    
     func getHabitNextSunday(habitID: String, completion: @escaping(Timestamp) -> Void) {
         let db = Firestore.firestore()
         let habitRef = db.collection("habits").document(habitID)
@@ -182,22 +200,43 @@ class HabitViewModel: ObservableObject {
                 return
                 
             }
-            let nextSundayDate = document.get("nextSundayDate") as! Timestamp
-            completion(nextSundayDate)
+            let nextSundayDate = document.get("nextSundayDate") as? Timestamp
+            completion(nextSundayDate!)
+        }
+    }
+    
+    func resetSkipDays(habitID: String) {
+        let db = Firestore.firestore()
+        let habitRef = db.collection("habits").document(habitID)
+        habitRef.getDocument { (documentSnapshot, error) in
+            if let error = error {
+                print("Error fetching habit document: \(error.localizedDescription)")
+                return
+            }
+            
+            guard let document = documentSnapshot else {
+                print("Habit document not found")
+                return
+                
+            }
+            
+            guard let freq = document.get("frequency") as? Int else {
+                print("Error fetching habit frequency")
+                return
+            }
+            
+            habitRef.updateData(["skipDays": 7 - freq])
         }
     }
     
     func checkProgress() {
         let currentDate = Timestamp(date: Date())
-//        print("Current date: \(currentDate.dateValue())")
         for i in 0 ..< self.list.count {
-//            print("Entered loop at index: \(i)")
             getHabitNextSunday(habitID: list[i].id ?? "") { nextSundayDate in
-//                print("habit's next sunday: .\(nextSundayDate.dateValue())")
                 if currentDate.dateValue() > nextSundayDate.dateValue() {
-//                    print("Current date is past next Sunday")
                     self.resetHabitProgress(habitID: self.list[i].id ?? "")
                     self.assignNewSunday(habitID: self.list[i].id ?? "")
+                    self.resetSkipDays(habitID: self.list[i].id ?? "")
                 }
             }
         }
