@@ -12,25 +12,23 @@ struct HabitsPage: View {
     
     @State private var revealDetails: [Bool] = Array(repeating: false, count: 1000)
     @State private var lastClickedHabit = 0
-    @ObservedObject var model = HabitViewModel()
-    @ObservedObject var viewModel = PostViewModel()
-    
-    init() {
-        model.getData()
-    }
+    @StateObject var habitModel = HabitViewModel()
+    @ObservedObject var postModel = PostViewModel()
     
     var body: some View {
         NavigationView {
             ZStack {
                 ScrollView {
                     LazyVStack {
-                        ForEach(Array(model.list.enumerated()), id: \.1) { index, habit in
+                        ForEach(Array(habitModel.list.enumerated()), id: \.1) { index, habit in
                             DisclosureGroup(isExpanded: $revealDetails[index]) {
                                 HabitExpand(description: habit.description,
+                                            habitID: habit.id ?? "",
                                             habitColor: .red,
-                                            viewModel: viewModel)
+                                            postModel: postModel,
+                                            habitModel: habitModel)
                             } label: {
-                                HabitCard(habitName: habit.name, habitColor: Color.red)
+                                HabitCard(habit: habit, habitColor: Color.red)
                                     .padding(.leading, 20)
                             }
                             .buttonStyle(PlainButtonStyle()).accentColor(.clear)
@@ -38,12 +36,13 @@ struct HabitsPage: View {
                                 self.lastClickedHabit = index
                             }
                         }
-                        .onReceive(viewModel.$didUploadPost) { success in
+                        .onReceive(postModel.$didUploadPost) { success in
                             if success {
                                 revealDetails[lastClickedHabit] = false
                             }
                         }
                     }
+
                 }
                 VStack {
                     Spacer()

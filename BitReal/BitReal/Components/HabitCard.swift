@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HabitCard: View {
     
-    var habitName: String
+    @State var habit: HabitModel
     var habitColor: Color
     
     var body: some View {
@@ -19,18 +19,18 @@ struct HabitCard: View {
                 .frame(width: 350, height: 50)
                 .offset(x: -5)
             HStack {
-                Text(habitName)
+                Text(habit.name)
                     .font(.system(size: 18))
                     .padding()
                 Spacer()
                 HStack {
-                    HabitDots(color: habitColor, fill: true)
-                    HabitDots(color: habitColor, fill: true)
-                    HabitDots(color: habitColor, fill: true)
-                    HabitDots(color: habitColor, fill: false)
-                    HabitDots(color: habitColor, fill: false)
-                    HabitDots(color: habitColor, fill: false)
-                    HabitDots(color: habitColor, fill: true)
+                    HabitDots(color: habitColor, fill: habit.progress[0])
+                    HabitDots(color: habitColor, fill: habit.progress[1])
+                    HabitDots(color: habitColor, fill: habit.progress[2])
+                    HabitDots(color: habitColor, fill: habit.progress[3])
+                    HabitDots(color: habitColor, fill: habit.progress[4])
+                    HabitDots(color: habitColor, fill: habit.progress[5])
+                    HabitDots(color: habitColor, fill: habit.progress[6])
                 }
                 .padding()
             }
@@ -44,8 +44,8 @@ struct HabitCard: View {
     }
 }
 
-struct HabitCard_Previews: PreviewProvider {
-    static var previews: some View {
-        HabitCard(habitName: "Run 4 Miles", habitColor: .green)
-    }
-}
+//struct HabitCard_Previews: PreviewProvider {
+//    static var previews: some View {
+//        HabitCard(habitName: "Run 4 Miles", habitColor: .green)
+//    }
+//}
