@@ -7,10 +7,13 @@
 
 import SwiftUI
 import Kingfisher
+import Firebase
 
 struct PostsRowView: View {
     let post: Post
     @State var isLiked: Bool = false
+    @State var likeCount: Int = 0
+    
     var body: some View {
         // profile image, user info, and post
         VStack (alignment: .leading) {
@@ -48,7 +51,8 @@ struct PostsRowView: View {
                 Spacer()
                 Button(action: {
                     isLiked.toggle()
-                    saveLikeState(post: post, isLiked: isLiked)
+                    likeCount = max(0, likeCount + (isLiked ? 1 : -1))
+                    updatePostLikes(post: post, likeCount: likeCount)
                 }) {
                     Image(systemName: isLiked ? "heart.fill" : "heart")
                         .font(.system(size: 20))
@@ -75,7 +79,16 @@ struct PostsRowView: View {
         }
         .padding()
     }
-    func saveLikeState(post: Post, isLiked: Bool) {
+//    update likes in firebase 
+    func updatePostLikes(post: Post, likeCount: Int) {
+        let postRef = Firestore.firestore().collection("posts").document(post.id!)
+        postRef.updateData(["likes": likeCount]) { error in
+            if let error = error {
+                print("ERROR: failed updating post likes. Error is: \(error.localizedDescription)")
+            } else {
+                print("Updated post likes")
+            }
+        }
         UserDefaults.standard.set(isLiked, forKey: "\(String(describing: post.id))_isLiked")
     }
 

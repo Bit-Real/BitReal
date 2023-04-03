@@ -47,4 +47,18 @@ struct PostService {
             }
     }
     
+    func updateLikes(for post: Post, newLikesCount: Int, completion: @escaping (Error?) -> Void) {
+        let postRef = Firestore.firestore().collection("posts").document(post.id!)
+        postRef.updateData(["likes": newLikesCount]) { error in
+            if let error = error {
+                print("ERROR: failed updating likes for post. Error is: \(error.localizedDescription)")
+                completion(error)
+            } else {
+                print("Updated likes for post")
+                completion(nil)
+            }
+        }
+    }
+
+    
 }
