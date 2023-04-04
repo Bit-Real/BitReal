@@ -17,7 +17,7 @@ struct RegisterInfoView: View {
     @State private var password = ""
     @State private var confirmPassword = ""
     @State private var registerSuccess = false
-    @EnvironmentObject var viewModel: AuthViewModel
+//    @EnvironmentObject var viewModel: AuthViewModel
     
     var body: some View {
         VStack{
@@ -65,17 +65,12 @@ struct RegisterInfoView: View {
                     .font(.system(size: 13))
                     .offset(y: -160)
             }
-            Button(action: {
-                viewModel.signup(withEmail: email,
-                                 password: password,
-                                 confirmPassword: confirmPassword,
-                                 fullname: fullName,
-                                 username: username)
-            }){
-                NavigationLink(destination: Navbar()) {
-                    CustomButton(color: .white, outline: true, label: "SIGN UP")
-                }
-                .disabled(!registerSuccess)
+            NavigationLink(destination: ImageSelector(email: self.email,
+                                                      username: self.username,
+                                                      fullName: self.fullName,
+                                                      password: self.password,
+                                                      confirmPassword: self.confirmPassword)) {
+                CustomButton(color: .white, outline: true, label: "Continue")
             }
         }
     }
