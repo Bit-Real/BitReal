@@ -10,6 +10,7 @@ import FirebaseAuth
 
 struct CreateHabitPage: View {
     
+    @Environment(\.presentationMode) var presentationMode
     @ObservedObject var model = HabitViewModel()
     @State private var habitName = ""
     @State private var description = ""
@@ -18,7 +19,7 @@ struct CreateHabitPage: View {
     @State private var isOn = false
     
     var body: some View {
-        VStack () {
+        VStack {
             TextField("Habit Name", text: $habitName)
                 .padding()
                 .frame(width: 350)
@@ -64,7 +65,7 @@ struct CreateHabitPage: View {
                 freq = 0
                 alarm = ""
                 isOn = false
-                
+                presentationMode.wrappedValue.dismiss()
                 // implement navigation back to "Habits Page" in
                 // for new habit to show up.
                 
