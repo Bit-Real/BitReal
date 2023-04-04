@@ -46,7 +46,6 @@ class AuthViewModel: ObservableObject {
                     print("DEBUG: created user")
                     guard let user = result?.user else { return }
                     self.tempUserSession = user
-//                    self.userSession = user
                     print("Sign Up with email \(email) and username \(username)")
                     
                     // user info dict to be stored in Firestore database

@@ -21,6 +21,8 @@ struct RegisterInfoView: View {
     var body: some View {
         VStack{
             
+            NavigationLink(destination: ImageSelector(), isActive: $viewModel.didAuthenticateUser) {}
+            
             Text("Register")
                 .padding(.top, 50)
                 .font(.system(size: 40))
@@ -65,7 +67,7 @@ struct RegisterInfoView: View {
                     .font(.system(size: 13))
                     .offset(y: -160)
             }
-            Button(action: {
+            Button {
                 print("Signing up")
                 viewModel.signup(withEmail: email,
                                  password: password,
@@ -73,15 +75,8 @@ struct RegisterInfoView: View {
                                  fullname: fullName,
                                  username: username)
                 print("Should be signed up")
-            }){
-//                NavigationLink(destination: ImageSelector()) {
-//                    CustomButton(color: .white, outline: true, label: "Continue")
-//                }
-//                .disabled(!registerSuccess)
-                NavigationLink(destination: ImageSelector()) {
-                    CustomButton(color: .white, outline: true, label: "Continue")
-                }
-                .disabled(!viewModel.didAuthenticateUser)
+            } label: {
+                CustomButton(color: .white, outline: true, label: "Continue")
             }
         }
     }
