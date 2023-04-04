@@ -14,7 +14,7 @@ struct CreateHabitPage: View {
     @State private var habitName = ""
     @State private var description = ""
     @State private var freq = 0
-    @State private var alarm = ""
+    @State private var alarm = Date()
     @State private var isOn = false
     
     var body: some View {
@@ -41,7 +41,7 @@ struct CreateHabitPage: View {
                 .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.black))
                 .padding(.top, 20)
             
-            TextField("Alarm", text: $alarm)
+            DatePicker("Alarm", selection: $alarm, displayedComponents: .hourAndMinute)
                 .padding()
                 .frame(width: 350)
                 .background(Color.white.opacity(0.1))
@@ -62,7 +62,7 @@ struct CreateHabitPage: View {
                 habitName = ""
                 description = ""
                 freq = 0
-                alarm = ""
+                alarm = Date()
                 isOn = false
                 
                 // implement navigation back to "Habits Page" in

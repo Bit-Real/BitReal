@@ -14,7 +14,7 @@ struct HabitModel: Identifiable {
     var name: String
     var description: String
     var frequency: Int
-    var alarm: String
+    var alarm: Date
     var privacy: Bool
     var streak: Int
 }

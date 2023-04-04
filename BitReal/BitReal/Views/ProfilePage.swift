@@ -9,6 +9,7 @@ import SwiftUI
 import Firebase
 import FirebaseAuth
 import Kingfisher
+import UserNotifications
 
 struct ProfilePage: View {
     @EnvironmentObject var viewModel: AuthViewModel

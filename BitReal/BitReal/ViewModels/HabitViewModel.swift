@@ -12,7 +12,7 @@ class HabitViewModel: ObservableObject {
     
     @Published var list = [HabitModel]()
     
-    func addData(uid: String, name: String, description: String, frequency: Int, alarm: String, privacy: Bool, streak: Int) {
+    func addData(uid: String, name: String, description: String, frequency: Int, alarm: Date, privacy: Bool, streak: Int) {
         let db = Firestore.firestore()
         db.collection("habits").addDocument(data: ["uid": uid, "name": name, "description": description, "frequency": frequency, "alarm": alarm, "privacy": privacy, "streak": streak]) { error in
             
@@ -43,7 +43,7 @@ class HabitViewModel: ObservableObject {
                                           name: d["name"] as? String ?? "",
                                           description: d["description"] as? String ?? "",
                                           frequency: d["frequency"] as? Int ?? 0,
-                                          alarm: d["alarm"] as? String ?? "None",
+                                          alarm: d["alarm"] as? Date ?? Date(),
                                           privacy: d["privacy"] as? Bool ?? false,
                                           streak: d["streak"] as? Int ?? 0)
                         
