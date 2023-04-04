@@ -6,16 +6,18 @@
 //
 
 import SwiftUI
+import PhotosUI
+import Firebase
+import FirebaseAuth
 
 struct ImageSelector: View {
-    
-    @EnvironmentObject var authViewModel: AuthViewModel
+
     @State private var randomSelected = false
-    var email: String
-    var username: String
-    var fullName: String
-    var password: String
-    var confirmPassword: String
+    @State private var selectedItem: PhotosPickerItem? = nil
+    @State private var selectedImageData: Data? = nil
+//    @State private var uiImage: UIImage?
+    @State private var showImagePlaceholder = true
+    @EnvironmentObject var authViewModel: AuthViewModel
     
     var body: some View {
         VStack {
@@ -36,23 +38,44 @@ struct ImageSelector: View {
             .foregroundColor(.white)
             .clipShape(RoundedShape(corners: [.bottomRight]))
             
-            Button {
-                // call image selector
-                print("Uploading pic button presed...")
-            } label: {
-                Circle()
-                    .stroke(style: StrokeStyle(lineWidth: 3, dash: [12]))
-                    .frame(width: 250, height: 250)
-                    .foregroundColor(Color("Purple"))
-                    .overlay(
-                        Image(systemName: "person.crop.circle.fill")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 100, height: 100)
-                            .foregroundColor(Color("Purple"))
-                    )
-                    .padding(.top, 50)
-            }
+            PhotosPicker(
+                    selection: $selectedItem,
+                    matching: .images,
+                    photoLibrary: .shared()) {
+                        if self.showImagePlaceholder {
+                            Circle()
+                                .stroke(style: StrokeStyle(lineWidth: 3, dash: [12]))
+                                .frame(width: 250, height: 250)
+                                .foregroundColor(Color("Purple"))
+                                .overlay(
+                                    Image(systemName: "person.crop.circle.fill")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 100, height: 100)
+                                        .foregroundColor(Color("Purple"))
+                                )
+                                .padding(.top, 50)
+                        } else {
+                            if let selectedImageData,
+                               let uiImage = UIImage(data: selectedImageData) {
+                                Image(uiImage: uiImage)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 250, height: 250)
+                                    .clipShape(Circle())
+                                    .padding()
+                            }
+                        }
+                    }
+                    .onChange(of: selectedItem) { newItem in
+                        Task {
+                            // Retrive selected asset in the form of Data
+                            if let data = try? await newItem?.loadTransferable(type: Data.self) {
+                                self.selectedImageData = data
+                                self.showImagePlaceholder = false
+                            }
+                        }
+                    }
             
             Toggle("Select a photo for me", isOn: $randomSelected)
                 .toggleStyle(SwitchToggleStyle(tint: Color(.systemPurple)))
@@ -60,19 +83,27 @@ struct ImageSelector: View {
                 .padding(.top, 30)
             
             Button {
-                authViewModel.signup(withEmail: self.email,
-                                     password: self.password,
-                                     confirmPassword: self.confirmPassword,
-                                     fullname: self.fullName,
-                                     username: self.username)
-            } label: {
-                NavigationLink(destination: Navbar()) {
-                    Text("Create Account")
-                        .foregroundColor(.white)
-                        .frame(width: 180, height: 50)
-                        .background(Color("Purple"))
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                if (selectedImageData == nil) {
+                    if (randomSelected) {
+                        // choose a random image for user
+                    } else {
+                        // alert user to select photo
+                    }
+                } else {
+                    // upload selectedImageData
+                    if let selectedImageData,
+                       let uiImage = UIImage(data: selectedImageData) {
+                        print("Uploading image")
+                        authViewModel.uploadProfileImage(uiImage)
+                    }
                 }
+                print("DEBUG: upload photo image")
+            } label: {
+                Text("Create Account")
+                    .foregroundColor(.white)
+                    .frame(width: 180, height: 50)
+                    .background(Color("Purple"))
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
             }
             
             Spacer()
@@ -83,6 +114,6 @@ struct ImageSelector: View {
 
 struct ImageSelector_Previews: PreviewProvider {
     static var previews: some View {
-        ImageSelector(email: "", username: "", fullName: "", password: "", confirmPassword: "")
+        ImageSelector()
     }
 }

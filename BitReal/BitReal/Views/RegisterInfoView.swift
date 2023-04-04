@@ -4,7 +4,6 @@
 //
 //  Created by Pinru Chen on 2/27/23.
 //
-
 import SwiftUI
 import Firebase
 import FirebaseAuth
@@ -17,10 +16,11 @@ struct RegisterInfoView: View {
     @State private var password = ""
     @State private var confirmPassword = ""
     @State private var registerSuccess = false
-//    @EnvironmentObject var viewModel: AuthViewModel
+    @EnvironmentObject var viewModel: AuthViewModel
     
     var body: some View {
         VStack{
+            
             Text("Register")
                 .padding(.top, 50)
                 .font(.system(size: 40))
@@ -65,12 +65,23 @@ struct RegisterInfoView: View {
                     .font(.system(size: 13))
                     .offset(y: -160)
             }
-            NavigationLink(destination: ImageSelector(email: self.email,
-                                                      username: self.username,
-                                                      fullName: self.fullName,
-                                                      password: self.password,
-                                                      confirmPassword: self.confirmPassword)) {
-                CustomButton(color: .white, outline: true, label: "Continue")
+            Button(action: {
+                print("Signing up")
+                viewModel.signup(withEmail: email,
+                                 password: password,
+                                 confirmPassword: confirmPassword,
+                                 fullname: fullName,
+                                 username: username)
+                print("Should be signed up")
+            }){
+//                NavigationLink(destination: ImageSelector()) {
+//                    CustomButton(color: .white, outline: true, label: "Continue")
+//                }
+//                .disabled(!registerSuccess)
+                NavigationLink(destination: ImageSelector()) {
+                    CustomButton(color: .white, outline: true, label: "Continue")
+                }
+                .disabled(!viewModel.didAuthenticateUser)
             }
         }
     }

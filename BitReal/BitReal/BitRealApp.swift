@@ -27,6 +27,7 @@ struct BitRealApp: App {
     
     var body: some Scene {
         WindowGroup {
+//            ImageSelector()
             ContentView()
                 .environmentObject(viewModel)
         }

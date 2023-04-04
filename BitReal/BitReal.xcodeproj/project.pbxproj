@@ -37,6 +37,7 @@
 		248084AB29B430ED00A674F8 /* HabitCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248084AA29B430ED00A674F8 /* HabitCard.swift */; };
 		248084AD29B435EC00A674F8 /* HabitDots.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248084AC29B435EC00A674F8 /* HabitDots.swift */; };
 		2484518C29DBCB0F00EA6645 /* RoundedShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2484518B29DBCB0F00EA6645 /* RoundedShape.swift */; };
+		2484519129DCA56500EA6645 /* ImageUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2484519029DCA56500EA6645 /* ImageUploader.swift */; };
 		24BE17CA29A966450070AEE6 /* PostsRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BE17C929A966450070AEE6 /* PostsRowView.swift */; };
 		24BE17CC29A978D50070AEE6 /* FriendCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BE17CB29A978D50070AEE6 /* FriendCard.swift */; };
 		24BE17EA29AD76630070AEE6 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BE17E929AD76630070AEE6 /* CustomButton.swift */; };
@@ -78,6 +79,7 @@
 		248084AA29B430ED00A674F8 /* HabitCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitCard.swift; sourceTree = "<group>"; };
 		248084AC29B435EC00A674F8 /* HabitDots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDots.swift; sourceTree = "<group>"; };
 		2484518B29DBCB0F00EA6645 /* RoundedShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedShape.swift; sourceTree = "<group>"; };
+		2484519029DCA56500EA6645 /* ImageUploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploader.swift; sourceTree = "<group>"; };
 		24BE17C929A966450070AEE6 /* PostsRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsRowView.swift; sourceTree = "<group>"; };
 		24BE17CB29A978D50070AEE6 /* FriendCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCard.swift; sourceTree = "<group>"; };
 		24BE17E929AD76630070AEE6 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
@@ -212,6 +214,7 @@
 			children = (
 				24D762D629CBF1BA00E1B436 /* UserService.swift */,
 				24EB102529D67EE500685674 /* PostService.swift */,
+				2484519029DCA56500EA6645 /* ImageUploader.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -338,6 +341,7 @@
 				1BD3C81029AC6D0400BFC22F /* SplashView.swift in Sources */,
 				241C969E29A8582800DB1855 /* HabitsPage.swift in Sources */,
 				248084AB29B430ED00A674F8 /* HabitCard.swift in Sources */,
+				2484519129DCA56500EA6645 /* ImageUploader.swift in Sources */,
 				241451F829DBC95F00687686 /* ImageSelector.swift in Sources */,
 				241C968929A6FA6300DB1855 /* BitRealApp.swift in Sources */,
 			);

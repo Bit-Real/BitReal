@@ -11,6 +11,8 @@ import Firebase
 class AuthViewModel: ObservableObject {
     // if no user is logged in, this will be nil
     @Published var userSession: FirebaseAuth.User?
+    @Published var tempUserSession: FirebaseAuth.User?
+    @Published var didAuthenticateUser = false
     @Published var currentUser: User?
     private let service = UserService()
     
@@ -41,8 +43,10 @@ class AuthViewModel: ObservableObject {
                     print("\(error.localizedDescription)")
                     return
                 } else {
+                    print("DEBUG: created user")
                     guard let user = result?.user else { return }
-                    self.userSession = user
+                    self.tempUserSession = user
+//                    self.userSession = user
                     print("Sign Up with email \(email) and username \(username)")
                     
                     // user info dict to be stored in Firestore database
@@ -53,6 +57,7 @@ class AuthViewModel: ObservableObject {
                                     "profileImageURL": "https://images.unsplash.com/photo-1517849845537-4d257902454a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"]
                     Firestore.firestore().collection("users").document(user.uid)
                         .setData(userData) { _ in
+                            self.didAuthenticateUser = true
                             print("Uploaded user data to Firestore")
                         }
                     self.fetchUser()
@@ -67,6 +72,17 @@ class AuthViewModel: ObservableObject {
             userSession = nil
         } catch {
             print("Sign out error")
+        }
+    }
+    
+    func uploadProfileImage(_ image: UIImage) {
+        guard let uid = tempUserSession?.uid else { return }
+        ImageUploader.uploadImage(image: image) { profileImageURL in
+            Firestore.firestore().collection("users")
+                .document(uid).updateData(["profileImageURL": profileImageURL]) { _ in
+                    self.userSession = self.tempUserSession
+                    self.fetchUser()
+                }
         }
     }
     
