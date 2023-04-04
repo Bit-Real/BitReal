@@ -7,7 +7,7 @@
 
 import Foundation
 import Firebase
-import Combine
+import FirebaseFirestoreSwift
 
 class HabitViewModel: ObservableObject {
     
@@ -32,7 +32,8 @@ class HabitViewModel: ObservableObject {
                     "privacy": privacy,
                     "streak": streak,
                     "progress": progress,
-                    "timestamp": Timestamp(date: Date())] as [String : Any]
+                    "timestamp": Timestamp(date: Date()),
+                    "nextSundayDate": nextSunday()] as [String : Any]
         db.collection("habits").addDocument(data: data) { error in
             
             if error == nil {
@@ -60,9 +61,9 @@ class HabitViewModel: ObservableObject {
         }
     }
     
-    func updateHabitProgress(habitId: String, dayIndex: Int, completed: Bool) {
+    func updateHabitProgress(habitID: String, dayIndex: Int, completed: Bool) {
         let db = Firestore.firestore()
-        let habitRef = db.collection("habits").document(habitId)
+        let habitRef = db.collection("habits").document(habitID)
         
         habitRef.getDocument { (documentSnapshot, error) in
             if let error = error {
@@ -89,6 +90,49 @@ class HabitViewModel: ObservableObject {
                 }
             }
         }
+    }
+    
+    func resetHabitProgress(habitID: String) {
+        let db = Firestore.firestore()
+        let habitRef = db.collection("habits").document(habitID)
+        
+        habitRef.getDocument { (documentSnapshot, error) in
+            if let error = error {
+                print("Error fetching habit document: \(error.localizedDescription)")
+                return
+            }
+            
+            guard let document = documentSnapshot else {
+                print("Habit document not found")
+                return
+            }
+            
+            guard var progress = document.get("progress") as? [Bool] else {
+                print("Error retrieving progress array")
+                return
+            }
+            
+            // create a new progress array and overwrite the old one
+            progress = Array(repeating: false, count: 7)
+            habitRef.updateData(["progress": progress]) { error in
+                if let error = error {
+                    print("Error updating habit progress: \(error.localizedDescription)")
+                } else {
+                    print("Habit progress updated successfully")
+                }
+            }
+            
+        }
+    }
+    
+    func nextSunday() -> Timestamp {
+        let calendar = Calendar.current
+        let today = Date()
+        let components = DateComponents(weekday: 1)
+        guard let sunday = calendar.nextDate(after: today, matching: components, matchingPolicy: .nextTime) else {
+            fatalError("Could not calculate next Sunday")
+        }
+        return Timestamp(date: sunday)
     }
 
 }

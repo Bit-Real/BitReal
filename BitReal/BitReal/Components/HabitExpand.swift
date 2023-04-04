@@ -37,13 +37,20 @@ struct HabitExpand: View {
                 ZStack {
                     Color("cardGray")
                     HStack {
+                        
+                        Button {
+                            habitModel.resetHabitProgress(habitID: habitID)
+                        } label: {
+                            Text("Rest Progress")
+                        }
+                        
                         Button {
                             // upload post only if textfield is not empty
                             if (!text.isEmpty) {
                                 postModel.uploadPost(withCaption: text)
                             }
                             let dayOfweek = getCurrentDayOfWeek()
-                            habitModel.updateHabitProgress(habitId: habitID, dayIndex: dayOfweek, completed: true)
+                            habitModel.updateHabitProgress(habitID: habitID, dayIndex: dayOfweek, completed: true)
                         } label: {
                             Image(systemName: text.isEmpty ? "checkmark.circle" : "paperplane")
                                 .foregroundColor(habitColor)
@@ -73,7 +80,6 @@ func getCurrentDayOfWeek() -> Int {
     return weekday - 1
 }
 
-
 // Used to specify which corner to round
 struct RoundedCorner: Shape {
 
@@ -92,8 +98,3 @@ extension View {
     }
 }
 
-//struct HabitExpand_Previews: PreviewProvider {
-//    static var previews: some View {
-//        HabitExpand(description: "Test desc", habitColor: .red)
-//    }
-//}

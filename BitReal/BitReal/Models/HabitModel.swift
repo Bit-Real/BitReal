@@ -10,7 +10,6 @@ import FirebaseFirestoreSwift
 import Firebase
 
 struct HabitModel: Identifiable, Hashable, Decodable {
-    
     @DocumentID var id: String?
     var uid: String
     var name: String
@@ -21,7 +20,7 @@ struct HabitModel: Identifiable, Hashable, Decodable {
     var streak: Int
     var progress: [Bool]
     let timestamp: Timestamp
-    
+    var nextSundayDate: Timestamp
 }
 
 
