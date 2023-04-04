@@ -13,9 +13,9 @@ import FirebaseAuth
 struct ImageSelector: View {
 
     @State private var randomSelected = false
+    @State private var showAlert = false
     @State private var selectedItem: PhotosPickerItem? = nil
     @State private var selectedImageData: Data? = nil
-//    @State private var uiImage: UIImage?
     @State private var showImagePlaceholder = true
     @EnvironmentObject var authViewModel: AuthViewModel
     
@@ -88,6 +88,7 @@ struct ImageSelector: View {
                         // choose a random image for user
                     } else {
                         // alert user to select photo
+                        showAlert = true
                     }
                 } else {
                     // upload selectedImageData
@@ -104,6 +105,11 @@ struct ImageSelector: View {
                     .frame(width: 180, height: 50)
                     .background(Color("Purple"))
                     .clipShape(RoundedRectangle(cornerRadius: 10))
+            }
+            .alert(isPresented: $showAlert) {
+                Alert(title: Text("Select a Photo"),
+                      message: Text("Please select a photo for your profile or toggle random selection."),
+                      dismissButton: .default(Text("OK")))
             }
             
             Spacer()
