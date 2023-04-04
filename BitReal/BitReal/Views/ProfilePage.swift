@@ -19,7 +19,7 @@ struct ProfilePage: View {
     
     var body: some View {
         if let user = viewModel.currentUser {
-            NavigationView {
+            NavigationStack {
                 ZStack {
                     VStack {
                         KFImage(URL(string: user.profileImageURL))
@@ -57,7 +57,7 @@ struct ProfilePage: View {
                             Text("Sign Out")
                         }
                         .padding(.bottom, 10)
-
+                        
                     }
                 }
                 .navigationTitle("Profile")
@@ -66,81 +66,13 @@ struct ProfilePage: View {
         }
     }
     
-    func getSettingView(setting: String) -> some View {
-        let db = Firestore.firestore()
-        let ref = db.collection("users")
-        let user = Auth.auth().currentUser
-        let userID = user?.uid
-        
+    func getSettingView(setting: String) -> AnyView {
         if(setting == "Change Username") {
-            return VStack {
-                Spacer()
-                
-                Text("New Username")
-                    .font(.system(size: 32, weight: .bold))
-                    .padding(.top, 50)
-                
-                TextField("Enter New Username", text: $newUsername)
-                    .padding()
-                    .background(Color.gray.opacity(0.3).cornerRadius(20))
-                
-                Button {
-                    if(newUsername != "") {
-                        ref.document(userID!).updateData(["username": newUsername]) { error in
-                            if let error = error {
-                                print("Error updating username: \(error.localizedDescription)")
-                            } else {
-                                viewModel.fetchUser()
-                                print("Username updated successfully")
-                            }
-                        }
-                    }
-                } label: {
-                    Text("Save")
-                        .padding()
-                        .fontWeight(.bold)
-                        .frame(maxWidth: .infinity)
-                        .background(Color.blue.cornerRadius(20))
-                        .foregroundColor(.white)
-                }
-
-                Spacer()
-                Spacer()
-            } .padding(.horizontal)
+            return AnyView(ChangeUsernamePage())
+        } else if (setting == "Change Password"){
+            return AnyView (ChangePasswordPage())
         } else {
-            return VStack {
-                Spacer()
-                
-                Text("New Password")
-                    .font(.system(size: 32, weight: .bold))
-                    .padding(.top, 50)
-                
-                TextField("Password (must be > 6 characters)", text: $newPassword)
-                    .padding()
-                    .background(Color.gray.opacity(0.3).cornerRadius(20))
-                
-                Button {
-                    if(newPassword != "") {
-                        user?.updatePassword(to: newPassword, completion: { error in
-                            if let error = error {
-                                print("Error updating password: \(error.localizedDescription)")
-                            } else {
-                                print("Password updated successfully")
-                            }
-                        })
-                    }
-                } label: {
-                    Text("Save")
-                        .padding()
-                        .fontWeight(.bold)
-                        .frame(maxWidth: .infinity)
-                        .background(Color.blue.cornerRadius(20))
-                        .foregroundColor(.white)
-                }
-
-                Spacer()
-                Spacer()
-            } .padding(.horizontal)
+            return AnyView(EmptyView())
         }
     }
 }
