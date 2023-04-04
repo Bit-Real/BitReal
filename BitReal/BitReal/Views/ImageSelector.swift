@@ -86,6 +86,11 @@ struct ImageSelector: View {
                 if (selectedImageData == nil) {
                     if (randomSelected) {
                         // choose a random image for user
+                        let randomImageNumber = arc4random_uniform(17) // Generate a random number between 0 and 16
+                        let imageName = "pic\(randomImageNumber)"
+                        if let image = UIImage(named: imageName) {
+                            authViewModel.uploadProfileImage(image)
+                        }
                     } else {
                         // alert user to select photo
                         showAlert = true
