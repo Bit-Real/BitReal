@@ -24,7 +24,7 @@ struct ChangePasswordPage: View {
                 .font(.system(size: 32, weight: .bold))
                 .padding(.top, 50)
             
-            TextField("Password must be > 6 characters", text: $newPassword)
+            SecureField("Password must be > 6 characters", text: $newPassword)
                 .padding()
                 .background(Color.gray.opacity(0.3).cornerRadius(20))
             
