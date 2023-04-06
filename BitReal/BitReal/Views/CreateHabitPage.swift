@@ -10,6 +10,7 @@ import FirebaseAuth
 
 struct CreateHabitPage: View {
     
+    @Environment(\.presentationMode) var presentationMode
     @ObservedObject var model = HabitViewModel()
     @State private var habitName = ""
     @State private var description = ""
@@ -18,7 +19,7 @@ struct CreateHabitPage: View {
     @State private var isOn = false
     
     var body: some View {
-        VStack () {
+        VStack {
             TextField("Habit Name", text: $habitName)
                 .padding()
                 .frame(width: 350)
@@ -56,19 +57,24 @@ struct CreateHabitPage: View {
             }
             .padding()
             
-            Button(action: {
-                model.addData(uid: String(Auth.auth().currentUser!.uid), name: habitName, description: description, frequency: freq, alarm: alarm, privacy: isOn, streak: 0)
-//                print(String(Auth.auth().currentUser!.uid))
+            Button {
+                let progress = Array(repeating: false, count: 7)
+                model.addData(uid: String(Auth.auth().currentUser!.uid),
+                              name: habitName,
+                              description: description,
+                              frequency: freq,
+                              alarm: alarm,
+                              privacy: isOn,
+                              streak: 0,
+                              progress: progress)
+                // reset @State variables after a new habit is created
                 habitName = ""
                 description = ""
                 freq = 0
                 alarm = Date()
                 isOn = false
-                
-                // implement navigation back to "Habits Page" in
-                // for new habit to show up.
-                
-            }) {
+                presentationMode.wrappedValue.dismiss()
+            } label: {
                 HStack {
                     Image(systemName: "plus")
                         .foregroundColor(Color.purple)

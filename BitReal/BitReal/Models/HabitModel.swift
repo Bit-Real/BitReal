@@ -6,10 +6,11 @@
 //
 
 import Foundation
+import FirebaseFirestoreSwift
+import Firebase
 
-struct HabitModel: Identifiable {
-    
-    var id: String
+struct HabitModel: Identifiable, Hashable, Decodable {
+    @DocumentID var id: String?
     var uid: String
     var name: String
     var description: String
@@ -17,6 +18,11 @@ struct HabitModel: Identifiable {
     var alarm: Date
     var privacy: Bool
     var streak: Int
+    var progress: [Bool]
+    let timestamp: Timestamp
+    var nextSundayDate: Timestamp
+    var lastUpdate: Timestamp
+    var skipDays: Int
 }
 
 

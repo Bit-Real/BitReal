@@ -13,8 +13,6 @@ struct FriendProfilePage: View {
     @ObservedObject var viewModel: FriendProfileViewModel
     
     @State var segCtrlSelection: ProfileSelection = .activities
-//    @State private var isFriend = false
-//    let user: User
     
     enum ProfileSelection: String, CaseIterable {
         case activities = "Activities"
@@ -73,7 +71,10 @@ struct FriendProfilePage: View {
                     .padding()
                     
                     if (segCtrlSelection == ProfileSelection.activities) {
-                        Text("Activity")
+                        ForEach(viewModel.posts) { post in
+                            PostsRowView(post: post)
+                            
+                        }
                     } else {
                         Text("Habits")
                     }

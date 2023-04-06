@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct FriendCard: View {
     
@@ -17,7 +18,7 @@ struct FriendCard: View {
         } label: {
             HStack {
                 // freind's image
-                Image("casperImg")
+                KFImage(URL(string: user.profileImageURL))
                     .resizable()
                     .frame(width: 64, height: 64)
                     .foregroundColor(Color(.systemBlue))

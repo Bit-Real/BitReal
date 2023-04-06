@@ -4,7 +4,6 @@
 //
 //  Created by Pinru Chen on 2/27/23.
 //
-
 import SwiftUI
 import Firebase
 import FirebaseAuth
@@ -21,6 +20,9 @@ struct RegisterInfoView: View {
     
     var body: some View {
         VStack{
+            
+            NavigationLink(destination: ImageSelector(), isActive: $viewModel.didAuthenticateUser) {}
+            
             Text("Register")
                 .padding(.top, 50)
                 .font(.system(size: 40))
@@ -65,17 +67,16 @@ struct RegisterInfoView: View {
                     .font(.system(size: 13))
                     .offset(y: -160)
             }
-            Button(action: {
+            Button {
+                print("Signing up")
                 viewModel.signup(withEmail: email,
                                  password: password,
                                  confirmPassword: confirmPassword,
                                  fullname: fullName,
                                  username: username)
-            }){
-                NavigationLink(destination: Navbar()) {
-                    CustomButton(color: .white, outline: true, label: "SIGN UP")
-                }
-                .disabled(!registerSuccess)
+                print("Should be signed up")
+            } label: {
+                CustomButton(color: .white, outline: true, label: "Continue")
             }
         }
     }
