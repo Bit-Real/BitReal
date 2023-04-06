@@ -31,7 +31,6 @@ struct PostDetailView: View {
                     }
                 }
             }
-
             
             // text field to write a new comment
             HStack {
@@ -93,6 +92,5 @@ struct PostDetailView: View {
                 }
             }
     }
-
 
 }

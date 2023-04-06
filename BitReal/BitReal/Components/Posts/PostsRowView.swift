@@ -35,7 +35,7 @@ struct PostsRowView: View {
                                 .foregroundColor(Color("gray"))
                                 .font(.caption)
                             // how long since posted
-                            Text("5d")
+                            Text("\(daysSinceTimestamp(_: post.timestamp))")
                                 .foregroundColor(Color("gray"))
                                 .font(.caption)
                         }
@@ -98,5 +98,23 @@ struct PostsRowView: View {
         let hostingController = UIHostingController(rootView: postDetailView)
         UIApplication.shared.windows.first?.rootViewController?.present(hostingController, animated: true)
     }
+    
+    private func daysSinceTimestamp(_ timestamp: Timestamp) -> String {
+        let calendar = Calendar.current
+        let date1 = calendar.startOfDay(for: timestamp.dateValue())
+        let date2 = calendar.startOfDay(for: Date())
+        let components = calendar.dateComponents([.day, .hour, .minute], from: date1, to: date2)
+        
+        if let days = components.day, days > 0 {
+            return "\(days)d"
+        } else if let hours = components.hour, hours > 0 {
+            return "\(hours)h"
+        } else if let minutes = components.minute {
+            return "\(minutes)m"
+        } else {
+            return "just now"
+        }
+    }
+
 }
 
