@@ -14,6 +14,7 @@ class PostViewModel: ObservableObject {
     @Published var revealDetails = false
     let service = PostService()
     
+    // given a post caption, upload data into Firestore
     func uploadPost(withCaption caption: String) {
         service.uploadPost(caption: caption) { success in
             if success {

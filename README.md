@@ -8,9 +8,12 @@
 </p>
 
 # BitReal
-[GitHub](https://github.com/Bit-Real/BitReal/tree/main)
+
 ## About
 Track your habits with a supportive community to help keep you accountable.
+[GitHub](https://github.com/Bit-Real/BitReal/tree/main)
+
+---
 
 ## Team Members
 Developers      |
@@ -39,6 +42,7 @@ Don Nguyen      |
   - Profile image selector UI and functionality
 - **Don Nguyen** (Release 25% , Overall 20%)
   - Habit creation page
+  - A mock up of a Habit model used for Alpha testing
   - some of the habit page UI
   - Storing created habits on Firestore
   - Habit Model and View Model

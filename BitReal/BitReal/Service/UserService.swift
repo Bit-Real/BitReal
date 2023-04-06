@@ -13,6 +13,7 @@ struct UserService {
     
     @EnvironmentObject var viewModel: AuthViewModel
     
+    // given a user uid, fetch and return the specified user with a completion
     func fetchUser(withUID uid: String, completion: @escaping(User) -> Void) {
         Firestore.firestore().collection("users")
             .document(uid)
@@ -23,6 +24,7 @@ struct UserService {
             }
     }
     
+    // fetches all users from Firestore under the users collection
     func fetchAllUsers(completion: @escaping([User]) -> Void) {
         var users = [User]()
         Firestore.firestore().collection("users").getDocuments { snapshot, _ in
@@ -61,6 +63,7 @@ struct UserService {
             }
     }
     
+    // given a User, remove them from currentUser's friend's list
     func unfriend(_ friendUser: User, completion: @escaping() -> Void) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         guard let friendUID = friendUser.id else { return }

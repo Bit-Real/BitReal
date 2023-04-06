@@ -12,6 +12,7 @@ import Firebase
 import FirebaseAuth
 
 struct ChangePasswordPage: View {
+    
     @State var newPassword: String = ""
     
     var body: some View {

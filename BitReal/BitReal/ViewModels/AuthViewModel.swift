@@ -9,6 +9,7 @@ import SwiftUI
 import Firebase
 
 class AuthViewModel: ObservableObject {
+    
     // if no user is logged in, this will be nil
     @Published var userSession: FirebaseAuth.User?
     @Published var tempUserSession: FirebaseAuth.User?

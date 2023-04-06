@@ -12,6 +12,7 @@ import Firebase
 import FirebaseAuth
 
 struct ChangeUsernamePage: View {
+    
     @State var newUsername: String = ""
     @EnvironmentObject var viewModel: AuthViewModel
     

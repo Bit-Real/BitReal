@@ -4,19 +4,12 @@ import SwiftUI
 import Firebase
 import FirebaseFirestoreSwift
 
-struct Comment: Identifiable, Codable {
-    @DocumentID var id: String?
-    let text: String
-    let timestamp: Date
-    let userId: String
-}
-
 struct PostDetailView: View {
-    let post: Post
     
     @State private var newComment = ""
     @State private var comments: [Comment] = []
     private let db = Firestore.firestore()
+    let post: Post
     
     var body: some View {
         VStack {

@@ -25,6 +25,7 @@ class HabitViewModel: ObservableObject {
         listener?.remove()
     }
     
+    // given a new habit info, creates a new entry in Firestore habits collection
     func addData(uid: String, name: String, description: String, frequency: Int, alarm: Date, privacy: Bool, streak: Int, progress: [Bool]) {
         let db = Firestore.firestore()
         let data = ["uid": uid,
@@ -50,6 +51,7 @@ class HabitViewModel: ObservableObject {
         }
     }
     
+    // fetches all currentUser's habits with a Bool completion
     func getData(completion: @escaping(Bool) -> Void) {
         let db = Firestore.firestore()
 
@@ -67,6 +69,8 @@ class HabitViewModel: ObservableObject {
         }
     }
     
+    // given a habitID, the index of the day of the week, sets the progress
+    // array at the specifed index to completed
     func updateHabitProgress(habitID: String, dayIndex: Int, completed: Bool) {
         let db = Firestore.firestore()
         let habitRef = db.collection("habits").document(habitID)
@@ -103,6 +107,7 @@ class HabitViewModel: ObservableObject {
                 print("Error retrieving last updated date")
                 return
             }
+            
             let daysSinceLastUpdate = Calendar.current.dateComponents([.day], from: lastUpdated.dateValue(), to: Date()).day ?? 0
             var updatedStreak = streak
             
@@ -116,6 +121,7 @@ class HabitViewModel: ObservableObject {
                     updatedStreak += 1
                 }
             }
+            
             habitRef.updateData(["progress": progress,
                                  "streak": updatedStreak,
                                  "skipDays": skipDays,
@@ -127,6 +133,8 @@ class HabitViewModel: ObservableObject {
         }
     }
     
+    // given a habitID, fetch from Firestore, and reset all of its
+    // progress array indicies to false
     func resetHabitProgress(habitID: String) {
         let db = Firestore.firestore()
         let habitRef = db.collection("habits").document(habitID)
@@ -160,6 +168,8 @@ class HabitViewModel: ObservableObject {
         }
     }
     
+    // returns a Timestamp for next Sunday date
+    // Used to reset the weekly habit progression
     func nextSunday() -> Timestamp {
         let calendar = Calendar.current
         let today = Date()
@@ -170,6 +180,8 @@ class HabitViewModel: ObservableObject {
         return Timestamp(date: sunday)
     }
     
+    // given a habitID, fetch from Firestore and update its nextSundayDate
+    // field. Used to mark when to reset the weekly habit progression
     func assignNewSunday(habitID: String) {
         let db = Firestore.firestore()
         let habitRef = db.collection("habits").document(habitID)
@@ -186,6 +198,8 @@ class HabitViewModel: ObservableObject {
         }
     }
     
+    // given a habitID, fetch from Firestore and return its nextSundayDate field
+    // with a Timestamp completion
     func getHabitNextSunday(habitID: String, completion: @escaping(Timestamp) -> Void) {
         let db = Firestore.firestore()
         let habitRef = db.collection("habits").document(habitID)
@@ -205,6 +219,9 @@ class HabitViewModel: ObservableObject {
         }
     }
     
+    // given a habitID, fetch from Firestore, and set its skipDays field
+    // to 0. skipDays used to know how many days to be skipped before a
+    // habit streak is marked broken
     func resetSkipDays(habitID: String) {
         let db = Firestore.firestore()
         let habitRef = db.collection("habits").document(habitID)
@@ -229,6 +246,7 @@ class HabitViewModel: ObservableObject {
         }
     }
     
+    // runs from init(), it checks if habit progress update is due
     func checkProgress() {
         let currentDate = Timestamp(date: Date())
         for i in 0 ..< self.list.count {

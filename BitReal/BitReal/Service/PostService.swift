@@ -10,6 +10,8 @@ import Firebase
 
 struct PostService {
     
+    // given a caption, create a new entry in Firestore under posts collection
+    // with a Bool completion
     func uploadPost(caption: String, completion: @escaping(Bool) -> Void) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         let data = ["uid": uid,
@@ -27,6 +29,7 @@ struct PostService {
         }
     }
     
+    // fetches all posts by all users from the posts collection in Firestore
     func fetchPosts(completion: @escaping([Post]) -> Void) {
         Firestore.firestore().collection("posts")
             .order(by: "timestamp", descending: true)
@@ -37,6 +40,7 @@ struct PostService {
         }
     }
     
+    // given a user uid, fetches all posts by the specifed User
     func fetchPost(forUid uid: String, completion: @escaping([Post]) -> Void) {
         Firestore.firestore().collection("posts")
             .whereField("uid", isEqualTo: uid)
@@ -47,6 +51,7 @@ struct PostService {
             }
     }
     
+    // given a Post, update its like counter in Firestore
     func updateLikes(for post: Post, newLikesCount: Int, completion: @escaping (Error?) -> Void) {
         let postRef = Firestore.firestore().collection("posts").document(post.id!)
         postRef.updateData(["likes": newLikesCount]) { error in

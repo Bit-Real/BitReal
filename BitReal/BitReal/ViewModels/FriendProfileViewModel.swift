@@ -8,6 +8,7 @@
 import Foundation
 
 class FriendProfileViewModel: ObservableObject {
+    
     @Published var user: User
     @Published var posts = [Post]()
     private let postService = PostService()
