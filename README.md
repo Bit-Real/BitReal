@@ -1,11 +1,16 @@
-[![Dev-Build](https://github.com/Bit-Real/BitReal/actions/workflows/dev.yml/badge.svg?branch=dev)](https://github.com/Bit-Real/BitReal/actions/workflows/dev.yml)
+<p float="left">
+  <a href="https://github.com/Bit-Real/BitReal/actions/workflows/main.yml" alt="Main-Build">
+    <img src="https://github.com/Bit-Real/BitReal/actions/workflows/main.yml/badge.svg" />
+  </a>
+  <a href="https://github.com/Bit-Real/BitReal/actions/workflows/dev.yml" alt="Dev-Build">
+    <img src="https://github.com/Bit-Real/BitReal/actions/workflows/dev.yml/badge.svg?branch=dev" />
+  </a>
+</p>
 
 # BitReal
 [GitHub](https://github.com/Bit-Real/BitReal/tree/main)
 ## About
-**Login credentials:**
-- Username: Longhorn
-- Password: longhorn12345
+Track your habits with a supportive community to help keep you accountable.
 
 ## Team Members
 Developers      |
@@ -21,7 +26,7 @@ Don Nguyen      |
 
 ### Main App
 
-- **Ali Al-Adhami**
+- **Ali Al-Adhami** (Release 40% , Overall 50%)
   - Navigation bar UI and functionality
   - Firebase setup, login & persistent user session state
   - Most of Home/Feed Page UI and functionality
@@ -32,22 +37,23 @@ Don Nguyen      |
     - Not yet updating UI; server-side changes only
   - Submitting posts functionality
   - Profile image selector UI and functionality
-- **Don Nguyen**
+- **Don Nguyen** (Release 25% , Overall 20%)
   - Habit creation page
   - some of the habit page UI
   - Storing created habits on Firestore
   - Habit Model and View Model
-- **Pinru Chen**
+- **Pinru Chen** (Release 20% , Overall 20%)
   - Splash, login, & signup pages
+  - User register and sign up functionality
   - Liking posts and updating UI and Firestore
   - Partial comments implementaion UI and functionality 
     - storing on database, not yet fetching and displaying
   - Bug fixes for newly created habits
-- **Emmanuel Ihim**
+- **Emmanuel Ihim** (Release 15% , Overall 10%)
   - Profile page UI
-  - Firebase username change from profile page
-  - Firebase password change from profile page
-
+    - Username & password change UI and functionality
+  - Notification page
+    - Page is empty for beta, functionality will be added in Final release
 
 ### Dev Ops
 - **Pinru Chen**
