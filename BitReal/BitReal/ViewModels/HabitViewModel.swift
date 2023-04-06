@@ -15,9 +15,6 @@ class HabitViewModel: ObservableObject {
     @Published var list = [HabitModel]()
     private var listener: ListenerRegistration?
     
-<<<<<<< HEAD
-    func addData(uid: String, name: String, description: String, frequency: Int, alarm: Date, privacy: Bool, streak: Int) {
-=======
     init() {
         getData { success in
             self.checkProgress()
@@ -28,8 +25,7 @@ class HabitViewModel: ObservableObject {
         listener?.remove()
     }
     
-    func addData(uid: String, name: String, description: String, frequency: Int, alarm: String, privacy: Bool, streak: Int, progress: [Bool]) {
->>>>>>> dev
+    func addData(uid: String, name: String, description: String, frequency: Int, alarm: Date, privacy: Bool, streak: Int, progress: [Bool]) {
         let db = Firestore.firestore()
         let data = ["uid": uid,
                     "name": name,
@@ -61,25 +57,9 @@ class HabitViewModel: ObservableObject {
         listener = db.collection("habits").whereField("uid", isEqualTo: Auth.auth().currentUser!.uid).addSnapshotListener { (snapshot, error) in
             if error == nil {
                 if let snapshot = snapshot {
-<<<<<<< HEAD
-                    
-                    self.list = snapshot.documents.map { d in
-                        
-                        return HabitModel(id: d.documentID,
-                                          uid: d["uid"] as? String ?? "",
-                                          name: d["name"] as? String ?? "",
-                                          description: d["description"] as? String ?? "",
-                                          frequency: d["frequency"] as? Int ?? 0,
-                                          alarm: d["alarm"] as? Date ?? Date(),
-                                          privacy: d["privacy"] as? Bool ?? false,
-                                          streak: d["streak"] as? Int ?? 0)
-                        
-                    }
-=======
                     self.list = snapshot.documents.compactMap({ try? $0.data(as: HabitModel.self) })
                     self.list = self.list.sorted(by: { $0.timestamp.dateValue() > $1.timestamp.dateValue() })
                     completion(true)
->>>>>>> dev
                 }
             } else {
                 // handle error
