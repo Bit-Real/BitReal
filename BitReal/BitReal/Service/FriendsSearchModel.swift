@@ -9,9 +9,11 @@ import Foundation
 import Firebase
 
 class FriendsSearchModel: ObservableObject {
+    
     @Published var users = [User]()
     @Published var searchText = ""
     
+    // search for searchText inside users array, exclude current user
     var searchableUsers: [User] {
         let uid = Auth.auth().currentUser?.uid ?? ""
         if searchText.isEmpty {

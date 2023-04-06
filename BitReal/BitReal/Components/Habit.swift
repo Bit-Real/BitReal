@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+// used for internal testing
 class Habit: Identifiable {
     let id = UUID()
     var name: String

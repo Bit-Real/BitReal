@@ -131,10 +131,10 @@
 		241C968729A6FA6300DB1855 /* BitReal */ = {
 			isa = PBXGroup;
 			children = (
-				F10D900929CFBF69008E5A76 /* ViewModels */,
 				241C968829A6FA6300DB1855 /* BitRealApp.swift */,
 				241C968A29A6FA6300DB1855 /* ContentView.swift */,
 				24D762D529CBF1A200E1B436 /* Service */,
+				F10D900929CFBF69008E5A76 /* ViewModels */,
 				2426956B29CA85410078C5B8 /* Models */,
 				241C969829A857BA00DB1855 /* Components */,
 				241C969729A857AE00DB1855 /* Views */,
@@ -194,11 +194,6 @@
 				2430BF8629CBF3C200A9124E /* User.swift */,
 				24EB102929D7455A00685674 /* Post.swift */,
 				F14383A929CFC5D8007D6F4D /* HabitModel.swift */,
-				2426956C29CA857F0078C5B8 /* AuthViewModel.swift */,
-				2430BF8D29CCDC8C00A9124E /* FriendsSearchModel.swift */,
-				2430BF9129CE1DB500A9124E /* FriendProfileViewModel.swift */,
-				24EB102329D67E8000685674 /* PostViewModel.swift */,
-				24EB102729D7444900685674 /* FeedViewModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -218,6 +213,7 @@
 				24D762D629CBF1BA00E1B436 /* UserService.swift */,
 				24EB102529D67EE500685674 /* PostService.swift */,
 				2484519029DCA56500EA6645 /* ImageUploader.swift */,
+				2430BF8D29CCDC8C00A9124E /* FriendsSearchModel.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -225,7 +221,11 @@
 		F10D900929CFBF69008E5A76 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				2426956C29CA857F0078C5B8 /* AuthViewModel.swift */,
+				24EB102729D7444900685674 /* FeedViewModel.swift */,
+				2430BF9129CE1DB500A9124E /* FriendProfileViewModel.swift */,
 				F14383A729CFC528007D6F4D /* HabitViewModel.swift */,
+				24EB102329D67E8000685674 /* PostViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";

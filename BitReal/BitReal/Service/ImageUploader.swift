@@ -10,6 +10,7 @@ import FirebaseStorage
 import UIKit
 
 struct ImageUploader {
+    // given a UIImage, upload it to Firebase Storage with a URL string completion
     static func uploadImage(image: UIImage, completion: @escaping(String) -> Void) {
         guard let imageData = image.jpegData(compressionQuality: 0.5) else { return }
         

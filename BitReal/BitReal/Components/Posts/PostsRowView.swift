@@ -10,6 +10,7 @@ import Kingfisher
 import Firebase
 
 struct PostsRowView: View {
+    
     let post: Post
     @State var isLiked: Bool = false
     @State var likeCount: Int = 0
@@ -62,11 +63,6 @@ struct PostsRowView: View {
                     isLiked = UserDefaults.standard.bool(forKey: "\(String(describing: post.id))_isLiked")
                 }
                 
-                Button (action: {}) {
-                    Image(systemName: "face.smiling")
-                        .font(.system(size: 20))
-                        .foregroundColor(.gray)
-                }
                 Button (action: { navigateToPostDetail(post: post) }) {
                     Image(systemName: "text.bubble")
                         .font(.system(size: 20))
@@ -81,7 +77,7 @@ struct PostsRowView: View {
     }
     
     // update likes in firebase
-    func updatePostLikes(post: Post, likeCount: Int) {
+    private func updatePostLikes(post: Post, likeCount: Int) {
         let postRef = Firestore.firestore().collection("posts").document(post.id!)
         postRef.updateData(["likes": likeCount]) { error in
             if let error = error {
@@ -99,6 +95,7 @@ struct PostsRowView: View {
         UIApplication.shared.windows.first?.rootViewController?.present(hostingController, animated: true)
     }
     
+    // given a Timestamp, returns how long since it's been created
     private func daysSinceTimestamp(_ timestamp: Timestamp) -> String {
         let calendar = Calendar.current
         let date1 = calendar.startOfDay(for: timestamp.dateValue())
