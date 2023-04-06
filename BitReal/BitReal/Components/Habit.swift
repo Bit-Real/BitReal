@@ -4,9 +4,11 @@
 //
 //  Created by Don Nguyen on 3/1/23.
 //
+// DEPRECATED
 
 import SwiftUI
 
+// used for internal testing
 class Habit: Identifiable {
     let id = UUID()
     var name: String

@@ -6,20 +6,43 @@
 //
 
 import SwiftUI
+import Firebase
 
 struct HabitsPage: View {
     
-    var habits: [Habit] = HabitList.habits
+    @State private var revealDetails: [Bool] = Array(repeating: false, count: 1000)
+    @State private var lastClickedHabit = 0
+    @StateObject var habitModel = HabitViewModel()
+    @ObservedObject var postModel = PostViewModel()
     
     var body: some View {
         NavigationView {
             ZStack {
                 ScrollView {
                     LazyVStack {
-                        ForEach(habits, id: \.id) { habit in
-                            HabitCard(habitName: habit.name, habitColor: habit.color)
+                        ForEach(Array(habitModel.list.enumerated()), id: \.1) { index, habit in
+                            DisclosureGroup(isExpanded: $revealDetails[index]) {
+                                HabitExpand(description: habit.description,
+                                            habitID: habit.id ?? "",
+                                            habitColor: .red,
+                                            postModel: postModel,
+                                            habitModel: habitModel)
+                            } label: {
+                                HabitCard(habit: habit, habitColor: Color.red)
+                                    .padding(.leading, 20)
+                            }
+                            .buttonStyle(PlainButtonStyle()).accentColor(.clear)
+                            .onTapGesture {
+                                self.lastClickedHabit = index
+                            }
+                        }
+                        .onReceive(postModel.$didUploadPost) { success in
+                            if success {
+                                revealDetails[lastClickedHabit] = false
+                            }
                         }
                     }
+
                 }
                 VStack {
                     Spacer()

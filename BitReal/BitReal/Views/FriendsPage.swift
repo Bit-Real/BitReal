@@ -6,27 +6,22 @@
 //
 
 import SwiftUI
+import Firebase
 
 struct FriendsPage: View {
-    private var friendsList = ["casper",
-                               "casper the ghost",
-                               "not casper the ghost",
-                               "who am I?",
-                               "I got no name",
-                               "Boo!",
-                               "not scared, huh?",
-                               "BitReal, more like bitUnreal" ]
-    @State var searchText = ""
+    
+    @ObservedObject var viewModel = FriendsSearchModel()
+
     var body: some View {
         NavigationView {
             ZStack {
                 ScrollView {
                     LazyVStack {
-                        ForEach(friends, id: \.self) { friend in
-                            FriendCard(name: friend.capitalized)
+                        ForEach(viewModel.searchableUsers, id: \.self) { friend in
+                            FriendCard(user: friend)
                         }
                     }
-                    .searchable(text: $searchText)
+                    .searchable(text: $viewModel.searchText)
                 }
                 .navigationTitle("My Friends")
                 Group {
@@ -38,15 +33,6 @@ struct FriendsPage: View {
             }
         }
         .navigationBarBackButtonHidden()
-    }
-    
-    // filtering method, takes in friends array, lower case it
-    // and search the array beased on the searchText state variable
-    var friends: [String] {
-        let friendsLC = friendsList.map { $0.lowercased() }
-        return searchText == "" ? friendsLC : friendsLC.filter {
-            $0.contains(searchText.lowercased())
-        }
     }
 }
 

@@ -27,8 +27,8 @@ struct RegisterIView: View {
                 .offset(y: -235)
                 .padding(.top, 30)
             
-            NavigationLink(destination: RegisterInfoView()) {
-                CustomButton(color: .white, outline: true, label: "Log In")
+            NavigationLink(destination: RegisterInfoView(email: email)) {
+                CustomButton(color: .white, outline: true, label: "Continue")
             }
             .offset(y: -200)
 
@@ -37,24 +37,6 @@ struct RegisterIView: View {
                 .font(.system(size: 13))
                 .padding(.top, 50)
                 .offset(y: -225)
-            
-//            Button(action: {if email == "Longhorn@utexas.edu"{
-//                registerSuccess = true
-//            }}){
-//                Text("SIGN UP")
-//                    .font(.headline)
-//                    .foregroundColor(.white)
-//                    .frame(width: 300, height: 50)
-//                    .background(Color("Purple"))
-//                    .cornerRadius(10)
-//                    .offset(y: -260)
-//            }
-//            VStack{
-//                Text("By signing up, you agree to BitReal’s Terms of Service and Privacy Policy.")
-//                    .frame(alignment: .center)
-//                    .font(.system(size: 13))
-//                    .offset(y: -235)
-//            }
         }
     }
 }

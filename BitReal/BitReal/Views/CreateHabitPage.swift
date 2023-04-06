@@ -6,17 +6,20 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 struct CreateHabitPage: View {
+    
+    @Environment(\.presentationMode) var presentationMode
+    @ObservedObject var model = HabitViewModel()
     @State private var habitName = ""
     @State private var description = ""
-    @State private var freq = ""
-    @State private var alarm = ""
-    @State private var privacy = ""
+    @State private var freq = 0
+    @State private var alarm = Date()
     @State private var isOn = false
     
     var body: some View {
-        VStack () {
+        VStack {
             TextField("Habit Name", text: $habitName)
                 .padding()
                 .frame(width: 350)
@@ -31,14 +34,15 @@ struct CreateHabitPage: View {
                 .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.black))
                 .padding(.top, 20)
             
-            TextField("Frequency", text: $freq)
+            TextField("Frequency", value: $freq, formatter: NumberFormatter())
+                .keyboardType(.numberPad)
                 .padding()
                 .frame(width: 350)
                 .background(Color.white.opacity(0.1))
                 .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.black))
                 .padding(.top, 20)
             
-            TextField("Alarm", text: $alarm)
+            DatePicker("Alarm", selection: $alarm, displayedComponents: .hourAndMinute)
                 .padding()
                 .frame(width: 350)
                 .background(Color.white.opacity(0.1))
@@ -53,7 +57,24 @@ struct CreateHabitPage: View {
             }
             .padding()
             
-            Button(action: {}) {
+            Button {
+                let progress = Array(repeating: false, count: 7)
+                model.addData(uid: String(Auth.auth().currentUser!.uid),
+                              name: habitName,
+                              description: description,
+                              frequency: freq,
+                              alarm: alarm,
+                              privacy: isOn,
+                              streak: 0,
+                              progress: progress)
+                // reset @State variables after a new habit is created
+                habitName = ""
+                description = ""
+                freq = 0
+                alarm = Date()
+                isOn = false
+                presentationMode.wrappedValue.dismiss()
+            } label: {
                 HStack {
                     Image(systemName: "plus")
                         .foregroundColor(Color.purple)

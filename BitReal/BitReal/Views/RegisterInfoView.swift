@@ -4,18 +4,25 @@
 //
 //  Created by Pinru Chen on 2/27/23.
 //
-
 import SwiftUI
+import Firebase
+import FirebaseAuth
 
 struct RegisterInfoView: View {
+    var email: String
+    
     @State private var username = ""
     @State private var fullName = ""
     @State private var password = ""
     @State private var confirmPassword = ""
     @State private var registerSuccess = false
+    @EnvironmentObject var viewModel: AuthViewModel
     
     var body: some View {
         VStack{
+            
+            NavigationLink(destination: ImageSelector(), isActive: $viewModel.didAuthenticateUser) {}
+            
             Text("Register")
                 .padding(.top, 50)
                 .font(.system(size: 40))
@@ -56,34 +63,27 @@ struct RegisterInfoView: View {
             
             VStack{
                 Text("By signing up, you agree to BitReal’s Terms of Service and Privacy Policy.")
-//                    .multilineTextAlignment(.center)
                     .frame(alignment: .center)
                     .font(.system(size: 13))
                     .offset(y: -160)
             }
-            
-            NavigationLink(destination: Navbar()) {
-                CustomButton(color: .white, outline: true, label: "SIGN UP")
+            Button {
+                print("Signing up")
+                viewModel.signup(withEmail: email,
+                                 password: password,
+                                 confirmPassword: confirmPassword,
+                                 fullname: fullName,
+                                 username: username)
+                print("Should be signed up")
+            } label: {
+                CustomButton(color: .white, outline: true, label: "Continue")
             }
-//            .disabled(username != "Longhorn" || password != "longhorn12345")
-            
-//            Button(action: {if username == "Longhorn" && fullName == "Bevo Longhron" && password == "Longhorn12345" && confirmPassword == password{
-//                registerSuccess = true
-//            }}){
-//                Text("NEXT")
-//                    .font(.headline)
-//                    .foregroundColor(.white)
-//                    .frame(width: 300, height: 50)
-//                    .background(Color("Purple"))
-//                    .cornerRadius(10)
-//                    .offset(y: -150)
-//            }
         }
     }
 }
 
 struct RegisterInfoView_Previews: PreviewProvider {
     static var previews: some View {
-        RegisterInfoView()
+        RegisterInfoView(email: "example@test.com")
     }
 }
