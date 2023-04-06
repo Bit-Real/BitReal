@@ -17,7 +17,7 @@ struct PostsRowView: View {
     var body: some View {
         // profile image, user info, and post
         VStack (alignment: .leading) {
-            if let user = post.user {
+            if let user = post.user{
                 HStack (alignment: .top, spacing: 12) {
                     // user image
                     KFImage(URL(string: user.profileImageURL))
@@ -61,13 +61,13 @@ struct PostsRowView: View {
                 .onAppear {
                     isLiked = UserDefaults.standard.bool(forKey: "\(String(describing: post.id))_isLiked")
                 }
-
+                
                 Button (action: {}) {
                     Image(systemName: "face.smiling")
                         .font(.system(size: 20))
                         .foregroundColor(.gray)
                 }
-                Button (action: {}) {
+                Button (action: { navigateToPostDetail(post: post) }) {
                     Image(systemName: "text.bubble")
                         .font(.system(size: 20))
                         .foregroundColor(.gray)
@@ -79,7 +79,8 @@ struct PostsRowView: View {
         }
         .padding()
     }
-//    update likes in firebase 
+    
+    // update likes in firebase
     func updatePostLikes(post: Post, likeCount: Int) {
         let postRef = Firestore.firestore().collection("posts").document(post.id!)
         postRef.updateData(["likes": likeCount]) { error in
@@ -91,11 +92,11 @@ struct PostsRowView: View {
         }
         UserDefaults.standard.set(isLiked, forKey: "\(String(describing: post.id))_isLiked")
     }
-
+    
+    private func navigateToPostDetail(post: Post) {
+        let postDetailView = PostDetailView(post: post)
+        let hostingController = UIHostingController(rootView: postDetailView)
+        UIApplication.shared.windows.first?.rootViewController?.present(hostingController, animated: true)
+    }
 }
 
-//struct PostsRowView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        PostsRowView()
-//    }
-//}
