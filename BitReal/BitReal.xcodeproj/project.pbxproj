@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1B0200BA29DB800E00D2DBF0 /* PostDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0200B929DB800E00D2DBF0 /* PostDetailView.swift */; };
 		1B2C3E8629D62B82000EA6FD /* HabitExpand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2C3E8529D62B82000EA6FD /* HabitExpand.swift */; };
 		1BD3C81029AC6D0400BFC22F /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD3C80F29AC6D0400BFC22F /* SplashView.swift */; };
 		1BD3C81429AD410100BFC22F /* LoginPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD3C81329AD410100BFC22F /* LoginPage.swift */; };
@@ -53,6 +54,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1B0200B929DB800E00D2DBF0 /* PostDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailView.swift; sourceTree = "<group>"; };
 		1B2C3E8529D62B82000EA6FD /* HabitExpand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitExpand.swift; sourceTree = "<group>"; };
 		1BD3C80F29AC6D0400BFC22F /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		1BD3C81329AD410100BFC22F /* LoginPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPage.swift; sourceTree = "<group>"; };
@@ -205,6 +207,7 @@
 			isa = PBXGroup;
 			children = (
 				24BE17C929A966450070AEE6 /* PostsRowView.swift */,
+				1B0200B929DB800E00D2DBF0 /* PostDetailView.swift */,
 			);
 			path = Posts;
 			sourceTree = "<group>";
@@ -309,6 +312,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B0200BA29DB800E00D2DBF0 /* PostDetailView.swift in Sources */,
 				2426956D29CA857F0078C5B8 /* AuthViewModel.swift in Sources */,
 				1B2C3E8629D62B82000EA6FD /* HabitExpand.swift in Sources */,
 				241C96A229A8662600DB1855 /* Navbar.swift in Sources */,
