@@ -37,6 +37,26 @@ struct UserService {
         }
     }
     
+    // fetches all friends of this current user with an array of users completion
+    func fetchAllFriends(completion: @escaping([User]) -> Void) {
+        var friends = [User]()
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        Firestore.firestore().collection("users").document(uid).collection("friends").getDocuments { snapshot, _ in
+            guard let documents = snapshot?.documents else { return }
+            let dispatchGroup = DispatchGroup()
+            documents.forEach { document in
+                dispatchGroup.enter()
+                fetchUser(withUID: document.documentID) { fetchedFriend in
+                    friends.append(fetchedFriend)
+                    dispatchGroup.leave()
+                }
+            }
+            dispatchGroup.notify(queue: .main) {
+                completion(friends)
+            }
+        }
+    }
+
     // adds friendUID to currentUser friend collection
     func beFriends(_ friendUser: User, completion: @escaping() -> Void) {
         guard let uid = Auth.auth().currentUser?.uid else { return }

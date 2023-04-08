@@ -139,10 +139,10 @@
 			children = (
 				241C968829A6FA6300DB1855 /* BitRealApp.swift */,
 				241C968A29A6FA6300DB1855 /* ContentView.swift */,
+				241C969829A857BA00DB1855 /* Components */,
 				24D762D529CBF1A200E1B436 /* Service */,
 				F10D900929CFBF69008E5A76 /* ViewModels */,
 				2426956B29CA85410078C5B8 /* Models */,
-				241C969829A857BA00DB1855 /* Components */,
 				241C969729A857AE00DB1855 /* Views */,
 				241C968C29A6FA6500DB1855 /* Assets.xcassets */,
 				2426956929C8BBC40078C5B8 /* GoogleService-Info.plist */,
