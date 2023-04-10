@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		143CFDF529E4013600424E66 /* NotificationsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143CFDF429E4013600424E66 /* NotificationsPage.swift */; };
 		14C9407329D96930007EB7BA /* ChangeUsernamePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C9407229D96930007EB7BA /* ChangeUsernamePage.swift */; };
 		14C9407729DA37EB007EB7BA /* ChangePasswordPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C9407629DA37EB007EB7BA /* ChangePasswordPage.swift */; };
 		1B0200BA29DB800E00D2DBF0 /* PostDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0200B929DB800E00D2DBF0 /* PostDetailView.swift */; };
@@ -57,6 +58,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		143CFDF429E4013600424E66 /* NotificationsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsPage.swift; sourceTree = "<group>"; };
 		14C9407229D96930007EB7BA /* ChangeUsernamePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeUsernamePage.swift; sourceTree = "<group>"; };
 		14C9407629DA37EB007EB7BA /* ChangePasswordPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordPage.swift; sourceTree = "<group>"; };
 		1B0200B929DB800E00D2DBF0 /* PostDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailView.swift; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 				241C969B29A8581700DB1855 /* FriendsPage.swift */,
 				241C969D29A8582800DB1855 /* HabitsPage.swift */,
 				241C969F29A8583800DB1855 /* ProfilePage.swift */,
+				143CFDF429E4013600424E66 /* NotificationsPage.swift */,
 				14C9407229D96930007EB7BA /* ChangeUsernamePage.swift */,
 				14C9407629DA37EB007EB7BA /* ChangePasswordPage.swift */,
 				F135D04829B17C010025F23B /* CreateHabitPage.swift */,
@@ -330,6 +333,7 @@
 				1BD3C81829AD6B2D00BFC22F /* RegisterInfoView.swift in Sources */,
 				241C96A029A8583800DB1855 /* ProfilePage.swift in Sources */,
 				1BD3C81629AD432000BFC22F /* RegisterIView.swift in Sources */,
+				143CFDF529E4013600424E66 /* NotificationsPage.swift in Sources */,
 				2484518C29DBCB0F00EA6645 /* RoundedShape.swift in Sources */,
 				24EB102829D7444900685674 /* FeedViewModel.swift in Sources */,
 				241C969C29A8581700DB1855 /* FriendsPage.swift in Sources */,
