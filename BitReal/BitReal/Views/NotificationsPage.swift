@@ -76,7 +76,7 @@ struct NotificationsPage: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text("Profile Page")
+            Text("Friend Requets")
                 .font(.system(size: 36, weight: .bold))
                 .padding()
             
