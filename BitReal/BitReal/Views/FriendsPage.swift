@@ -17,19 +17,23 @@ struct FriendsPage: View {
             ZStack {
                 ScrollView {
                     LazyVStack {
-                        ForEach(viewModel.searchableUsers, id: \.self) { friend in
-                            FriendCard(user: friend)
+                        if (viewModel.searchableUsers.isEmpty) {
+                            VStack {
+                                Text("You're not following anyone")
+                                Spacer()
+                                Text("Use the search bar to find other users")
+                            }
+                            .foregroundColor(.gray)
+                            .padding(.top, 225)
+                        } else {
+                            ForEach(viewModel.searchableUsers, id: \.self) { friend in
+                                FriendCard(user: friend)
+                            }
                         }
                     }
                     .searchable(text: $viewModel.searchText)
                 }
-                .navigationTitle("My Friends")
-                Group {
-                    AddButton()
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
-                .padding()
-                .padding(.trailing, 10)
+                .navigationTitle("Following")
             }
         }
         .navigationBarBackButtonHidden()

@@ -50,7 +50,7 @@ struct FriendProfilePage: View {
                             viewModel.beFriends()
                         }
                     } label: {
-                        Text(viewModel.user.isFriend ?? false ? "Unfriend" : "Friend")
+                        Text(viewModel.user.isFriend ?? false ? "Unfollow" : "Follow")
                             .padding(.horizontal, 20)
                             .padding(.vertical, 5)
                             .background(viewModel.user.isFriend ?? false ? Color("Purple") : .white)
@@ -71,11 +71,18 @@ struct FriendProfilePage: View {
                     .padding()
                     
                     if (segCtrlSelection == ProfileSelection.activities) {
-                        ForEach(viewModel.posts) { post in
-                            PostsRowView(post: post)
-                            
+                        if (viewModel.posts.isEmpty) {
+                            Text("@\(viewModel.user.username) has not posted anything yet")
+                                .foregroundColor(.gray)
+                                .padding(.top, 10)
+                        } else {
+                            ForEach(viewModel.posts) { post in
+                                PostsRowView(post: post)
+                            }
                         }
+                        
                     } else {
+                        // link user habits here!
                         Text("Habits")
                     }
                     

@@ -20,25 +20,31 @@ struct HabitsPage: View {
             ZStack {
                 ScrollView {
                     LazyVStack {
-                        ForEach(Array(habitModel.list.enumerated()), id: \.1) { index, habit in
-                            DisclosureGroup(isExpanded: $revealDetails[index]) {
-                                HabitExpand(description: habit.description,
-                                            habitID: habit.id ?? "",
-                                            habitColor: .red,
-                                            postModel: postModel,
-                                            habitModel: habitModel)
-                            } label: {
-                                HabitCard(habit: habit, habitColor: Color.red)
-                                    .padding(.leading, 20)
+                        if (habitModel.list.isEmpty) {
+                            Text("Create your first habit!")
+                                .foregroundColor(.gray)
+                                .padding(.top, 300)
+                        } else {
+                            ForEach(Array(habitModel.list.enumerated()), id: \.1) { index, habit in
+                                DisclosureGroup(isExpanded: $revealDetails[index]) {
+                                    HabitExpand(description: habit.description,
+                                                habitID: habit.id ?? "",
+                                                habitColor: .red,
+                                                postModel: postModel,
+                                                habitModel: habitModel)
+                                } label: {
+                                    HabitCard(habit: habit, habitColor: Color.red)
+                                        .padding(.leading, 20)
+                                }
+                                .buttonStyle(PlainButtonStyle()).accentColor(.clear)
+                                .onTapGesture {
+                                    self.lastClickedHabit = index
+                                }
                             }
-                            .buttonStyle(PlainButtonStyle()).accentColor(.clear)
-                            .onTapGesture {
-                                self.lastClickedHabit = index
-                            }
-                        }
-                        .onReceive(postModel.$didUploadPost) { success in
-                            if success {
-                                revealDetails[lastClickedHabit] = false
+                            .onReceive(postModel.$didUploadPost) { success in
+                                if success {
+                                    revealDetails[lastClickedHabit] = false
+                                }
                             }
                         }
                     }
