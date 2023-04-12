@@ -26,7 +26,9 @@ class HabitViewModel: ObservableObject {
     }
     
     // given a new habit info, creates a new entry in Firestore habits collection
-    func addData(uid: String, name: String, description: String, frequency: Int, alarm: Date, privacy: Bool, streak: Int, progress: [Bool]) {
+    func addData(uid: String, name: String, description: String,
+                 frequency: Int, alarm: Date, privacy: Bool,
+                 streak: Int, progress: [Bool], habitColor: String) {
         let db = Firestore.firestore()
         let data = ["uid": uid,
                     "name": name,
@@ -36,6 +38,7 @@ class HabitViewModel: ObservableObject {
                     "privacy": privacy,
                     "streak": streak,
                     "progress": progress,
+                    "habitColor": habitColor,
                     "timestamp": Timestamp(date: Date()),
                     "nextSundayDate": nextSunday(),
                     "lastUpdate": Timestamp(date: Date()),

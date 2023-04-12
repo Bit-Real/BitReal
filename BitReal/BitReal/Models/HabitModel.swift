@@ -23,6 +23,7 @@ struct HabitModel: Identifiable, Hashable, Decodable {
     var nextSundayDate: Timestamp
     var lastUpdate: Timestamp
     var skipDays: Int
+    var habitColor: String
 }
 
 
