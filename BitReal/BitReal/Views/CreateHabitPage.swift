@@ -11,18 +11,13 @@ import FirebaseAuth
 struct CreateHabitPage: View {
     
     @Environment(\.presentationMode) var presentationMode
-//    var colorSchemes: [Color]
     @ObservedObject var model = HabitViewModel()
     @State private var habitName = ""
     @State private var description = ""
     @State private var freq = 0
     @State private var alarm = Date()
     @State private var isOn = false
-    
-//    init() {
-//        colorSchemes = initColorSchemes()
-//    }
-    
+
     var body: some View {
         VStack {
             TextField("Habit Name", text: $habitName)
