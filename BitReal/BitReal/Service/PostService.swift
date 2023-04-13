@@ -65,4 +65,25 @@ struct PostService {
         }
     }
     
+    func addComment(_ commentText: String, to post: Post, completion: @escaping (Result<Void, Error>) -> Void) {
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        let commentData: [String: Any] = [
+            "text": commentText,
+            "userId": uid,
+            "postId": post.id!,
+            "timestamp": Timestamp()
+        ]
+
+        let postCommentsRef = Firestore.firestore().collection("posts").document(post.id!).collection("comments")
+        postCommentsRef.addDocument(data: commentData) { error in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(()))
+            }
+        }
+    }
+
+
+    
 }
