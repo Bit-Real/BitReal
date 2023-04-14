@@ -14,6 +14,7 @@ struct PostsRowView: View {
     let post: Post
     @State var isLiked: Bool = false
     @State var likeCount: Int = 0
+    @State var playAnimation = false
     
     var body: some View {
         // profile image, user info, and post
@@ -65,15 +66,34 @@ struct PostsRowView: View {
                 Spacer()
                 Button(action: {
                     isLiked.toggle()
+                    playAnimation = isLiked
                     likeCount = max(0, likeCount + (isLiked ? 1 : -1))
                     updatePostLikes(post: post, likeCount: likeCount)
                 }) {
-                    Image(systemName: isLiked ? "heart.fill" : "heart")
-                        .font(.system(size: 20))
-                        .foregroundColor(isLiked ? .red : .gray)
+                    
+                    if (isLiked) {
+                        Image(systemName: "heart.fill")
+                            .font(.system(size: 20))
+                            .foregroundColor(.red)
+                    } else {
+                        Image(systemName: "heart")
+                            .font(.system(size: 20))
+                            .foregroundColor(.gray)
+                        
+                    }
                 }
                 .onAppear {
                     isLiked = UserDefaults.standard.bool(forKey: "\(String(describing: post.id))_isLiked")
+                }
+                .overlay {
+                    if (playAnimation) {
+                        LottieView(name: "heart", loopMode: .playOnce, onAnimationFinished: {
+                            self.playAnimation = false
+                        })
+                            .frame(width: 50, height: 50)
+                            .offset(x: 0, y: -1)
+                            .allowsHitTesting(false)
+                    }
                 }
                 
                 Button (action: { navigateToPostDetail(post: post) }) {
@@ -84,6 +104,7 @@ struct PostsRowView: View {
             }
             .padding(.trailing, 15)
             .padding(.bottom, 5)
+            .frame(height: 30)
             Divider()
         }
         .padding()

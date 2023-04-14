@@ -11,17 +11,8 @@ struct HabitPublicPage: View {
     
     let habit: HabitModel
     let post: Post
+    private let animations = ["floating-woman", "planning1", "Comp1", "Comp2", "unicycle"]
     @Environment(\.presentationMode) var presentationMode
-    
-    init(habit: HabitModel, post: Post) {
-        self.habit = habit
-        self.post = post
-        //Use this if NavigationBarTitle is with Large Font
-        UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor.red]
-
-        //Use this if NavigationBarTitle is with displayMode = .inline
-        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor.red]
-    }
     
     var body: some View {
         VStack {
@@ -57,13 +48,11 @@ struct HabitPublicPage: View {
                     .fill(.white)
                     .shadow(color: Color(uiColor: UIColor(red: 210/255, green: 210/255, blue: 210/255, alpha: 1)), radius: 30)
                 VStack(alignment: .leading, spacing: 15) {
-                    HStack {
-                        Text("Description: \(habit.description)")
-                    }
+                    Text("Description: \(habit.description)")
                     Text("Streak count: \(habit.streak)")
                     Text("Frequency: \(habit.frequency)")
                     Text("Created: \(Utility.convertTimestampToString(timestamp: habit.timestamp)) ago")
-                    Spacer()
+                    LottieView(name: animations[Int.random(in: 0..<animations.count)], loopMode: .loop)
                 }
                 .padding(.leading, 25)
                 .padding(.top, 25)
@@ -90,14 +79,14 @@ struct HabitPublicPage: View {
                 .fontWeight(.semibold)
         } else if characterCount <= 25 {
             return Text(text)
-                .font(.title2)
+                .font(.title)
                 .fontWeight(.semibold)
         } else if characterCount <= 30 {
             return Text(text)
-                .font(.title3)
+                .font(.title2)
                 .fontWeight(.semibold)
         } else {
-            return Text(Utility.truncateString(text, maxLength: 30))
+            return Text(Utility.truncateString(text, maxLength: 35))
                 .font(.title3)
                 .fontWeight(.semibold)
         }
