@@ -18,6 +18,7 @@ struct ImageSelector: View {
     @State private var selectedImageData: Data? = nil
     @State private var showImagePlaceholder = true
     @EnvironmentObject var authViewModel: AuthViewModel
+    @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
         VStack {
@@ -120,6 +121,10 @@ struct ImageSelector: View {
             Spacer()
         }
         .ignoresSafeArea()
+        .navigationBarBackButtonHidden(true)
+        .navigationBarItems(leading: CustomBackButton(color: .white) {
+            self.presentationMode.wrappedValue.dismiss()
+        })
     }
 }
 

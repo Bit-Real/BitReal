@@ -11,15 +11,23 @@ struct HabitPublicPage: View {
     
     let habit: HabitModel
     let post: Post
+    @Environment(\.presentationMode) var presentationMode
+    
+    init(habit: HabitModel, post: Post) {
+        self.habit = habit
+        self.post = post
+        //Use this if NavigationBarTitle is with Large Font
+        UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor.red]
+
+        //Use this if NavigationBarTitle is with displayMode = .inline
+        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor.red]
+    }
     
     var body: some View {
         VStack {
             VStack(alignment: .leading, spacing: 10) {
                 HStack { Spacer() }
                 
-//                Text(habit.name)
-//                    .font(.)
-//                    .fontWeight(.semibold)
                 customFontAndText(for: habit.name)
                 
                 HStack(spacing: 5) {
@@ -48,7 +56,7 @@ struct HabitPublicPage: View {
                 RoundedRectangle(cornerRadius: 25, style: .continuous)
                     .fill(.white)
                     .shadow(color: Color(uiColor: UIColor(red: 210/255, green: 210/255, blue: 210/255, alpha: 1)), radius: 30)
-                VStack(alignment: .leading, spacing: 20) {
+                VStack(alignment: .leading, spacing: 15) {
                     HStack {
                         Text("Description: \(habit.description)")
                     }
@@ -67,6 +75,10 @@ struct HabitPublicPage: View {
             Spacer()
         }
         .ignoresSafeArea()
+        .navigationBarBackButtonHidden(true)
+        .navigationBarItems(leading: CustomBackButton(color: .white) {
+            self.presentationMode.wrappedValue.dismiss()
+        })
     }
     
     func customFontAndText(for text: String) -> some View {
@@ -93,8 +105,3 @@ struct HabitPublicPage: View {
 
 }
 
-//struct HabitPublicPage_Previews: PreviewProvider {
-//    static var previews: some View {
-//        HabitPublicPage()
-//    }
-//}
