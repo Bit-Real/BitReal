@@ -39,6 +39,7 @@ class Utility {
         }
     }
 
+    // given a String, truncate it if longer than maxLength
     static func truncateString(_ input: String, maxLength: Int = 15) -> String {
         if input.count > maxLength {
             let truncated = input.prefix(maxLength)

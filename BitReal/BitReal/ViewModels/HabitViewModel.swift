@@ -72,6 +72,17 @@ class HabitViewModel: ObservableObject {
         }
     }
     
+    // given a habit uid, fetch and return the specified habit with a completion
+//    func fetchHabit(withUID uid: String, completion: @escaping(HabitModel) -> Void) {
+//        let db = Firestore.firestore()
+//        
+//        db.collection("habits").document(uid).getDocument { snapshot, _ in
+//            guard let snapshot = snapshot else { return }
+//            guard let habit = try? snapshot.data(as: HabitModel.self) else { return }
+//            completion(habit)
+//        }
+//    }
+    
     // given a habitID, the index of the day of the week, sets the progress
     // array at the specifed index to completed
     func updateHabitProgress(habitID: String, dayIndex: Int, completed: Bool) {

@@ -7,11 +7,11 @@
 
 import SwiftUI
 import Kingfisher
+import Firebase
 
 struct FriendProfilePage: View {
     
     @ObservedObject var viewModel: FriendProfileViewModel
-    
     @State var segCtrlSelection: ProfileSelection = .activities
     
     enum ProfileSelection: String, CaseIterable {

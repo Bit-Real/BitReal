@@ -40,7 +40,7 @@ struct HabitExpand: View {
                         Button {
                             // upload post only if textfield is not empty
                             if (!text.isEmpty) {
-                                postModel.uploadPost(withCaption: text)
+                                postModel.uploadPost(withCaption: text, habitId: self.habitID)
                             }
                             let dayOfweek = getCurrentDayOfWeek()
                             habitModel.updateHabitProgress(habitID: habitID, dayIndex: dayOfweek, completed: true)

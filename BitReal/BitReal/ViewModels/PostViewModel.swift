@@ -15,8 +15,8 @@ class PostViewModel: ObservableObject {
     let service = PostService()
     
     // given a post caption, upload data into Firestore
-    func uploadPost(withCaption caption: String) {
-        service.uploadPost(caption: caption) { success in
+    func uploadPost(withCaption caption: String, habitId: String) {
+        service.uploadPost(caption: caption, habitId: habitId) { success in
             if success {
                 self.didUploadPost = true
             } else {
