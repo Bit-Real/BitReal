@@ -12,9 +12,10 @@ struct PostService {
     
     // given a caption, create a new entry in Firestore under posts collection
     // with a Bool completion
-    func uploadPost(caption: String, completion: @escaping(Bool) -> Void) {
+    func uploadPost(caption: String, habitId: String, completion: @escaping(Bool) -> Void) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         let data = ["uid": uid,
+                    "habitId": habitId,
                     "caption": caption,
                     "likes": 0,
                     "timestamp": Timestamp(date: Date())] as [String: Any]
@@ -30,14 +31,42 @@ struct PostService {
     }
     
     // fetches all posts by all users from the posts collection in Firestore
-    func fetchPosts(completion: @escaping([Post]) -> Void) {
+//    func fetchPosts(completion: @escaping([Post]) -> Void) {
+//        Firestore.firestore().collection("posts")
+//            .order(by: "timestamp", descending: true)
+//            .getDocuments { snapshot, _ in
+//            guard let documents = snapshot?.documents else { return }
+//            let posts = documents.compactMap({ try? $0.data(as: Post.self) })
+//            completion(posts)
+//        }
+//    }
+    func fetchPosts(completion: @escaping ([Post]) -> Void) {
         Firestore.firestore().collection("posts")
             .order(by: "timestamp", descending: true)
             .getDocuments { snapshot, _ in
-            guard let documents = snapshot?.documents else { return }
-            let posts = documents.compactMap({ try? $0.data(as: Post.self) })
-            completion(posts)
-        }
+                guard let documents = snapshot?.documents else { return }
+                
+                let dispatchGroup = DispatchGroup()
+                var fetchedPosts: [Post] = []
+                
+                for document in documents {
+                    dispatchGroup.enter()
+                    if let post = try? document.data(as: Post.self) {
+                        fetchHabit(withUID: post.habitId) { habit in
+                            var newPost = post
+                            newPost.habit = habit
+                            fetchedPosts.append(newPost)
+                            dispatchGroup.leave()
+                        }
+                    } else {
+                        dispatchGroup.leave()
+                    }
+                }
+                
+                dispatchGroup.notify(queue: .main) {
+                    completion(fetchedPosts)
+                }
+            }
     }
     
     // given a user uid, fetches all posts by the specifed User
@@ -49,6 +78,16 @@ struct PostService {
                 let posts = documents.compactMap({ try? $0.data(as: Post.self) })
                 completion(posts.sorted(by: {$0.timestamp.dateValue() > $1.timestamp.dateValue()} ))
             }
+    }
+    
+    func fetchHabit(withUID uid: String, completion: @escaping(HabitModel) -> Void) {
+        let db = Firestore.firestore()
+        
+        db.collection("habits").document(uid).getDocument { snapshot, _ in
+            guard let snapshot = snapshot else { return }
+            guard let habit = try? snapshot.data(as: HabitModel.self) else { return }
+            completion(habit)
+        }
     }
     
     // given a Post, update its like counter in Firestore

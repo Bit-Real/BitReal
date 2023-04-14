@@ -20,13 +20,16 @@ struct PostsRowView: View {
         VStack (alignment: .leading) {
             if let user = post.user{
                 HStack (alignment: .top, spacing: 12) {
+                    
                     // user image
                     KFImage(URL(string: user.profileImageURL))
                         .resizable()
                         .frame(width: 56, height: 56)
                         .foregroundColor(Color(.systemBlue))
                         .cornerRadius(30)
+                    
                     VStack (alignment: .leading) {
+                        
                         HStack {
                             // public name
                             Text(user.fullname)
@@ -36,10 +39,11 @@ struct PostsRowView: View {
                                 .foregroundColor(Color("gray"))
                                 .font(.caption)
                             // how long since posted
-                            Text("\(daysSinceTimestamp(_: post.timestamp))")
+                            Text("\(Utility.convertTimestampToString(timestamp: post.timestamp))")
                                 .foregroundColor(Color("gray"))
                                 .font(.caption)
                         }
+                        
                         // post content
                         Text(post.caption)
                             .font(.body)
@@ -49,6 +53,15 @@ struct PostsRowView: View {
             }
             // like and comment buttons
             HStack {
+                NavigationLink(destination: HabitPublicPage(habit: post.habit!, post: self.post)) {
+                    HStack(spacing: 4) {
+                        Text("View habit")
+                            .foregroundColor(Color("Purple"))
+                            .fontWeight(.semibold)
+                        Image(systemName: "arrow.right.circle.fill")
+                            .foregroundColor(Color("Purple"))
+                    }
+                }
                 Spacer()
                 Button(action: {
                     isLiked.toggle()
@@ -95,23 +108,6 @@ struct PostsRowView: View {
         UIApplication.shared.windows.first?.rootViewController?.present(hostingController, animated: true)
     }
     
-    // given a Timestamp, returns how long since it's been created
-    private func daysSinceTimestamp(_ timestamp: Timestamp) -> String {
-        let calendar = Calendar.current
-        let date1 = calendar.startOfDay(for: timestamp.dateValue())
-        let date2 = calendar.startOfDay(for: Date())
-        let components = calendar.dateComponents([.day, .hour, .minute], from: date1, to: date2)
-        
-        if let days = components.day, days > 0 {
-            return "\(days)d"
-        } else if let hours = components.hour, hours > 0 {
-            return "\(hours)h"
-        } else if let minutes = components.minute {
-            return "\(minutes)m"
-        } else {
-            return "just now"
-        }
-    }
-
 }
+
 

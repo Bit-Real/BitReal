@@ -11,8 +11,10 @@ import Firebase
 struct Post: Identifiable, Decodable, Hashable {
     @DocumentID var id: String?
     let caption: String
+    let habitId: String
     let timestamp: Timestamp
     let uid: String
     var likes: Int
     var user: User?
+    var habit: HabitModel?
 }
