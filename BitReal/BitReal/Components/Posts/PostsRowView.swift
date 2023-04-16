@@ -11,8 +11,7 @@ import Firebase
 
 struct PostsRowView: View {
     
-    var authentication = AuthViewModel()
-    var notification = NotificationViewModel()
+    @ObservedObject var notification = NotificationViewModel()
 
     
     let post: Post
@@ -73,9 +72,9 @@ struct PostsRowView: View {
                     playAnimation = isLiked
                     likeCount = max(0, likeCount + (isLiked ? 1 : -1))
                     updatePostLikes(post: post, likeCount: likeCount)
-//                    if (isLiked) {
-//                        notification.addLikeNotification(authUserID: post.uid, authUserName: post.user!.username, postID: post.id!)
-//                    }
+                    if (isLiked) {
+                        notification.addLikeNotification(authUserID: post.uid, authUserName: post.user!.username, postID: post.id!)
+                    }
 
                 }) {
                     

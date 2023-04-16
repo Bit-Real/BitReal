@@ -10,10 +10,11 @@ import Firebase
 
 class NotificationViewModel: ObservableObject {
     
- //   @Published var authentication = AuthViewModel()
+    @Published var userService = UserService()
+    
     @Published var list = [NotificationModel]()
     private var listener: ListenerRegistration?
-    var authentication = AuthViewModel()
+    
     
     init() {
         getData { success in
@@ -27,70 +28,89 @@ class NotificationViewModel: ObservableObject {
     
     
     func addFollowNotification(followedUserID: String, followedUserName: String) {
-        let currentUser = authentication.currentUser
-        let db = Firestore.firestore()
-        let data = ["userID": followedUserID,
-                    "friendUserID": String(currentUser.id!),
-                    "friendProfilePic": currentUser.profileImageURL,
-                    "type": "Follow",
-                    "postID": "None",
-                    "habitID": "None",
-                    "alarm": Date(),
-                    "timestamp": Date(),
-                    "content": "\(currentUser.username) followed you!"] as [String : Any]
-        db.collection("notifications").addDocument(data: data) { error in
-            
-            if error == nil {
-                print("Successfully added habit to Firestore")
-            }
-            else {
-                // error handling to be added
+       
+        userService.fetchUser(withUID: Auth.auth().currentUser!.uid) { (User) in
+            let currentUserName = User.username
+            let currentUID = User.id!
+            let currentProfilePic = User.profileImageURL
+            let db = Firestore.firestore()
+            let data = ["userID": followedUserID,
+                        "friendUserID": currentUID,
+                        "friendUserName": currentUserName,
+                        "friendProfilePic": currentProfilePic,
+                        "type": "Follow",
+                        "postID": "None",
+                        "comment": "None",
+                        "habitID": "None",
+                        "alarm": Date(),
+                        "timestamp": Date()] as [String : Any]
+            db.collection("notifications").addDocument(data: data) { error in
+                
+                if error == nil {
+                    print("Successfully added notification to Firestore")
+                }
+                else {
+                    // error handling to be added
+                }
             }
         }
     }
     
     func addLikeNotification(authUserID: String, authUserName: String, postID: String) {
-        let currentUser = authentication.currentUser!
-        let db = Firestore.firestore()
-        let data = ["userID": authUserID,
-                    "friendUserID": currentUser.id!,
-                    "friendProfilePic": currentUser.profileImageURL,
-                    "type": "Like",
-                    "postID": postID,
-                    "habitID": "None",
-                    "alarm": Date(),
-                    "timestamp": Date(),
-                    "content": "\(currentUser.username) liked your post!"] as [String : Any]
-        db.collection("notifications").addDocument(data: data) { error in
-            
-            if error == nil {
-                print("Successfully added habit to Firestore")
-            }
-            else {
-                // error handling to be added
+                
+        userService.fetchUser(withUID: Auth.auth().currentUser!.uid) { (User) in
+            let currentUserName = User.username
+            let currentUID = User.id!
+            let currentProfilePic = User.profileImageURL
+            let db = Firestore.firestore()
+            let data = ["userID": authUserID,
+                        "friendUserID": currentUID,
+                        "friendUserName": currentUserName,
+                        "friendProfilePic": currentProfilePic,
+                        "type": "Like",
+                        "postID": postID,
+                        "comment": "None",
+                        "habitID": "None",
+                        "alarm": Date(),
+                        "timestamp": Date()] as [String : Any]
+            db.collection("notifications").addDocument(data: data) { error in
+                
+                if error == nil {
+                    print("Successfully added notification to Firestore")
+                }
+                else {
+                    // error handling to be added
+                }
             }
         }
     }
     
-    func addCommentNotification(authUserID: String, authUserName: String, postID: String) {
-        let currentUser = authentication.currentUser!
-        let db = Firestore.firestore()
-        let data = ["userID": authUserID,
-                    "friendUserID": currentUser.id!,
-                    "friendProfilePic": currentUser.profileImageURL,
-                    "type": "Comment",
-                    "postID": postID,
-                    "habitID": "None",
-                    "alarm": Date(),
-                    "timestamp": Date(),
-                    "content": "\(currentUser.username) commented on your post!"] as [String : Any]
-        db.collection("notifications").addDocument(data: data) { error in
-            
-            if error == nil {
-                print("Successfully added habit to Firestore")
-            }
-            else {
-                // error handling to be added
+    func addCommentNotification(authUserID: String, authUserName: String, postID: String, comment: String) {
+   
+                
+        userService.fetchUser(withUID: Auth.auth().currentUser!.uid) { (User) in
+            let currentUserName = User.username
+            let currentUID = User.id!
+            let currentProfilePic = User.profileImageURL
+            let db = Firestore.firestore()
+            let data = ["userID": authUserID,
+                        "friendUserID": currentUID,
+                        "friendUserName": currentUserName,
+                        "friendProfilePic": currentProfilePic,
+                        "type": "Comment",
+                        "postID": postID,
+                        "comment": comment,
+                        "habitID": "None",
+                        "alarm": Date(),
+                        "timestamp": Date()] as [String : Any]
+            db.collection("notifications").addDocument(data: data) { error in
+                
+                if error == nil {
+                    print("Successfully added notification to Firestore")
+                }
+                else {
+                    // error handling to be added
+                }
             }
         }
     }
@@ -102,6 +122,7 @@ class NotificationViewModel: ObservableObject {
                     "friendProfilePic": "None",
                     "type": "Habit",
                     "postID": "None",
+                    "comment": "None",
                     "habitID": habitID,
                     "alarm": alarm,
                     "timestamp": alarm,
@@ -109,7 +130,7 @@ class NotificationViewModel: ObservableObject {
         db.collection("notifications").addDocument(data: data) { error in
             
             if error == nil {
-                print("Successfully added habit to Firestore")
+                print("Successfully added notification to Firestore")
             }
             else {
                 // error handling to be added

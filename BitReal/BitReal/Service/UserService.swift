@@ -12,7 +12,6 @@ import FirebaseFirestoreSwift
 struct UserService {
     
     @EnvironmentObject var viewModel: AuthViewModel
-    @Published var notification = NotificationViewModel()
     
     // given a user uid, fetch and return the specified user with a completion
     func fetchUser(withUID uid: String, completion: @escaping(User) -> Void) {
@@ -70,7 +69,7 @@ struct UserService {
         }
         
         // added friendUser as a friend. send a notification to them
-        notification.addFollowNotification(followedUserID: friendUID, followedUserName: friendUser.username)
+        //notification.addFollowNotification(followedUserID: friendUID, followedUserName: friendUser.username)
         
     }
     

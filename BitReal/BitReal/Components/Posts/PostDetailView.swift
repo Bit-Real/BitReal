@@ -18,6 +18,7 @@ struct FirebaseComment: Codable, Identifiable {
 
 struct PostDetailView: View {
     
+    @ObservedObject var notification = NotificationViewModel()
     @State private var newComment = ""
     @State private var comments: [FirebaseComment] = []
     private let db = Firestore.firestore()
@@ -89,6 +90,7 @@ struct PostDetailView: View {
             if let error = error {
                 print("ERROR: Failed to add new comment. Error: \(error.localizedDescription)")
             } else {
+                notification.addCommentNotification(authUserID: post.user!.id!, authUserName: post.user!.username, postID: post.uid, comment: newComment)
                 // Reset the text field and fetch the updated comments
                 newComment = ""
                 fetchComments()
