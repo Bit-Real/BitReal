@@ -10,8 +10,10 @@ import Firebase
 
 class NotificationViewModel: ObservableObject {
     
+ //   @Published var authentication = AuthViewModel()
     @Published var list = [NotificationModel]()
     private var listener: ListenerRegistration?
+    var authentication = AuthViewModel()
     
     init() {
         getData { success in
@@ -23,17 +25,19 @@ class NotificationViewModel: ObservableObject {
         listener?.remove()
     }
     
-    func addFollowNotification(friendUserID: String, friendName: String) {
+    
+    func addFollowNotification(followedUserID: String, followedUserName: String) {
+        let currentUser = authentication.currentUser
         let db = Firestore.firestore()
-       
-        let data = ["userID": String(Auth.auth().currentUser!.uid),
-                    "friendUserID": friendUserID,
+        let data = ["userID": followedUserID,
+                    "friendUserID": String(currentUser.id!),
+                    "friendProfilePic": currentUser.profileImageURL,
                     "type": "Follow",
                     "postID": "None",
                     "habitID": "None",
                     "alarm": Date(),
                     "timestamp": Date(),
-                    "content": "\(friendName) followed you!"] as [String : Any]
+                    "content": "\(currentUser.username) followed you!"] as [String : Any]
         db.collection("notifications").addDocument(data: data) { error in
             
             if error == nil {
@@ -45,16 +49,18 @@ class NotificationViewModel: ObservableObject {
         }
     }
     
-    func addLikeNotification(friendUserID: String, friendName: String, postID: String) {
+    func addLikeNotification(authUserID: String, authUserName: String, postID: String) {
+        let currentUser = authentication.currentUser!
         let db = Firestore.firestore()
-        let data = ["userID": String(Auth.auth().currentUser!.uid),
-                    "friendUserID": friendUserID,
+        let data = ["userID": authUserID,
+                    "friendUserID": currentUser.id!,
+                    "friendProfilePic": currentUser.profileImageURL,
                     "type": "Like",
                     "postID": postID,
                     "habitID": "None",
                     "alarm": Date(),
                     "timestamp": Date(),
-                    "content": "\(friendName) liked your post!"] as [String : Any]
+                    "content": "\(currentUser.username) liked your post!"] as [String : Any]
         db.collection("notifications").addDocument(data: data) { error in
             
             if error == nil {
@@ -66,16 +72,18 @@ class NotificationViewModel: ObservableObject {
         }
     }
     
-    func addCommentNotification(friendUserID: String, friendName: String, postID: String) {
+    func addCommentNotification(authUserID: String, authUserName: String, postID: String) {
+        let currentUser = authentication.currentUser!
         let db = Firestore.firestore()
-        let data = ["userID": String(Auth.auth().currentUser!.uid),
-                    "friendUserID": friendUserID,
+        let data = ["userID": authUserID,
+                    "friendUserID": currentUser.id!,
+                    "friendProfilePic": currentUser.profileImageURL,
                     "type": "Comment",
                     "postID": postID,
                     "habitID": "None",
                     "alarm": Date(),
                     "timestamp": Date(),
-                    "content": "\(friendName) commented on your post!"] as [String : Any]
+                    "content": "\(currentUser.username) commented on your post!"] as [String : Any]
         db.collection("notifications").addDocument(data: data) { error in
             
             if error == nil {
@@ -91,6 +99,7 @@ class NotificationViewModel: ObservableObject {
         let db = Firestore.firestore()
         let data = ["userID": String(Auth.auth().currentUser!.uid),
                     "friendUserID": "None",
+                    "friendProfilePic": "None",
                     "type": "Habit",
                     "postID": "None",
                     "habitID": habitID,
