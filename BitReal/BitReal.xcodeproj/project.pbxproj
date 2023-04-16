@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1426578D29EBFA21005AF259 /* Experiments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1426578C29EBFA21005AF259 /* Experiments.swift */; };
 		143CFDF529E4013600424E66 /* NotificationsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143CFDF429E4013600424E66 /* NotificationsPage.swift */; };
 		14C9407329D96930007EB7BA /* ChangeUsernamePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C9407229D96930007EB7BA /* ChangeUsernamePage.swift */; };
 		14C9407729DA37EB007EB7BA /* ChangePasswordPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C9407629DA37EB007EB7BA /* ChangePasswordPage.swift */; };
@@ -71,6 +72,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1426578C29EBFA21005AF259 /* Experiments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Experiments.swift; sourceTree = "<group>"; };
 		143CFDF429E4013600424E66 /* NotificationsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsPage.swift; sourceTree = "<group>"; };
 		14C9407229D96930007EB7BA /* ChangeUsernamePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeUsernamePage.swift; sourceTree = "<group>"; };
 		14C9407629DA37EB007EB7BA /* ChangePasswordPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordPage.swift; sourceTree = "<group>"; };
@@ -201,6 +203,7 @@
 				241C969D29A8582800DB1855 /* HabitsPage.swift */,
 				241C969F29A8583800DB1855 /* ProfilePage.swift */,
 				143CFDF429E4013600424E66 /* NotificationsPage.swift */,
+				1426578C29EBFA21005AF259 /* Experiments.swift */,
 				14C9407229D96930007EB7BA /* ChangeUsernamePage.swift */,
 				14C9407629DA37EB007EB7BA /* ChangePasswordPage.swift */,
 				F135D04829B17C010025F23B /* CreateHabitPage.swift */,
@@ -431,6 +434,7 @@
 				2484519129DCA56500EA6645 /* ImageUploader.swift in Sources */,
 				241451F829DBC95F00687686 /* ImageSelector.swift in Sources */,
 				2492627729E8C4F9002FCB54 /* HabitPublicPage.swift in Sources */,
+				1426578D29EBFA21005AF259 /* Experiments.swift in Sources */,
 				241C968929A6FA6300DB1855 /* BitRealApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
