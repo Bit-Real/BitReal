@@ -12,6 +12,7 @@ import Firebase
 struct FriendProfilePage: View {
     
     @ObservedObject var viewModel: FriendProfileViewModel
+    @ObservedObject var notification = NotificationViewModel()
     @State var segCtrlSelection: ProfileSelection = .activities
     
     enum ProfileSelection: String, CaseIterable {
@@ -48,6 +49,7 @@ struct FriendProfilePage: View {
                             viewModel.unfriend()
                         } else {
                             viewModel.beFriends()
+                            notification.addFollowNotification(followedUserID: viewModel.user.id!, followedUserName: viewModel.user.username)
                         }
                     } label: {
                         Text(viewModel.user.isFriend ?? false ? "Unfollow" : "Follow")
