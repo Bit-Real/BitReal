@@ -33,7 +33,6 @@ struct PostService {
     // fetches all posts by all users from the posts collection in Firestore
     func fetchPosts(completion: @escaping ([Post]) -> Void) {
         Firestore.firestore().collection("posts")
-//            .order(by: "timestamp", descending: true)
             .getDocuments { snapshot, _ in
                 guard let documents = snapshot?.documents else { return }
                 
@@ -83,7 +82,6 @@ struct PostService {
                         dispatchGroup.leave()
                     }
                 }
-//                let posts = documents.compactMap({ try? $0.data(as: Post.self) })
                 dispatchGroup.notify(queue: .main) {
                     completion(fetchedPosts.sorted(by: {$0.timestamp.dateValue() > $1.timestamp.dateValue()} ))
                 }
