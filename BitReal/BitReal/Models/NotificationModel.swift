@@ -18,7 +18,8 @@ struct NotificationModel: Identifiable, Decodable, Hashable {
     let type: String                // "Follow", "Comment", "Like", "Habit"
     let postID: String              // Applicable for "Comment" or "Like"
     let comment: String             // Contains the content of the comment if applicable
-    let habitID: String             // Applicable for "Habit"
+    let habitName: String             // Applicable for "Habit"
+    // possibly add habit description
     var alarm: Date                 // Determines when to send the notification
     let timestamp: Date             // Shows the time when notification is received. Not sure if needed if we already have alarm.
 }

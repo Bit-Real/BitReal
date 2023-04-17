@@ -12,9 +12,10 @@ struct CreateHabitPage: View {
     
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var model = HabitViewModel()
+    @ObservedObject var notification = NotificationViewModel()
     @State private var habitName = ""
     @State private var description = ""
-    @State private var freq = 0
+    @State private var freq = 0         // change to picker
     @State private var alarm = Date()
     @State private var isOn = false
 
@@ -68,6 +69,8 @@ struct CreateHabitPage: View {
                               streak: 0,
                               progress: progress,
                               habitColor: hexString(for: getRandomPastelColor()) ?? "000000")
+                // add the relevant notification
+                notification.addHabitNotification(habitName: habitName, alarm: alarm)
                 // reset @State variables after a new habit is created
                 habitName = ""
                 description = ""

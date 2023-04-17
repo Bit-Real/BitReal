@@ -41,7 +41,7 @@ class NotificationViewModel: ObservableObject {
                         "type": "Follow",
                         "postID": "None",
                         "comment": "None",
-                        "habitID": "None",
+                        "habitName": "None",
                         "alarm": Date(),
                         "timestamp": Date()] as [String : Any]
             db.collection("notifications").addDocument(data: data) { error in
@@ -70,7 +70,7 @@ class NotificationViewModel: ObservableObject {
                         "type": "Like",
                         "postID": postID,
                         "comment": "None",
-                        "habitID": "None",
+                        "habitName": "None",
                         "alarm": Date(),
                         "timestamp": Date()] as [String : Any]
             db.collection("notifications").addDocument(data: data) { error in
@@ -100,7 +100,7 @@ class NotificationViewModel: ObservableObject {
                         "type": "Comment",
                         "postID": postID,
                         "comment": comment,
-                        "habitID": "None",
+                        "habitName": "None",
                         "alarm": Date(),
                         "timestamp": Date()] as [String : Any]
             db.collection("notifications").addDocument(data: data) { error in
@@ -115,7 +115,7 @@ class NotificationViewModel: ObservableObject {
         }
     }
     
-    func addHabitNotification(habitID: String, habitName: String, alarm: Date) {
+    func addHabitNotification(habitName: String, alarm: Date) {
         let db = Firestore.firestore()
         let data = ["userID": String(Auth.auth().currentUser!.uid),
                     "friendUserID": "None",
@@ -123,10 +123,9 @@ class NotificationViewModel: ObservableObject {
                     "type": "Habit",
                     "postID": "None",
                     "comment": "None",
-                    "habitID": habitID,
+                    "habitName": habitName,
                     "alarm": alarm,
-                    "timestamp": alarm,
-                    "content": "Here's a reminder for \(habitName)!"] as [String : Any]
+                    "timestamp": alarm] as [String : Any]
         db.collection("notifications").addDocument(data: data) { error in
             
             if error == nil {
@@ -155,4 +154,11 @@ class NotificationViewModel: ObservableObject {
             }
         }
     }
+    
+//    func removeData(completion: @escaping(Bool) -> Void) {
+//        let db = Firestore.firestore()
+//        
+//
+//    }
+    
 }
