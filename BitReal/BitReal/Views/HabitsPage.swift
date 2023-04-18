@@ -42,6 +42,20 @@ struct HabitsPage: View {
                                 .onTapGesture {
                                     self.lastClickedHabit = index
                                 }
+                                .contextMenu {
+                                    Button(action: {
+                                        // Mark a habit undone
+                                        habitModel.undoHabit(habitID: habit.id ?? "")
+                                    }) {
+                                        Label("Mark Undone", systemImage: "minus.circle")
+                                    }
+                                    
+                                    Button(action: {
+                                        // Delete habit action
+                                    }) {
+                                        Label("Delete Habit", systemImage: "trash")
+                                    }
+                                }
                             }
                             .onReceive(postModel.$didUploadPost) { success in
                                 if success {

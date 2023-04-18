@@ -72,17 +72,6 @@ class HabitViewModel: ObservableObject {
         }
     }
     
-    // given a habit uid, fetch and return the specified habit with a completion
-//    func fetchHabit(withUID uid: String, completion: @escaping(HabitModel) -> Void) {
-//        let db = Firestore.firestore()
-//        
-//        db.collection("habits").document(uid).getDocument { snapshot, _ in
-//            guard let snapshot = snapshot else { return }
-//            guard let habit = try? snapshot.data(as: HabitModel.self) else { return }
-//            completion(habit)
-//        }
-//    }
-    
     // given a habitID, the index of the day of the week, sets the progress
     // array at the specifed index to completed
     func updateHabitProgress(habitID: String, dayIndex: Int, completed: Bool) {
@@ -144,6 +133,61 @@ class HabitViewModel: ObservableObject {
                     print("Error updating habit progress: \(error.localizedDescription)")
                 }
             }
+        }
+    }
+    
+    func undoHabit(habitID: String) {
+        let db = Firestore.firestore()
+        let habitRef = db.collection("habits").document(habitID)
+        
+        habitRef.getDocument { (documentSnapshot, error) in
+            if let error = error {
+                print("Error fetching habit document: \(error.localizedDescription)")
+                return
+            }
+            
+            guard let document = documentSnapshot else {
+                print("Habit document not found")
+                return
+            }
+            
+            guard var progress = document.get("progress") as? [Bool] else {
+                print("Error retrieving progress array")
+                return
+            }
+            
+            let dayOfWeek = Utility.getCurrentDayOfWeek()
+            let originalValue = progress[dayOfWeek]
+            progress[dayOfWeek] = false
+            
+            guard var streak = document.get("streak") as? Int else {
+                print("Error retrieving streak count")
+                return
+            }
+            
+//            guard var skipDays = document.get("skipDays") as? Int else {
+//                print("Error retrieving skipDays")
+//                return
+//            }
+//
+//            guard let lastUpdated = document.get("lastUpdate") as? Timestamp else {
+//                print("Error retrieving last updated date")
+//                return
+//            }
+            
+            // only decrement if dayOfWeek is marked done
+            if (originalValue != false) {
+                streak = streak - 1
+            }
+            
+            habitRef.updateData(["progress": progress,
+                                 "streak": streak,
+                                 "lastUpdate": Timestamp(date: Date())]) { error in
+                if let error = error {
+                    print("Error updating habit progress: \(error.localizedDescription)")
+                }
+            }
+            
         }
     }
     
