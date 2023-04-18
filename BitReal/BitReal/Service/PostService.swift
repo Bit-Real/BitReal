@@ -7,13 +7,15 @@
 
 import Foundation
 import Firebase
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 struct PostService {
     
 //    @EnvironmentObject var authentication: AuthViewModel
 //    var notification = NotificationViewModel()
 //    var userService = UserService()
-   
+    private let db = Firestore.firestore()
     
     // given a caption, create a new entry in Firestore under posts collection
     // with a Bool completion
@@ -36,18 +38,51 @@ struct PostService {
     }
     
     // fetches all posts by all users from the posts collection in Firestore
-    func fetchPosts(completion: @escaping ([Post]) -> Void) {
-        Firestore.firestore().collection("posts")
-            .getDocuments { snapshot, _ in
+//    func fetchPosts(completion: @escaping ([Post]) -> ListenerRegistration) {
+//        Firestore.firestore().collection("posts")
+//            .getDocuments { snapshot, _ in
+//                guard let documents = snapshot?.documents else { return }
+//
+//                let dispatchGroup = DispatchGroup()
+//                var fetchedPosts: [Post] = []
+//
+//                for document in documents {
+//                    dispatchGroup.enter()
+//                    if let post = try? document.data(as: Post.self) {
+//                        fetchHabit(withUID: post.habitId) { habit in
+//                            var newPost = post
+//                            newPost.habit = habit
+//                            fetchedPosts.append(newPost)
+//                            dispatchGroup.leave()
+//                        }
+//                    } else {
+//                        dispatchGroup.leave()
+//                    }
+//                }
+//
+//                dispatchGroup.notify(queue: .main) {
+//                    completion(fetchedPosts.sorted(by: {$0.timestamp.dateValue() > $1.timestamp.dateValue()} ))
+//                }
+//            }
+//    }
+    
+    // Fetches all posts by all users from the posts collection in Firestore
+    func fetchPosts(completion: @escaping ([Post]) -> Void) -> ListenerRegistration {
+        let listener = db.collection("posts")
+            .addSnapshotListener { snapshot, error in
+                if let error = error {
+                    print("Error getting documents: \(error)")
+                    return
+                }
                 guard let documents = snapshot?.documents else { return }
-                
+
                 let dispatchGroup = DispatchGroup()
                 var fetchedPosts: [Post] = []
-                
+
                 for document in documents {
                     dispatchGroup.enter()
                     if let post = try? document.data(as: Post.self) {
-                        fetchHabit(withUID: post.habitId) { habit in
+                        self.fetchHabit(withUID: post.habitId) { habit in
                             var newPost = post
                             newPost.habit = habit
                             fetchedPosts.append(newPost)
@@ -57,11 +92,13 @@ struct PostService {
                         dispatchGroup.leave()
                     }
                 }
-                
+
                 dispatchGroup.notify(queue: .main) {
-                    completion(fetchedPosts.sorted(by: {$0.timestamp.dateValue() > $1.timestamp.dateValue()} ))
+                    completion(fetchedPosts.sorted(by: { $0.timestamp.dateValue() > $1.timestamp.dateValue() }))
                 }
             }
+
+        return listener
     }
     
     // given a user uid, fetches all posts by the specifed User
@@ -134,12 +171,6 @@ struct PostService {
                 completion(.success(()))
             }
         }
-    
-        
-//        guard let postAuthUser = post.user else {return}
-//        notification.addCommentNotification(authUserID: postAuthUser.id!, authUserName: postAuthUser.username, postID: post.id!)
     }
-
-
     
 }

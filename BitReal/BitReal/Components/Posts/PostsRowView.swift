@@ -12,7 +12,6 @@ import Firebase
 struct PostsRowView: View {
     
     @ObservedObject var notification = NotificationViewModel()
-
     
     let post: Post
     @State var isLiked: Bool = false
@@ -79,13 +78,25 @@ struct PostsRowView: View {
                 }) {
                     
                     if (isLiked) {
-                        Image(systemName: "heart.fill")
-                            .font(.system(size: 20))
-                            .foregroundColor(.red)
+                        HStack {
+                            Image(systemName: "heart.fill")
+                                .font(.system(size: 20))
+                                .foregroundColor(.red)
+                            Text("\(post.likes)")
+                                .padding(0)
+                                .foregroundColor(.gray)
+                                .font(.system(size: 14))
+                        }
                     } else {
-                        Image(systemName: "heart")
-                            .font(.system(size: 20))
-                            .foregroundColor(.gray)
+                        HStack {
+                            Image(systemName: "heart")
+                                .font(.system(size: 20))
+                                .foregroundColor(.gray)
+                            Text("\(post.likes)")
+                                .padding(0)
+                                .foregroundColor(.gray)
+                                .font(.system(size: 14))
+                        }
                         
                     }
                 }
@@ -98,7 +109,7 @@ struct PostsRowView: View {
                             self.playAnimation = false
                         })
                             .frame(width: 50, height: 50)
-                            .offset(x: 0, y: -1)
+                            .offset(x: -8, y: -1)
                             .allowsHitTesting(false)
                     }
                 }
