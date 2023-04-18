@@ -13,22 +13,25 @@ import UserNotifications
 
 struct ProfilePage: View {
     @EnvironmentObject var viewModel: AuthViewModel
+    @StateObject private var profileViewModel = ProfileViewModel()
     
     let settingsOptions = ["Change Username", "Change Password", "Notifications"]
     @State var newUsername: String = ""
     @State var newPassword: String = ""
     
     var body: some View {
-        if let user = viewModel.currentUser {
+        if let user = profileViewModel.user {
             NavigationStack {
                 ZStack {
                     VStack {
-                        KFImage(URL(string: user.profileImageURL))
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: 150, height: 150)
-                            .clipShape(Circle())
-                            .padding()
+                        NavigationLink(destination: ImageSelector(isNewAccount: false)) {
+                            KFImage(URL(string: user.profileImageURL))
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 150, height: 150)
+                                .clipShape(Circle())
+                                .padding()
+                        }
                         
                         Text(user.fullname)
                             .bold()
@@ -55,7 +58,7 @@ struct ProfilePage: View {
                         Button {
                             viewModel.signout()
                         } label: {
-                            Text("Sign Out")
+                            CustomButton(color: .white, outline: true, label: "Sign Out")
                         }
                         .padding(.bottom, 10)
                         

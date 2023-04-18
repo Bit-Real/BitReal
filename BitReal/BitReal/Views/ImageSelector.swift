@@ -20,6 +20,8 @@ struct ImageSelector: View {
     @EnvironmentObject var authViewModel: AuthViewModel
     @Environment(\.presentationMode) var presentationMode
     
+    var isNewAccount: Bool
+    
     var body: some View {
         VStack {
             VStack(alignment: .leading) {
@@ -90,10 +92,17 @@ struct ImageSelector: View {
                         let randomImageNumber = arc4random_uniform(17) // Generate a random number between 0 and 16
                         let imageName = "pic\(randomImageNumber)"
                         if let image = UIImage(named: imageName) {
-                            authViewModel.uploadProfileImage(image)
+                            if isNewAccount {
+                                authViewModel.uploadProfileImage(image)
+                            } else {
+                                authViewModel.updateProfileImage(image) {
+                                    presentationMode.wrappedValue.dismiss()
+                                }
+                            }
+                            
                         }
                     } else {
-                        // alert user to select photo
+                        // alert user to select photo or toggle random image selection
                         showAlert = true
                     }
                 } else {
@@ -101,12 +110,19 @@ struct ImageSelector: View {
                     if let selectedImageData,
                        let uiImage = UIImage(data: selectedImageData) {
                         print("Uploading image")
-                        authViewModel.uploadProfileImage(uiImage)
+                        if isNewAccount {
+                            authViewModel.uploadProfileImage(uiImage)
+                        } else {
+                            print("inside custom image for existing user")
+                            authViewModel.updateProfileImage(uiImage) {
+                                presentationMode.wrappedValue.dismiss()
+                            }
+                        }
                     }
                 }
                 print("DEBUG: upload photo image")
             } label: {
-                Text("Create Account")
+                Text(isNewAccount ? "Create Account" : "Change Picture")
                     .foregroundColor(.white)
                     .frame(width: 180, height: 50)
                     .background(Color("Purple"))
@@ -130,6 +146,6 @@ struct ImageSelector: View {
 
 struct ImageSelector_Previews: PreviewProvider {
     static var previews: some View {
-        ImageSelector()
+        ImageSelector(isNewAccount: true)
     }
 }

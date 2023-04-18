@@ -86,6 +86,18 @@ class AuthViewModel: ObservableObject {
         }
     }
     
+    func updateProfileImage(_ image: UIImage, completion: @escaping () -> Void) {
+        print("updateProfileImage first line")
+        guard let uid = userSession?.uid else { return }
+        ImageUploader.uploadImage(image: image) { profileImageURL in
+            print("URL is: \(profileImageURL)")
+            Firestore.firestore().collection("users")
+                .document(uid).updateData(["profileImageURL": profileImageURL]) { _ in
+                    completion()
+                }
+        }
+    }
+    
     func fetchUser() {
         guard let uid = self.userSession?.uid else { return }
         // once info fetched, set currentUser field

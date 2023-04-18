@@ -52,7 +52,6 @@ class Utility {
         let calendar = Calendar.current
         let today = Date()
         let weekday = calendar.component(.weekday, from: today)
-        print("Day is: \(weekday - 1)")
         return weekday - 1
     }
 

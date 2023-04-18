@@ -21,7 +21,7 @@ struct RegisterInfoView: View {
     var body: some View {
         VStack{
             
-            NavigationLink(destination: ImageSelector(), isActive: $viewModel.didAuthenticateUser) {}
+            NavigationLink(destination: ImageSelector(isNewAccount: true), isActive: $viewModel.didAuthenticateUser) {}
             
             Text("Register")
                 .padding(.top, 50)

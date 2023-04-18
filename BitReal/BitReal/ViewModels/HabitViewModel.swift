@@ -165,16 +165,6 @@ class HabitViewModel: ObservableObject {
                 return
             }
             
-//            guard var skipDays = document.get("skipDays") as? Int else {
-//                print("Error retrieving skipDays")
-//                return
-//            }
-//
-//            guard let lastUpdated = document.get("lastUpdate") as? Timestamp else {
-//                print("Error retrieving last updated date")
-//                return
-//            }
-            
             // only decrement if dayOfWeek is marked done
             if (originalValue != false) {
                 streak = streak - 1
