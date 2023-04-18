@@ -42,7 +42,7 @@ struct FollowerNotificationsCard: View {
                         .foregroundColor(.white)
                         .padding(.horizontal, 10)
                         .padding(.vertical, 10)
-                        .background(Color.blue)
+                        .background(Color("Purple"))
                         .cornerRadius(5)
                         .bold()
                 }) .buttonStyle(.borderless)
@@ -160,9 +160,9 @@ struct NotificationsPage: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text("Notifications Inbox")
-                .font(.system(size: 36, weight: .bold))
-                .padding()
+//            Text("Notifications Inbox")
+//                .font(.system(size: 36, weight: .bold))
+//                .padding()
             
             List(notifications, id: \.id) { notification in
                 switch notification.type {
@@ -184,6 +184,7 @@ struct NotificationsPage: View {
                 fetchNotifications()
             }
         }
+        .navigationTitle("Notifications Inbox")
     }
     
     func fetchNotifications() {
@@ -199,6 +200,7 @@ struct NotificationsPage: View {
                 self.notifications = snapshot.documents.compactMap { document in
                     try? document.data(as: NotificationModel.self)
                 }
+                self.notifications = self.notifications.sorted(by: {$0.timestamp > $1.timestamp})
             }
         }
     }
