@@ -44,7 +44,7 @@ struct ChangePasswordPage: View {
                     .padding()
                     .fontWeight(.bold)
                     .frame(maxWidth: .infinity)
-                    .background(Color.blue.cornerRadius(20))
+                    .background(Color("Purple").cornerRadius(20))
                     .foregroundColor(.white)
             }
 

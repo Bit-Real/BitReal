@@ -73,7 +73,7 @@ struct ProfilePage: View {
         } else if (setting == "Change Password"){
             return AnyView (ChangePasswordPage())
         } else {
-            return AnyView(EmptyView())
+            return AnyView(NotificationsPage())
         }
     }
 }

@@ -10,6 +10,11 @@ import Firebase
 
 struct PostService {
     
+//    @EnvironmentObject var authentication: AuthViewModel
+//    var notification = NotificationViewModel()
+//    var userService = UserService()
+   
+    
     // given a caption, create a new entry in Firestore under posts collection
     // with a Bool completion
     func uploadPost(caption: String, habitId: String, completion: @escaping(Bool) -> Void) {
@@ -129,6 +134,10 @@ struct PostService {
                 completion(.success(()))
             }
         }
+    
+        
+//        guard let postAuthUser = post.user else {return}
+//        notification.addCommentNotification(authUserID: postAuthUser.id!, authUserName: postAuthUser.username, postID: post.id!)
     }
 
 

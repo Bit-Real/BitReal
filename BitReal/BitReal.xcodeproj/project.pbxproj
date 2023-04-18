@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		143CFDF529E4013600424E66 /* NotificationsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143CFDF429E4013600424E66 /* NotificationsPage.swift */; };
 		14C9407329D96930007EB7BA /* ChangeUsernamePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C9407229D96930007EB7BA /* ChangeUsernamePage.swift */; };
 		14C9407729DA37EB007EB7BA /* ChangePasswordPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C9407629DA37EB007EB7BA /* ChangePasswordPage.swift */; };
 		1B0200BA29DB800E00D2DBF0 /* PostDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0200B929DB800E00D2DBF0 /* PostDetailView.swift */; };
@@ -65,9 +66,12 @@
 		F135D04929B17C010025F23B /* CreateHabitPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F135D04829B17C010025F23B /* CreateHabitPage.swift */; };
 		F14383A829CFC528007D6F4D /* HabitViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F14383A729CFC528007D6F4D /* HabitViewModel.swift */; };
 		F14383AA29CFC5D8007D6F4D /* HabitModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F14383A929CFC5D8007D6F4D /* HabitModel.swift */; };
+		F1C78F0D29E9991000D0E427 /* NotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C78F0C29E9991000D0E427 /* NotificationModel.swift */; };
+		F1C78F0F29E99FAB00D0E427 /* NotificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C78F0E29E99FAB00D0E427 /* NotificationViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		143CFDF429E4013600424E66 /* NotificationsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsPage.swift; sourceTree = "<group>"; };
 		14C9407229D96930007EB7BA /* ChangeUsernamePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeUsernamePage.swift; sourceTree = "<group>"; };
 		14C9407629DA37EB007EB7BA /* ChangePasswordPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordPage.swift; sourceTree = "<group>"; };
 		1B0200B929DB800E00D2DBF0 /* PostDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailView.swift; sourceTree = "<group>"; };
@@ -121,6 +125,8 @@
 		F135D04829B17C010025F23B /* CreateHabitPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateHabitPage.swift; sourceTree = "<group>"; };
 		F14383A729CFC528007D6F4D /* HabitViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitViewModel.swift; sourceTree = "<group>"; };
 		F14383A929CFC5D8007D6F4D /* HabitModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitModel.swift; sourceTree = "<group>"; };
+		F1C78F0C29E9991000D0E427 /* NotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationModel.swift; sourceTree = "<group>"; };
+		F1C78F0E29E99FAB00D0E427 /* NotificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -194,6 +200,7 @@
 				241C969B29A8581700DB1855 /* FriendsPage.swift */,
 				241C969D29A8582800DB1855 /* HabitsPage.swift */,
 				241C969F29A8583800DB1855 /* ProfilePage.swift */,
+				143CFDF429E4013600424E66 /* NotificationsPage.swift */,
 				14C9407229D96930007EB7BA /* ChangeUsernamePage.swift */,
 				14C9407629DA37EB007EB7BA /* ChangePasswordPage.swift */,
 				F135D04829B17C010025F23B /* CreateHabitPage.swift */,
@@ -238,6 +245,7 @@
 				2430BF8629CBF3C200A9124E /* User.swift */,
 				24EB102929D7455A00685674 /* Post.swift */,
 				F14383A929CFC5D8007D6F4D /* HabitModel.swift */,
+				F1C78F0C29E9991000D0E427 /* NotificationModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -283,6 +291,7 @@
 				2430BF9129CE1DB500A9124E /* FriendProfileViewModel.swift */,
 				F14383A729CFC528007D6F4D /* HabitViewModel.swift */,
 				24EB102329D67E8000685674 /* PostViewModel.swift */,
+				F1C78F0E29E99FAB00D0E427 /* NotificationViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -386,6 +395,7 @@
 				1BD3C81829AD6B2D00BFC22F /* RegisterInfoView.swift in Sources */,
 				241C96A029A8583800DB1855 /* ProfilePage.swift in Sources */,
 				1BD3C81629AD432000BFC22F /* RegisterIView.swift in Sources */,
+				143CFDF529E4013600424E66 /* NotificationsPage.swift in Sources */,
 				2484518C29DBCB0F00EA6645 /* RoundedShape.swift in Sources */,
 				24EB102829D7444900685674 /* FeedViewModel.swift in Sources */,
 				241C969C29A8581700DB1855 /* FriendsPage.swift in Sources */,
@@ -394,6 +404,7 @@
 				24EB102A29D7455A00685674 /* Post.swift in Sources */,
 				F14383AA29CFC5D8007D6F4D /* HabitModel.swift in Sources */,
 				24BE17EA29AD76630070AEE6 /* CustomButton.swift in Sources */,
+				F1C78F0F29E99FAB00D0E427 /* NotificationViewModel.swift in Sources */,
 				2430BF8729CBF3C200A9124E /* User.swift in Sources */,
 				F135D04929B17C010025F23B /* CreateHabitPage.swift in Sources */,
 				1BD3C81429AD410100BFC22F /* LoginPage.swift in Sources */,
@@ -406,6 +417,7 @@
 				14C9407729DA37EB007EB7BA /* ChangePasswordPage.swift in Sources */,
 				248084A929B42AE700A674F8 /* AddButton.swift in Sources */,
 				2430BF9029CCE92900A9124E /* FriendProfilePage.swift in Sources */,
+				F1C78F0D29E9991000D0E427 /* NotificationModel.swift in Sources */,
 				2430BF9229CE1DB500A9124E /* FriendProfileViewModel.swift in Sources */,
 				24D762D729CBF1BA00E1B436 /* UserService.swift in Sources */,
 				241C969A29A8580600DB1855 /* HomePage.swift in Sources */,
