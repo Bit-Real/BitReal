@@ -17,4 +17,12 @@ struct User: Identifiable, Decodable, Hashable {
     
     // to keep track if currentUser is friend with this user
     var isFriend: Bool? = false
+    
+    static func == (lhs: User, rhs: User) -> Bool {
+        return lhs._id == rhs._id
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(_id)
+    }
 }

@@ -10,7 +10,7 @@ import Firebase
 
 struct FriendsPage: View {
     
-    @ObservedObject var viewModel = FriendsSearchModel()
+    @StateObject var viewModel = FriendsSearchModel()
 
     var body: some View {
         NavigationView {
@@ -26,8 +26,8 @@ struct FriendsPage: View {
                             .foregroundColor(.gray)
                             .padding(.top, 225)
                         } else {
-                            ForEach(viewModel.searchableUsers, id: \.self) { friend in
-                                FriendCard(user: friend)
+                            ForEach(viewModel.searchableUsers, id: \.id) { friend in
+                                FriendCard(user: friend, friendViewModel: viewModel)
                             }
                         }
                     }

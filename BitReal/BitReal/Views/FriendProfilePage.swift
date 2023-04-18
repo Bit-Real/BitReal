@@ -11,8 +11,10 @@ import Firebase
 
 struct FriendProfilePage: View {
     
-    @ObservedObject var viewModel: FriendProfileViewModel
     @ObservedObject var notification = NotificationViewModel()
+    @ObservedObject var viewModel: FriendProfileViewModel
+    @ObservedObject var friendViewModel: FriendsSearchModel
+    
     @State var segCtrlSelection: ProfileSelection = .activities
     
     enum ProfileSelection: String, CaseIterable {
@@ -20,8 +22,9 @@ struct FriendProfilePage: View {
         case habits = "Habits"
     }
     
-    init(user: User) {
+    init(user: User, friendViewModel: FriendsSearchModel) {
         self.viewModel = FriendProfileViewModel(user: user)
+        self.friendViewModel = friendViewModel
     }
     
     var body: some View {
@@ -47,6 +50,9 @@ struct FriendProfilePage: View {
                     Button {
                         if (viewModel.user.isFriend ?? false) {
                             viewModel.unfriend()
+                            let userToRemoveID = viewModel.user.id
+                            let filteredUsers = friendViewModel.users.filter { $0.id != userToRemoveID }
+                            friendViewModel.users = filteredUsers
                         } else {
                             viewModel.beFriends()
                             notification.addFollowNotification(followedUserID: viewModel.user.id!, followedUserName: viewModel.user.username)
@@ -95,12 +101,12 @@ struct FriendProfilePage: View {
     }
 }
 
-struct FriendProfilePage_Previews: PreviewProvider {
-    static var previews: some View {
-        FriendProfilePage(user: User(email: "mike@yahoo.com",
-                                     username: "mike",
-                                     fullname: "Michael Westen",
-                                     profileImageURL: "https://images.unsplash.com/photo-1605646840343-87ea1843fcbc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
-                                    isFriend: false))
-    }
-}
+//struct FriendProfilePage_Previews: PreviewProvider {
+//    static var previews: some View {
+//        FriendProfilePage(user: User(email: "mike@yahoo.com",
+//                                     username: "mike",
+//                                     fullname: "Michael Westen",
+//                                     profileImageURL: "https://images.unsplash.com/photo-1605646840343-87ea1843fcbc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+//                                    isFriend: false))
+//    }
+//}
