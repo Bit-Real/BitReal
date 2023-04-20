@@ -22,32 +22,52 @@ class AuthViewModel: ObservableObject {
         self.fetchUser()
     }
     
-    func login(withEmail email: String, password: String) {
+    func login(withEmail email: String,
+               password: String,
+               completion: @escaping(String) -> Void) {
         Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
             if let error = error as NSError? {
                 print("\(error.localizedDescription)")
+                completion("\(error.localizedDescription)")
             } else {
                 guard let user = result?.user else { return }
                 self.userSession = user
                 self.fetchUser()
                 print("Sign In with email \(email)")
+                completion("")
             }
         }
     }
     
-    func signup(withEmail email: String, password: String, confirmPassword: String, fullname: String, username: String) {
+    func signup(withEmail email: String,
+                password: String,
+                confirmPassword: String,
+                fullname: String,
+                username: String,
+                completion: @escaping(String) -> Void) {
+        // series of data checks on user input
         if confirmPassword != password {
             print("Please enter correct password!")
+            completion("Please ensure passwords are matching")
+        } else if username.isEmpty {
+            completion("Please enter a username")
+            return
+        } else if username.contains(" ") {
+            completion("Usernames may not have white spaces")
+            return
+        } else if fullname.isEmpty {
+            completion("Please enter your full name")
+            return
         } else {
             Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
                 if let error = error as NSError? {
                     print("\(error.localizedDescription)")
+                    completion("\(error.localizedDescription)")
                     return
                 } else {
-                    print("DEBUG: created user")
+                    print("Sign Up with email \(email) and username \(username)")
                     guard let user = result?.user else { return }
                     self.tempUserSession = user
-                    print("Sign Up with email \(email) and username \(username)")
                     
                     // user info dict to be stored in Firestore database
                     let userData = ["email": email,
@@ -61,6 +81,7 @@ class AuthViewModel: ObservableObject {
                             print("Uploaded user data to Firestore")
                         }
                     self.fetchUser()
+                    completion("")
                 }
             }
         }
@@ -105,4 +126,5 @@ class AuthViewModel: ObservableObject {
             self.currentUser = user
         }
     }
+
 }

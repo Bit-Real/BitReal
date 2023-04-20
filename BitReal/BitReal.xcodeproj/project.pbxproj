@@ -224,8 +224,8 @@
 				248084AC29B435EC00A674F8 /* HabitDots.swift */,
 				1B2C3E8529D62B82000EA6FD /* HabitExpand.swift */,
 				248084A829B42AE700A674F8 /* AddButton.swift */,
-				24BE17E929AD76630070AEE6 /* CustomButton.swift */,
 				2484518B29DBCB0F00EA6645 /* RoundedShape.swift */,
+				24BE17E929AD76630070AEE6 /* CustomButton.swift */,
 				2492627829E90F8D002FCB54 /* CustomNavBackButton.swift */,
 			);
 			path = Components;

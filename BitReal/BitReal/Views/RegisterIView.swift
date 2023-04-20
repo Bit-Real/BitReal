@@ -10,9 +10,11 @@ import SwiftUI
 struct RegisterIView: View {
     @State private var email = ""
     @State private var registerSuccess = false
+    @State private var showAlert = false
+    @State private var navigationActive = false
     
     var body: some View {
-        VStack{
+        VStack {
             Text("Register")
                 .padding(.top, 50)
                 .font(.system(size: 40))
@@ -27,10 +29,26 @@ struct RegisterIView: View {
                 .offset(y: -235)
                 .padding(.top, 30)
             
-            NavigationLink(destination: RegisterInfoView(email: email)) {
-                CustomButton(color: .white, outline: true, label: "Continue")
+            Button {
+                if isValidEmail(email) {
+                    navigationActive = true
+                } else {
+                    showAlert = true
+                }
+            } label: {
+                Text("Continue")
+                    .frame(width: 160, height: 50)
+                    .foregroundColor(.white)
+                    .background(Color("Purple"))
+                    .cornerRadius(10)
             }
             .offset(y: -200)
+            .background(NavigationLink("", destination: RegisterInfoView(email: email), isActive: $navigationActive))
+            .alert(isPresented: $showAlert) {
+                Alert(title: Text("Invalid Email Address"),
+                      message: Text("Please enter a valid email address."),
+                      dismissButton: .default(Text("OK")))
+            }
 
             Text("By signing up, you agree to BitReal’s Terms of Service and Privacy Policy.")
                 .frame(alignment: .center)
@@ -38,6 +56,12 @@ struct RegisterIView: View {
                 .padding(.top, 50)
                 .offset(y: -225)
         }
+    }
+    
+    func isValidEmail(_ email: String) -> Bool {
+        let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        let emailPredicate = NSPredicate(format:"SELF MATCHES %@", emailRegex)
+        return emailPredicate.evaluate(with: email)
     }
 }
 

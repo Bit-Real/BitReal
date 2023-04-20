@@ -17,9 +17,11 @@ struct RegisterInfoView: View {
     @State private var confirmPassword = ""
     @State private var registerSuccess = false
     @EnvironmentObject var viewModel: AuthViewModel
+    @State private var errorMsg = ""
+    @State private var showAlert = false
     
     var body: some View {
-        VStack{
+        VStack {
             
             NavigationLink(destination: ImageSelector(isNewAccount: true), isActive: $viewModel.didAuthenticateUser) {}
             
@@ -68,15 +70,27 @@ struct RegisterInfoView: View {
                     .offset(y: -160)
             }
             Button {
-                print("Signing up")
                 viewModel.signup(withEmail: email,
                                  password: password,
                                  confirmPassword: confirmPassword,
                                  fullname: fullName,
-                                 username: username)
-                print("Should be signed up")
+                                 username: username) { error in
+                    self.errorMsg = error
+                    if !errorMsg.isEmpty {
+                        showAlert = true
+                    } else {
+                        showAlert = false
+                    }
+                }
             } label: {
                 CustomButton(color: .white, outline: true, label: "Continue")
+            }
+            .alert(isPresented: $showAlert) {
+                Alert(title: Text("Error"),
+                      message: Text(errorMsg),
+                      dismissButton: .default(Text("OK")) {
+                          errorMsg = ""
+                      })
             }
         }
     }

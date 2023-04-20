@@ -27,8 +27,6 @@ struct CustomButton: View {
                 .background(bgColor != nil ? bgColor : .white)
                 .cornerRadius(10)
         }
-        
-
     }
 }
 
