@@ -155,4 +155,21 @@ class NotificationViewModel: ObservableObject {
             }
         }
     }
+    
+    func clearData() {
+        let db = Firestore.firestore()
+        db.collection("notifications").whereField("userID", isEqualTo: Auth.auth().currentUser!.uid).getDocuments() { (QuerySnapshot, err) in
+            if err != nil {
+                print("Error: Unable to retrieve documents")
+            } else {
+                for document in QuerySnapshot!.documents {
+                    document.reference.delete()
+                }
+                self.list.removeAll()
+//                DispatchQueue.main.async {
+//                    self.list.removeAll()
+//                }
+            }
+        }
+    }
 }
