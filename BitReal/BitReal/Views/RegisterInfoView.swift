@@ -16,6 +16,7 @@ struct RegisterInfoView: View {
     @State private var password = ""
     @State private var confirmPassword = ""
     @State private var registerSuccess = false
+    @State private var showErrorAlert = false
     @EnvironmentObject var viewModel: AuthViewModel
     
     var body: some View {
@@ -68,16 +69,23 @@ struct RegisterInfoView: View {
                     .offset(y: -160)
             }
             Button {
-                print("Signing up")
-                viewModel.signup(withEmail: email,
-                                 password: password,
-                                 confirmPassword: confirmPassword,
-                                 fullname: fullName,
-                                 username: username)
-                print("Should be signed up")
+                if password == confirmPassword {
+                    viewModel.signup(withEmail: email,
+                                     password: password,
+                                     confirmPassword: confirmPassword,
+                                     fullname: fullName,
+                                     username: username)
+                } else {
+                    showErrorAlert = true
+                }
             } label: {
                 CustomButton(color: .white, outline: true, label: "Continue")
             }
+        }
+        .alert(isPresented: $showErrorAlert) {
+            Alert(title: Text("Error"),
+                  message: Text("Passwords do not match. Please try again."),
+                  dismissButton: .default(Text("OK")))
         }
     }
 }
