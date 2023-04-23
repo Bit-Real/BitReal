@@ -36,14 +36,7 @@ struct HabitExpand: View {
             HStack {
                 ZStack {
                     Color("cardGray")
-                    HStack {
-                        
-                        Button {
-                            habitModel.resetHabitProgress(habitID: habitID)
-                        } label: {
-                            Text("Rest Progress")
-                        }
-                        
+                    HStack {                        
                         Button {
                             // upload post only if textfield is not empty
                             if (!text.isEmpty) {
