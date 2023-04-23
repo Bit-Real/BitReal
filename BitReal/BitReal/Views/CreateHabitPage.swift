@@ -57,19 +57,24 @@ struct CreateHabitPage: View {
             }
             .padding()
             
-            Button(action: {
+            Button {
                 let progress = Array(repeating: false, count: 7)
-                model.addData(uid: String(Auth.auth().currentUser!.uid), name: habitName, description: description, frequency: freq, alarm: alarm, privacy: isOn, streak: 0, progress: progress)
+                model.addData(uid: String(Auth.auth().currentUser!.uid),
+                              name: habitName,
+                              description: description,
+                              frequency: freq,
+                              alarm: alarm,
+                              privacy: isOn,
+                              streak: 0,
+                              progress: progress)
+                // reset @State variables after a new habit is created
                 habitName = ""
                 description = ""
                 freq = 0
                 alarm = ""
                 isOn = false
                 presentationMode.wrappedValue.dismiss()
-                // implement navigation back to "Habits Page" in
-                // for new habit to show up.
-                
-            }) {
+            } label: {
                 HStack {
                     Image(systemName: "plus")
                         .foregroundColor(Color.purple)
