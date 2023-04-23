@@ -69,6 +69,7 @@
 		F14383AA29CFC5D8007D6F4D /* HabitModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F14383A929CFC5D8007D6F4D /* HabitModel.swift */; };
 		F1C78F0D29E9991000D0E427 /* NotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C78F0C29E9991000D0E427 /* NotificationModel.swift */; };
 		F1C78F0F29E99FAB00D0E427 /* NotificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C78F0E29E99FAB00D0E427 /* NotificationViewModel.swift */; };
+		F1E760B929F5D98500DF20B6 /* FollowerCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E760B829F5D98500DF20B6 /* FollowerCardViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -129,6 +130,7 @@
 		F14383A929CFC5D8007D6F4D /* HabitModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitModel.swift; sourceTree = "<group>"; };
 		F1C78F0C29E9991000D0E427 /* NotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationModel.swift; sourceTree = "<group>"; };
 		F1C78F0E29E99FAB00D0E427 /* NotificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewModel.swift; sourceTree = "<group>"; };
+		F1E760B829F5D98500DF20B6 /* FollowerCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowerCardViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -295,6 +297,7 @@
 				24EB102329D67E8000685674 /* PostViewModel.swift */,
 				F1C78F0E29E99FAB00D0E427 /* NotificationViewModel.swift */,
 				2455F30D29EF5CBD00AEE862 /* ProfileViewModel.swift */,
+				F1E760B829F5D98500DF20B6 /* FollowerCardViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -395,6 +398,7 @@
 				14C9407329D96930007EB7BA /* ChangeUsernamePage.swift in Sources */,
 				241C96A229A8662600DB1855 /* Navbar.swift in Sources */,
 				24BE17CA29A966450070AEE6 /* PostsRowView.swift in Sources */,
+				F1E760B929F5D98500DF20B6 /* FollowerCardViewModel.swift in Sources */,
 				1BD3C81829AD6B2D00BFC22F /* RegisterInfoView.swift in Sources */,
 				241C96A029A8583800DB1855 /* ProfilePage.swift in Sources */,
 				1BD3C81629AD432000BFC22F /* RegisterIView.swift in Sources */,

@@ -37,6 +37,9 @@ struct FollowerNotificationsCard: View {
                 
                 Button(action: {
                     print("Confirm Button Pressed")
+                    var followCard = FollowerCardViewModel(userID: notification.friendUserID)
+                    followCard.follow()
+                    
                 }, label: {
                     Text("Follow")
                         .foregroundColor(.white)
