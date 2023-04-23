@@ -93,6 +93,19 @@ class HabitViewModel: ObservableObject {
                     print("Habit progress updated successfully")
                 }
             }
+            
+            guard var streak = document.get("streak") as? Int else {
+                print("Error retrieving streak count")
+                return
+            }
+            
+            streak = streak + 1
+            habitRef.updateData(["streak": streak]) { error in
+                if let error = error {
+                    print("Error updating streak count: \(error.localizedDescription)")
+                }
+            }
+            
         }
     }
     
