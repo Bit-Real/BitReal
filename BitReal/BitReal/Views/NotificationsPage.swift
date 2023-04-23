@@ -34,9 +34,11 @@ struct FollowerNotificationsCard: View {
                 
                 
                 Spacer()
-                
+        
                 Button(action: {
-                    print("Confirm Button Pressed")
+                    print("button pressed")
+                    var followCard = FollowerCardViewModel(userID: notification.friendUserID)
+                    followCard.follow()
                 }, label: {
                     Text("Follow")
                         .foregroundColor(.white)
@@ -46,7 +48,7 @@ struct FollowerNotificationsCard: View {
                         .cornerRadius(5)
                         .bold()
                 }) .buttonStyle(.borderless)
-            } .padding()
+                } .padding()
         }
         .frame(height: 80)
     }

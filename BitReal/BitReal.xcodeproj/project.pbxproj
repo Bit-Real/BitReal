@@ -68,6 +68,7 @@
 		F14383AA29CFC5D8007D6F4D /* HabitModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F14383A929CFC5D8007D6F4D /* HabitModel.swift */; };
 		F1C78F0D29E9991000D0E427 /* NotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C78F0C29E9991000D0E427 /* NotificationModel.swift */; };
 		F1C78F0F29E99FAB00D0E427 /* NotificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C78F0E29E99FAB00D0E427 /* NotificationViewModel.swift */; };
+		F1E760B729F5CEBB00DF20B6 /* FollowerCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E760B629F5CEBB00DF20B6 /* FollowerCardViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -127,6 +128,7 @@
 		F14383A929CFC5D8007D6F4D /* HabitModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitModel.swift; sourceTree = "<group>"; };
 		F1C78F0C29E9991000D0E427 /* NotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationModel.swift; sourceTree = "<group>"; };
 		F1C78F0E29E99FAB00D0E427 /* NotificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewModel.swift; sourceTree = "<group>"; };
+		F1E760B629F5CEBB00DF20B6 /* FollowerCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowerCardViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -292,6 +294,7 @@
 				F14383A729CFC528007D6F4D /* HabitViewModel.swift */,
 				24EB102329D67E8000685674 /* PostViewModel.swift */,
 				F1C78F0E29E99FAB00D0E427 /* NotificationViewModel.swift */,
+				F1E760B629F5CEBB00DF20B6 /* FollowerCardViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -426,6 +429,7 @@
 				2492627F29E91321002FCB54 /* LottieView.swift in Sources */,
 				1BD3C81029AC6D0400BFC22F /* SplashView.swift in Sources */,
 				241C969E29A8582800DB1855 /* HabitsPage.swift in Sources */,
+				F1E760B729F5CEBB00DF20B6 /* FollowerCardViewModel.swift in Sources */,
 				2422992029DF66BE00B0402A /* Comment.swift in Sources */,
 				248084AB29B430ED00A674F8 /* HabitCard.swift in Sources */,
 				2484519129DCA56500EA6645 /* ImageUploader.swift in Sources */,
