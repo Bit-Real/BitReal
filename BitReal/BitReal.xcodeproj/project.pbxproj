@@ -245,9 +245,9 @@
 		2426956B29CA85410078C5B8 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				2422991F29DF66BE00B0402A /* Comment.swift */,
 				2430BF8629CBF3C200A9124E /* User.swift */,
 				24EB102929D7455A00685674 /* Post.swift */,
+				2422991F29DF66BE00B0402A /* Comment.swift */,
 				F14383A929CFC5D8007D6F4D /* HabitModel.swift */,
 				F1C78F0C29E9991000D0E427 /* NotificationModel.swift */,
 			);

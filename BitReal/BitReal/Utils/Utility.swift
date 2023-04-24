@@ -48,11 +48,19 @@ class Utility {
         return input
     }
     
+    // returns the day of the week, zero-indexed
     static func getCurrentDayOfWeek() -> Int {
         let calendar = Calendar.current
         let today = Date()
         let weekday = calendar.component(.weekday, from: today)
         return weekday - 1
+    }
+    
+    // given a String, returns a Bool to indicate if the string is in an email format or not
+    static func isValidEmail(_ email: String) -> Bool {
+        let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        let emailPredicate = NSPredicate(format:"SELF MATCHES %@", emailRegex)
+        return emailPredicate.evaluate(with: email)
     }
 
 }

@@ -38,7 +38,7 @@ struct FollowerNotificationsCard: View {
                 
                 Button(action: {
                     print("Confirm Button Pressed")
-                    var followCard = FollowerCardViewModel(userID: notification.friendUserID)
+                    let followCard = FollowerCardViewModel(userID: notification.friendUserID)
                     followCard.follow()
                     notifications.addFollowNotification(followedUserID: notification.friendUserID, followedUserName: notification.friendUserName)
                     

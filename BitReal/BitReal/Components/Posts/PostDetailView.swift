@@ -5,22 +5,11 @@ import Firebase
 import FirebaseFirestoreSwift
 import Kingfisher
 
-struct FirebaseComment: Codable, Identifiable {
-    @DocumentID var id: String?
-    var userId: String
-    var text: String
-    var timestamp: Timestamp
-    var postId: String?
-    var userName: String?
-    var userProfilePicUrl: String?
-    
-}
-
 struct PostDetailView: View {
     
     @ObservedObject var notification = NotificationViewModel()
     @State private var newComment = ""
-    @State private var comments: [FirebaseComment] = []
+    @State private var comments: [Comment] = []
     private let db = Firestore.firestore()
     let post: Post
     
@@ -46,11 +35,14 @@ struct PostDetailView: View {
                                     .foregroundColor(.gray)
                             }
                             VStack(alignment: .leading) {
-                                Text("@\(comment.userName ?? "")")
-                                    .foregroundColor(.gray)
-//                                Text(comment.timestamp.dateValue(), style: .relative)
-//                                       .foregroundColor(.gray)
-//                                       .font(.caption)
+                                HStack {
+                                    Text("@\(comment.userName ?? "")")
+                                        .foregroundColor(.gray)
+                                    Spacer()
+                                    Text("\(Utility.convertTimestampToString(timestamp: comment.timestamp))")
+                                           .foregroundColor(.gray)
+                                           .font(.caption)
+                                }
                                 Text(comment.text)
                                     .font(.body)
                             }
@@ -58,9 +50,6 @@ struct PostDetailView: View {
                     }
                 }
             }
-
-
-
             
             // text field to write a new comment
             HStack {
@@ -119,12 +108,12 @@ struct PostDetailView: View {
                 }
 
                 if let snapshot = snapshot {
-                    var newComments: [FirebaseComment] = []
+                    var newComments: [Comment] = []
                     let dispatchGroup = DispatchGroup()
                     for document in snapshot.documents {
                         dispatchGroup.enter()
                         do {
-                            var comment = try document.data(as: FirebaseComment.self)
+                            var comment = try document.data(as: Comment.self)
                             comment.id = document.documentID
                             comment.postId = postId // Set the postId property
                             
