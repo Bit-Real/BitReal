@@ -5,8 +5,6 @@
 //  Created by Emmanuel Ihim Jr on 4/2/23.
 //
 
-// *** IN DEVELOPMENT --- PLEASE DO NOT USE ***
-
 import SwiftUI
 import Firebase
 import FirebaseAuth

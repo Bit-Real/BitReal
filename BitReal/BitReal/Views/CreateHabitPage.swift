@@ -47,14 +47,6 @@ struct CreateHabitPage: View {
             .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.black))
             .padding(.top, 20)
             
-//            TextField("Frequency", value: $freq, formatter: NumberFormatter())
-//                .keyboardType(.numberPad)
-//                .padding()
-//                .frame(width: 350)
-//                .background(Color.white.opacity(0.1))
-//                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.black))
-//                .padding(.top, 20)
-            
             DatePicker("Alarm", selection: $alarm, displayedComponents: .hourAndMinute)
                 .padding()
                 .frame(width: 350)

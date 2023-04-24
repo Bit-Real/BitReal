@@ -143,7 +143,8 @@ class NotificationViewModel: ObservableObject {
         let db = Firestore.firestore()
 
         // Set up a snapshot listener
-        listener = db.collection("notifications").whereField("userID", isEqualTo: Auth.auth().currentUser!.uid).addSnapshotListener { (snapshot, error) in
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        listener = db.collection("notifications").whereField("userID", isEqualTo: uid).addSnapshotListener { (snapshot, error) in
             if error == nil {
                 if let snapshot = snapshot {
                     self.list = snapshot.documents.compactMap({ try? $0.data(as: NotificationModel.self) })

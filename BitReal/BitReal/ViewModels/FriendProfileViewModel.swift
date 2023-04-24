@@ -11,13 +11,16 @@ class FriendProfileViewModel: ObservableObject {
     
     @Published var user: User
     @Published var posts = [Post]()
+    @Published var habits = [HabitModel]()
     
     private let postService = PostService()
     private let userService = UserService()
+    private let habitModel = HabitViewModel()
     
     init(user: User) {
         self.user = user
         self.fetchUserPosts()
+        self.fetchUserHabits()
         isFriends()
     }
     
@@ -52,6 +55,13 @@ class FriendProfileViewModel: ObservableObject {
             for i in 0 ..< posts.count {
                 self.posts[i].user = self.user
             }
+        }
+    }
+    
+    func fetchUserHabits() {
+        guard let uid = user.id else { return }
+        postService.fetchHabits(withUID: uid) { habits in
+            self.habits = habits
         }
     }
     

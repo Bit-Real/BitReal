@@ -90,8 +90,14 @@ struct FriendProfilePage: View {
                         }
                         
                     } else {
-                        // link user habits here!
-                        Text("Habits")
+                        if (viewModel.habits.isEmpty) {
+                            Text("No habits to show!")
+                                .foregroundColor(.gray)
+                        } else {
+                            ForEach(viewModel.habits) { habit in
+                                HabitCard(habit: habit, habitColor: Color(hex: habit.habitColor))
+                            }
+                        }
                     }
                     
                     Spacer()

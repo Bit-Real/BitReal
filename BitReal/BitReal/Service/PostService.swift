@@ -109,6 +109,24 @@ struct PostService {
         }
     }
     
+    func fetchHabits(withUID uid: String, completion: @escaping([HabitModel]) -> Void) {
+        db.collection("habits").whereField("uid", isEqualTo: uid).getDocuments { snapshot, _ in
+            guard let documents = snapshot?.documents else { return }
+            let dispatchGroup = DispatchGroup()
+            var fetchedHabits: [HabitModel] = []
+            for document in documents {
+                dispatchGroup.enter()
+                guard let habit = try? document.data(as: HabitModel.self) else { return }
+                fetchedHabits.append(habit)
+                dispatchGroup.leave()
+            }
+            dispatchGroup.notify(queue: .main) {
+                completion(fetchedHabits.sorted(by: {$0.timestamp.dateValue() > $1.timestamp.dateValue()} ))
+            }
+            
+        }
+    }
+    
     // given a Post, update its like counter in Firestore
     func updateLikes(for post: Post, newLikesCount: Int, completion: @escaping (Error?) -> Void) {
         let postRef = db.collection("posts").document(post.id!)
