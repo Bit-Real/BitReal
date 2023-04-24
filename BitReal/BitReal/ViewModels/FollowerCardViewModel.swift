@@ -16,9 +16,10 @@ class FollowerCardViewModel: ObservableObject {
     }
     
     // allows user to follow someone back from notification inbox
-    func follow() {
+    func follow(completion: @escaping() -> Void) {
         userService.fetchUser(withUID: userID) { (User) in
             self.userService.beFriends(User) {
+                completion()
             }
         }
     }
