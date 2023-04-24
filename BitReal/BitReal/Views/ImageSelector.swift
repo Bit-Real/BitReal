@@ -20,6 +20,9 @@ struct ImageSelector: View {
     @EnvironmentObject var authViewModel: AuthViewModel
     @Environment(\.presentationMode) var presentationMode
     
+    @State private var showCameraPicker = false
+
+    
     var isNewAccount: Bool
     
     var body: some View {
@@ -84,7 +87,28 @@ struct ImageSelector: View {
                 .toggleStyle(SwitchToggleStyle(tint: Color(.systemPurple)))
                 .padding()
                 .padding(.top, 30)
-            
+            Button(action: {
+                showCameraPicker = true
+            }) {
+                Text("Take a Photo")
+                    .foregroundColor(.white)
+                    .frame(width: 180, height: 50)
+                    .background(Color("Purple"))
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+            }
+            .sheet(isPresented: $showCameraPicker) {
+                ImagePicker(sourceType: .camera) { image in
+                    // Use the selected image as the profile picture
+                    if isNewAccount {
+                        authViewModel.uploadProfileImage(image)
+                    } else {
+                        authViewModel.updateProfileImage(image) {
+                            presentationMode.wrappedValue.dismiss()
+                        }
+                    }
+                }
+            }
+
             Button {
                 if (selectedImageData == nil) {
                     if (randomSelected) {
@@ -130,7 +154,7 @@ struct ImageSelector: View {
             }
             .alert(isPresented: $showAlert) {
                 Alert(title: Text("Select a Photo"),
-                      message: Text("Please select a photo for your profile or toggle random selection."),
+                      message: Text("Please select a photo or take a picture for your profile or toggle random selection."),
                       dismissButton: .default(Text("OK")))
             }
             
