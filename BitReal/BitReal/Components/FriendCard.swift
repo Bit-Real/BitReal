@@ -11,10 +11,11 @@ import Kingfisher
 struct FriendCard: View {
     
     let user: User
+    @ObservedObject var friendViewModel: FriendsSearchModel
     
     var body: some View {
         NavigationLink {
-            FriendProfilePage(user: user)
+            FriendProfilePage(user: user, friendViewModel: friendViewModel )
         } label: {
             HStack {
                 // freind's image
@@ -41,9 +42,3 @@ struct FriendCard: View {
         }
     }
 }
-
-//struct FriendCard_Previews: PreviewProvider {
-//    static var previews: some View {
-//        FriendCard(name: "String")
-//    }
-//}

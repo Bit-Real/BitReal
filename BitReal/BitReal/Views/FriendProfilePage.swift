@@ -7,10 +7,13 @@
 
 import SwiftUI
 import Kingfisher
+import Firebase
 
 struct FriendProfilePage: View {
     
+    @ObservedObject var notification = NotificationViewModel()
     @ObservedObject var viewModel: FriendProfileViewModel
+    @ObservedObject var friendViewModel: FriendsSearchModel
     
     @State var segCtrlSelection: ProfileSelection = .activities
     
@@ -19,8 +22,9 @@ struct FriendProfilePage: View {
         case habits = "Habits"
     }
     
-    init(user: User) {
+    init(user: User, friendViewModel: FriendsSearchModel) {
         self.viewModel = FriendProfileViewModel(user: user)
+        self.friendViewModel = friendViewModel
     }
     
     var body: some View {
@@ -46,11 +50,15 @@ struct FriendProfilePage: View {
                     Button {
                         if (viewModel.user.isFriend ?? false) {
                             viewModel.unfriend()
+                            let userToRemoveID = viewModel.user.id
+                            let filteredUsers = friendViewModel.users.filter { $0.id != userToRemoveID }
+                            friendViewModel.users = filteredUsers
                         } else {
                             viewModel.beFriends()
+                            notification.addFollowNotification(followedUserID: viewModel.user.id!, followedUserName: viewModel.user.username)
                         }
                     } label: {
-                        Text(viewModel.user.isFriend ?? false ? "Unfriend" : "Friend")
+                        Text(viewModel.user.isFriend ?? false ? "Unfollow" : "Follow")
                             .padding(.horizontal, 20)
                             .padding(.vertical, 5)
                             .background(viewModel.user.isFriend ?? false ? Color("Purple") : .white)
@@ -71,27 +79,30 @@ struct FriendProfilePage: View {
                     .padding()
                     
                     if (segCtrlSelection == ProfileSelection.activities) {
-                        ForEach(viewModel.posts) { post in
-                            PostsRowView(post: post)
-                            
+                        if (viewModel.posts.isEmpty) {
+                            Text("@\(viewModel.user.username) has not posted anything yet")
+                                .foregroundColor(.gray)
+                                .padding(.top, 10)
+                        } else {
+                            ForEach(viewModel.posts) { post in
+                                PostsRowView(post: post)
+                            }
                         }
+                        
                     } else {
-                        Text("Habits")
+                        if (viewModel.habits.isEmpty) {
+                            Text("No habits to show!")
+                                .foregroundColor(.gray)
+                        } else {
+                            ForEach(viewModel.habits) { habit in
+                                HabitCard(habit: habit, habitColor: Color(hex: habit.habitColor))
+                            }
+                        }
                     }
                     
                     Spacer()
                 }
             }
         }
-    }
-}
-
-struct FriendProfilePage_Previews: PreviewProvider {
-    static var previews: some View {
-        FriendProfilePage(user: User(email: "mike@yahoo.com",
-                                     username: "mike",
-                                     fullname: "Michael Westen",
-                                     profileImageURL: "https://images.unsplash.com/photo-1605646840343-87ea1843fcbc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
-                                    isFriend: false))
     }
 }

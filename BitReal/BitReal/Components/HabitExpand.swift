@@ -9,11 +9,13 @@ import SwiftUI
 
 struct HabitExpand: View {
     
+    @State var showAlert = false
     @State private var text = ""
     private let placeholder = "Post your habit!"
     var description: String
     var habitID: String
     var habitColor: Color
+    
     @ObservedObject var postModel: PostViewModel
     @ObservedObject var habitModel: HabitViewModel
     
@@ -35,14 +37,17 @@ struct HabitExpand: View {
             }
             HStack {
                 ZStack {
-                    Color("cardGray")
-                    HStack {                        
+                    HStack {
                         Button {
                             // upload post only if textfield is not empty
                             if (!text.isEmpty) {
-                                postModel.uploadPost(withCaption: text)
+                                postModel.uploadPost(withCaption: text, habitId: self.habitID) { result in
+                                    if !result {
+                                        self.showAlert = true
+                                    }
+                                }
                             }
-                            let dayOfweek = getCurrentDayOfWeek()
+                            let dayOfweek = Utility.getCurrentDayOfWeek()
                             habitModel.updateHabitProgress(habitID: habitID, dayIndex: dayOfweek, completed: true)
                         } label: {
                             Image(systemName: text.isEmpty ? "checkmark.circle" : "paperplane")
@@ -51,7 +56,9 @@ struct HabitExpand: View {
                                 .fontWeight(.medium)
                         }
                         .foregroundColor(habitColor)
-                        .padding(.leading, -5)
+                        .alert(isPresented: $showAlert) {
+                            Alert(title: Text("Error"), message: Text("Failed to upload post"), dismissButton: .default(Text("OK")))
+                        }
                     }
                 }
             }
@@ -63,14 +70,6 @@ struct HabitExpand: View {
                 .stroke(Color.gray, lineWidth: 1)
         )
     }
-}
-
-func getCurrentDayOfWeek() -> Int {
-    let calendar = Calendar.current
-    let today = Date()
-    let weekday = calendar.component(.weekday, from: today)
-    print("Day is: \(weekday - 1)")
-    return weekday - 1
 }
 
 // Used to specify which corner to round

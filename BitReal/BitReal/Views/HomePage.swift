@@ -6,8 +6,10 @@
 //
 
 import SwiftUI
+import Firebase
 
 struct HomePage: View {
+    
     @EnvironmentObject var viewModel: AuthViewModel
     @ObservedObject var feedViewModel = FeedViewModel()
     

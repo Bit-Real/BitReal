@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CustomButton: View {
+    
     var color: Color
     var bgColor: Color?
     var outline: Bool
@@ -27,8 +28,6 @@ struct CustomButton: View {
                 .background(bgColor != nil ? bgColor : .white)
                 .cornerRadius(10)
         }
-        
-
     }
 }
 

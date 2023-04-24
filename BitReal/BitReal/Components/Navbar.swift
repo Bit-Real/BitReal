@@ -12,7 +12,7 @@ struct Navbar: View {
     @State var selectedIndex = 0
     
     let navSFSymbols = ["house", "person.2", "checklist", "person.crop.circle"]
-    let tabText = ["Home", "Friends", "Habits", "Profile"]
+    let tabText = ["Home", "Follow", "Habits", "Profile"]
     
     var body: some View {
         VStack {

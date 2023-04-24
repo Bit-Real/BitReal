@@ -5,8 +5,6 @@
 //  Created by Emmanuel Ihim Jr on 4/2/23.
 //
 
-// *** IN DEVELOPMENT --- PLEASE DO NOT USE ***
-
 import SwiftUI
 import Firebase
 import FirebaseAuth
@@ -44,7 +42,7 @@ struct ChangePasswordPage: View {
                     .padding()
                     .fontWeight(.bold)
                     .frame(maxWidth: .infinity)
-                    .background(Color.blue.cornerRadius(20))
+                    .background(Color("Purple").cornerRadius(20))
                     .foregroundColor(.white)
             }
 

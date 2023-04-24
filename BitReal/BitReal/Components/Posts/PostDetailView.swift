@@ -3,24 +3,55 @@
 import SwiftUI
 import Firebase
 import FirebaseFirestoreSwift
+import Kingfisher
 
 struct PostDetailView: View {
     
+    @ObservedObject var notification = NotificationViewModel()
+    @ObservedObject var commentViewModel: CommentViewModel
     @State private var newComment = ""
-    @State private var comments: [Comment] = []
     private let db = Firestore.firestore()
     let post: Post
+    
+    init(post: Post) {
+        self.post = post
+        commentViewModel = CommentViewModel(postId: post.id ?? "")
+    }
     
     var body: some View {
         VStack {
             // original post at the top
             PostsRowView(post: post)
-            
-            // comments
             List {
                 Section(header: Text("Comments")) {
-                    ForEach(comments) { comment in
-                        Text(comment.text)
+                    ForEach(commentViewModel.comments) { comment in
+                        HStack {
+                            if let profilePicUrl = comment.userProfilePicUrl {
+                                KFImage(URL(string: profilePicUrl))
+                                    .resizable()
+                                    .frame(width: 40, height: 40)
+                                    .foregroundColor(Color(.systemBlue))
+                                    .cornerRadius(30)
+                            } else {
+                                Image(systemName: "person.circle.fill")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 40, height: 40)
+                                    .foregroundColor(.gray)
+                            }
+                            VStack(alignment: .leading) {
+                                HStack {
+                                    Text("@\(comment.userName ?? "")")
+                                        .foregroundColor(.gray)
+                                    Spacer()
+                                    Text("\(Utility.convertTimestampToString(timestamp: comment.timestamp))")
+                                           .foregroundColor(.gray)
+                                           .font(.caption)
+                                }
+                                Text(comment.text)
+                                    .font(.body)
+                            }
+                        }
                     }
                 }
             }
@@ -29,61 +60,28 @@ struct PostDetailView: View {
             HStack {
                 TextField("Write a comment...", text: $newComment)
                 Button("Submit") {
-                    submitComment()
+//                    submitComment()
+                    commentViewModel.addComment(postId: post.id ?? "", caption: newComment) { result in
+                        if result {
+                            notification.addCommentNotification(authUserID: post.user!.id!,
+                                                                authUserName: post.user!.username,
+                                                                postID: post.uid,
+                                                                comment: newComment)
+                            // Reset the text field and fetch the updated comments
+                            newComment = ""
+                            commentViewModel.fetchComments(postId: post.id ?? "")
+                            print("Success. Comment added!")
+                        } else {
+                            print("Failed to add comment")
+                        }
+                    }
                 }
             }
             .padding()
         }
         .onAppear {
-            fetchComments()
+            commentViewModel.fetchComments(postId: post.id ?? "")
         }
-    }
-    
-    private func submitComment() {
-        guard !newComment.isEmpty else { return }
-
-        // Create a new comment document in Firestore
-        let commentData: [String: Any] = [
-            "postId": post.id!,
-            "userId": Auth.auth().currentUser!.uid,
-            "text": newComment,
-            "timestamp": Timestamp()
-        ]
-        db.collection("comments").addDocument(data: commentData) { error in
-            if let error = error {
-                print("ERROR: Failed to add new comment. Error: \(error.localizedDescription)")
-            } else {
-                // Reset the text field and fetch the updated comments
-                newComment = ""
-                fetchComments()
-            }
-        }
-    }
-
-    private func fetchComments() {
-        guard let postId = post.id else { return }
-        db.collection("comments")
-            .whereField("postId", isEqualTo: postId)
-            .order(by: "timestamp")
-            .addSnapshotListener { snapshot, error in
-                if let error = error {
-                    print("Error fetching comments: \(error.localizedDescription)")
-                    return
-                }
-                
-                if let snapshot = snapshot {
-                    comments = snapshot.documents.compactMap { document in
-                        do {
-                            var comment = try document.data(as: Comment.self)
-                            comment.id = document.documentID
-                            return comment
-                        } catch {
-                            print("Error decoding comment: \(error.localizedDescription)")
-                            return nil
-                        }
-                    }
-                }
-            }
     }
 
 }

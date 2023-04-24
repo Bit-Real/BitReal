@@ -10,10 +10,13 @@ import Firebase
 import FirebaseAuth
 
 struct LoginPage: View {
+    
     @State private var userName = ""
     @State private var password = ""
     @State private var loginSuccess = false
     @EnvironmentObject var viewModel: AuthViewModel
+    @State private var errorMsg = ""
+    @State private var showAlert = false
     
     var body: some View {
         VStack{
@@ -40,12 +43,26 @@ struct LoginPage: View {
                 .padding(.top, 20)
             
             Button(action: {
-                viewModel.login(withEmail: userName, password: password)
+                viewModel.login(withEmail: userName, password: password) { error in
+                    self.errorMsg = error
+                    if !errorMsg.isEmpty {
+                        showAlert = true
+                    } else {
+                        showAlert = false
+                    }
+                }
             }) {
                 NavigationLink(destination: Navbar()) {
                     CustomButton(color: .white, outline: true, label: "Log In")
                 }
                 .disabled(!loginSuccess)
+            }
+            .alert(isPresented: $showAlert) {
+                Alert(title: Text("Error"),
+                      message: Text(errorMsg),
+                      dismissButton: .default(Text("OK")) {
+                          errorMsg = ""
+                      })
             }
         }
     }

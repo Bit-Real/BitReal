@@ -11,27 +11,34 @@ class FriendProfileViewModel: ObservableObject {
     
     @Published var user: User
     @Published var posts = [Post]()
+    @Published var habits = [HabitModel]()
+    
     private let postService = PostService()
     private let userService = UserService()
+    private let habitModel = HabitViewModel()
     
     init(user: User) {
         self.user = user
         self.fetchUserPosts()
+        self.fetchUserHabits()
         isFriends()
     }
     
+    // makes this other user a friend of the current user
     func beFriends() {
         userService.beFriends(user) {
             self.user.isFriend = true
         }
     }
     
+    // removes this user from this other user's friend's list
     func unfriend() {
         userService.unfriend(user) {
             self.user.isFriend = false
         }
     }
     
+    // checks if this other user and logged in user are friends
     func isFriends() {
         userService.isFriends(user) { result in
             if (result) {
@@ -40,6 +47,7 @@ class FriendProfileViewModel: ObservableObject {
         }
     }
     
+    // fetches all posts made by this user
     func fetchUserPosts() {
         guard let uid = user.id else { return }
         postService.fetchPost(forUid: uid) { posts in
@@ -47,6 +55,13 @@ class FriendProfileViewModel: ObservableObject {
             for i in 0 ..< posts.count {
                 self.posts[i].user = self.user
             }
+        }
+    }
+    
+    func fetchUserHabits() {
+        guard let uid = user.id else { return }
+        postService.fetchHabits(withUID: uid) { habits in
+            self.habits = habits
         }
     }
     

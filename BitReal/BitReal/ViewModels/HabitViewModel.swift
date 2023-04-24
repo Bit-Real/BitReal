@@ -26,7 +26,9 @@ class HabitViewModel: ObservableObject {
     }
     
     // given a new habit info, creates a new entry in Firestore habits collection
-    func addData(uid: String, name: String, description: String, frequency: Int, alarm: Date, privacy: Bool, streak: Int, progress: [Bool]) {
+    func addData(uid: String, name: String, description: String,
+                 frequency: Int, alarm: Date, privacy: Bool,
+                 streak: Int, progress: [Bool], habitColor: String) {
         let db = Firestore.firestore()
         let data = ["uid": uid,
                     "name": name,
@@ -36,6 +38,7 @@ class HabitViewModel: ObservableObject {
                     "privacy": privacy,
                     "streak": streak,
                     "progress": progress,
+                    "habitColor": habitColor,
                     "timestamp": Timestamp(date: Date()),
                     "nextSundayDate": nextSunday(),
                     "lastUpdate": Timestamp(date: Date()),
@@ -90,10 +93,11 @@ class HabitViewModel: ObservableObject {
                 print("Error retrieving progress array")
                 return
             }
+            
             let originalValue = progress[dayIndex]
             progress[dayIndex] = completed
             
-            guard var streak = document.get("streak") as? Int else {
+            guard let streak = document.get("streak") as? Int else {
                 print("Error retrieving streak count")
                 return
             }
@@ -133,6 +137,51 @@ class HabitViewModel: ObservableObject {
         }
     }
     
+    func undoHabit(habitID: String) {
+        let db = Firestore.firestore()
+        let habitRef = db.collection("habits").document(habitID)
+        
+        habitRef.getDocument { (documentSnapshot, error) in
+            if let error = error {
+                print("Error fetching habit document: \(error.localizedDescription)")
+                return
+            }
+            
+            guard let document = documentSnapshot else {
+                print("Habit document not found")
+                return
+            }
+            
+            guard var progress = document.get("progress") as? [Bool] else {
+                print("Error retrieving progress array")
+                return
+            }
+            
+            let dayOfWeek = Utility.getCurrentDayOfWeek()
+            let originalValue = progress[dayOfWeek]
+            progress[dayOfWeek] = false
+            
+            guard var streak = document.get("streak") as? Int else {
+                print("Error retrieving streak count")
+                return
+            }
+            
+            // only decrement if dayOfWeek is marked done
+            if (originalValue != false) {
+                streak = streak - 1
+            }
+            
+            habitRef.updateData(["progress": progress,
+                                 "streak": streak,
+                                 "lastUpdate": Timestamp(date: Date())]) { error in
+                if let error = error {
+                    print("Error updating habit progress: \(error.localizedDescription)")
+                }
+            }
+            
+        }
+    }
+    
     // given a habitID, fetch from Firestore, and reset all of its
     // progress array indicies to false
     func resetHabitProgress(habitID: String) {
@@ -160,11 +209,8 @@ class HabitViewModel: ObservableObject {
             habitRef.updateData(["progress": progress]) { error in
                 if let error = error {
                     print("Error updating habit progress: \(error.localizedDescription)")
-                } else {
-//                    print("Habit progress updated successfully")
                 }
             }
-            
         }
     }
     
@@ -192,8 +238,6 @@ class HabitViewModel: ObservableObject {
         ]) { err in
             if let err = err {
                 print("Error updating habit timestamp: \(err)")
-            } else {
-//                print("Habit timestamp updated successfully")
             }
         }
     }

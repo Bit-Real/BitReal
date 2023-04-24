@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Firebase
 
 struct HabitCard: View {
     
@@ -16,13 +17,42 @@ struct HabitCard: View {
         ZStack {
             RoundedRectangle(cornerRadius: 12)
                 .fill(habitColor)
-                .frame(width: 350, height: 50)
+                .frame(width: 350, height: 60)
                 .offset(x: -5)
+            
             HStack {
-                Text(habit.name)
-                    .font(.system(size: 18))
-                    .padding()
+                VStack(alignment: .leading) {
+                    Text(Utility.truncateString(habit.name, maxLength: 18))
+                        .font(.system(size: 16))
+                        .padding(.leading, 15)
+                    HStack(spacing: 2) {
+                        Text("Last update")
+                            .font(.system(size: 12))
+                            .foregroundColor(.gray)
+                            .padding(.leading, 15)
+                        Text("•")
+                                .font(.system(size: 15))
+                                .foregroundColor(.gray)
+                        Text(Utility.convertTimestampToString(timestamp: habit.lastUpdate))
+                            .font(.system(size: 12))
+                            .foregroundColor(.gray)
+                        
+                        // only display streak count if it's over 5
+                        // to reduce spatial clutter
+                        if (habit.streak > 5) {
+                            Text("•")
+                                    .font(.system(size: 15))
+                                    .foregroundColor(.gray)
+                            Text("\(habit.streak)")
+                                .font(.system(size: 14))
+                            Image(systemName: "flame")
+                                .foregroundColor(.red)
+                        }
+                    }
+                }
+                
                 Spacer()
+                
                 HStack {
                     HabitDots(color: habitColor, fill: habit.progress[0])
                     HabitDots(color: habitColor, fill: habit.progress[1])
@@ -34,7 +64,7 @@ struct HabitCard: View {
                 }
                 .padding()
             }
-            .frame(width: 350, height: 54)
+            .frame(width: 350, height: 64)
             .background(Color.white)
             .overlay(
                 RoundedRectangle(cornerRadius: 10)
@@ -43,9 +73,3 @@ struct HabitCard: View {
         }
     }
 }
-
-//struct HabitCard_Previews: PreviewProvider {
-//    static var previews: some View {
-//        HabitCard(habitName: "Run 4 Miles", habitColor: .green)
-//    }
-//}
