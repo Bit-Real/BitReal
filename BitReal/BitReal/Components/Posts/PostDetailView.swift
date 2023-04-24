@@ -8,10 +8,15 @@ import Kingfisher
 struct PostDetailView: View {
     
     @ObservedObject var notification = NotificationViewModel()
+    @ObservedObject var commentViewModel: CommentViewModel
     @State private var newComment = ""
-    @State private var comments: [Comment] = []
     private let db = Firestore.firestore()
     let post: Post
+    
+    init(post: Post) {
+        self.post = post
+        commentViewModel = CommentViewModel(postId: post.id ?? "")
+    }
     
     var body: some View {
         VStack {
@@ -19,7 +24,7 @@ struct PostDetailView: View {
             PostsRowView(post: post)
             List {
                 Section(header: Text("Comments")) {
-                    ForEach(comments) { comment in
+                    ForEach(commentViewModel.comments) { comment in
                         HStack {
                             if let profilePicUrl = comment.userProfilePicUrl {
                                 KFImage(URL(string: profilePicUrl))
@@ -55,87 +60,28 @@ struct PostDetailView: View {
             HStack {
                 TextField("Write a comment...", text: $newComment)
                 Button("Submit") {
-                    submitComment()
+//                    submitComment()
+                    commentViewModel.addComment(postId: post.id ?? "", caption: newComment) { result in
+                        if result {
+                            notification.addCommentNotification(authUserID: post.user!.id!,
+                                                                authUserName: post.user!.username,
+                                                                postID: post.uid,
+                                                                comment: newComment)
+                            // Reset the text field and fetch the updated comments
+                            newComment = ""
+                            commentViewModel.fetchComments(postId: post.id ?? "")
+                            print("Success. Comment added!")
+                        } else {
+                            print("Failed to add comment")
+                        }
+                    }
                 }
             }
             .padding()
         }
         .onAppear {
-            fetchComments()
+            commentViewModel.fetchComments(postId: post.id ?? "")
         }
     }
-    
-    private func submitComment() {
-        guard let postId = post.id, !newComment.isEmpty else { return }
 
-        // Create a new comment document in Firestore
-        let commentData: [String: Any] = [
-            "userId": Auth.auth().currentUser!.uid,
-            "text": newComment,
-            "timestamp": Timestamp(),
-            "postId": postId // Add the postId field
-        ]
-        db.collection("posts").document(postId).collection("comments").addDocument(data: commentData) { error in
-            if let error = error {
-                print("ERROR: Failed to add new comment. Error: \(error.localizedDescription)")
-            } else {
-                notification.addCommentNotification(authUserID: post.user!.id!, authUserName: post.user!.username, postID: post.uid, comment: newComment)
-                // Reset the text field and fetch the updated comments
-                newComment = ""
-                fetchComments()
-            }
-        }
-    }
-    
-    func fetchUser(withUID uid: String, completion: @escaping(User) -> Void) {
-        Firestore.firestore().collection("users")
-            .document(uid)
-            .getDocument { snapshot, _ in
-                guard let snapshot = snapshot else { return }
-                guard let user = try? snapshot.data(as: User.self) else { return }
-                completion(user)
-            }
-    }
-    
-    private func fetchComments() {
-        guard let postId = post.id else { return }
-        db.collection("posts").document(postId).collection("comments")
-            .order(by: "timestamp")
-            .addSnapshotListener { snapshot, error in
-                if let error = error {
-                    print("Error fetching comments: \(error.localizedDescription)")
-                    return
-                }
-
-                if let snapshot = snapshot {
-                    var newComments: [Comment] = []
-                    let dispatchGroup = DispatchGroup()
-                    for document in snapshot.documents {
-                        dispatchGroup.enter()
-                        do {
-                            var comment = try document.data(as: Comment.self)
-                            comment.id = document.documentID
-                            comment.postId = postId // Set the postId property
-                            
-                            // Fetch user info for the comment
-                            let userId = comment.userId
-                            fetchUser(withUID: userId) { user in
-                                comment.userName = user.username
-                                comment.userProfilePicUrl = user.profileImageURL
-                                newComments.append(comment)
-                                dispatchGroup.leave()
-                            }
-                        } catch {
-                            print("Error decoding comment: \(error.localizedDescription)")
-                            dispatchGroup.leave()
-                        }
-                    }
-                    dispatchGroup.notify(queue: .main) {
-                        comments = newComments
-                    }
-                }
-            }
-    }
-
-    
 }

@@ -12,9 +12,7 @@ import FirebaseFirestoreSwift
 
 struct PostService {
     
-//    @EnvironmentObject var authentication: AuthViewModel
-//    var notification = NotificationViewModel()
-//    var userService = UserService()
+    var userService = UserService()
     private let db = Firestore.firestore()
     
     // given a caption, create a new entry in Firestore under posts collection
@@ -36,35 +34,6 @@ struct PostService {
             }
         }
     }
-    
-    // fetches all posts by all users from the posts collection in Firestore
-//    func fetchPosts(completion: @escaping ([Post]) -> ListenerRegistration) {
-//        Firestore.firestore().collection("posts")
-//            .getDocuments { snapshot, _ in
-//                guard let documents = snapshot?.documents else { return }
-//
-//                let dispatchGroup = DispatchGroup()
-//                var fetchedPosts: [Post] = []
-//
-//                for document in documents {
-//                    dispatchGroup.enter()
-//                    if let post = try? document.data(as: Post.self) {
-//                        fetchHabit(withUID: post.habitId) { habit in
-//                            var newPost = post
-//                            newPost.habit = habit
-//                            fetchedPosts.append(newPost)
-//                            dispatchGroup.leave()
-//                        }
-//                    } else {
-//                        dispatchGroup.leave()
-//                    }
-//                }
-//
-//                dispatchGroup.notify(queue: .main) {
-//                    completion(fetchedPosts.sorted(by: {$0.timestamp.dateValue() > $1.timestamp.dateValue()} ))
-//                }
-//            }
-//    }
     
     // Fetches all posts by all users from the posts collection in Firestore
     func fetchPosts(completion: @escaping ([Post]) -> Void) -> ListenerRegistration {
@@ -130,6 +99,7 @@ struct PostService {
             }
     }
     
+    // fetch and return the habit with the specified id
     func fetchHabit(withUID uid: String, completion: @escaping(HabitModel) -> Void) {
         let db = Firestore.firestore()
         
@@ -154,21 +124,61 @@ struct PostService {
         }
     }
     
-    func addComment(_ commentText: String, to post: Post, completion: @escaping (Result<Void, Error>) -> Void) {
-        guard let uid = Auth.auth().currentUser?.uid else {return}
-        let commentData: [String: Any] = [
-            "text": commentText,
-            "userId": uid,
-            "postId": post.id!,
-            "timestamp": Timestamp()
-        ]
+    // given a post id, fetch and return all of its comments in an array
+    func fetchComments(postId: String, completion: @escaping([Comment]) -> Void) {
+        db.collection("posts").document(postId).collection("comments")
+            .order(by: "timestamp")
+            .addSnapshotListener { snapshot, error in
+                if let error = error {
+                    print("Error fetching comments: \(error.localizedDescription)")
+                    return
+                }
 
-        let postCommentsRef = Firestore.firestore().collection("posts").document(post.id!).collection("comments")
-        postCommentsRef.addDocument(data: commentData) { error in
+                if let snapshot = snapshot {
+                    var newComments: [Comment] = []
+                    let dispatchGroup = DispatchGroup()
+                    for document in snapshot.documents {
+                        dispatchGroup.enter()
+                        do {
+                            var comment = try document.data(as: Comment.self)
+                            comment.id = document.documentID
+                            comment.postId = postId // Set the postId property
+                            
+                            // Fetch user info for the comment
+                            let userId = comment.userId
+                            userService.fetchUser(withUID: userId) { user in
+                                comment.userName = user.username
+                                comment.userProfilePicUrl = user.profileImageURL
+                                newComments.append(comment)
+                                dispatchGroup.leave()
+                            }
+                        } catch {
+                            print("Error decoding comment: \(error.localizedDescription)")
+                            dispatchGroup.leave()
+                        }
+                    }
+                    dispatchGroup.notify(queue: .main) {
+                        completion(newComments)
+                    }
+                }
+            }
+    }
+    
+    // given a post id and caption, add it as a new comment to the specified post
+    func submitComment(postId: String, caption: String, completion: @escaping(Bool) -> Void) {
+        // Create a new comment document in Firestore
+        let commentData: [String: Any] = [
+            "userId": Auth.auth().currentUser!.uid,
+            "text": caption,
+            "timestamp": Timestamp(),
+            "postId": postId
+        ]
+        db.collection("posts").document(postId).collection("comments").addDocument(data: commentData) { error in
             if let error = error {
-                completion(.failure(error))
+                print("ERROR: Failed to add new comment. Error: \(error.localizedDescription)")
+                completion(false)
             } else {
-                completion(.success(()))
+                completion(true)
             }
         }
     }

@@ -46,6 +46,7 @@
 		2455F30A29E91C3D00AEE862 /* Comp1.json in Resources */ = {isa = PBXBuildFile; fileRef = 2455F30529E91C3D00AEE862 /* Comp1.json */; };
 		2455F30C29E91C3D00AEE862 /* planning1.json in Resources */ = {isa = PBXBuildFile; fileRef = 2455F30729E91C3D00AEE862 /* planning1.json */; };
 		2455F30E29EF5CBD00AEE862 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2455F30D29EF5CBD00AEE862 /* ProfileViewModel.swift */; };
+		2455F31229F62FDF00AEE862 /* CommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2455F31129F62FDF00AEE862 /* CommentViewModel.swift */; };
 		248084A929B42AE700A674F8 /* AddButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248084A829B42AE700A674F8 /* AddButton.swift */; };
 		248084AB29B430ED00A674F8 /* HabitCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248084AA29B430ED00A674F8 /* HabitCard.swift */; };
 		248084AD29B435EC00A674F8 /* HabitDots.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248084AC29B435EC00A674F8 /* HabitDots.swift */; };
@@ -108,6 +109,7 @@
 		2455F30529E91C3D00AEE862 /* Comp1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Comp1.json; sourceTree = "<group>"; };
 		2455F30729E91C3D00AEE862 /* planning1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = planning1.json; sourceTree = "<group>"; };
 		2455F30D29EF5CBD00AEE862 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		2455F31129F62FDF00AEE862 /* CommentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewModel.swift; sourceTree = "<group>"; };
 		248084A829B42AE700A674F8 /* AddButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddButton.swift; sourceTree = "<group>"; };
 		248084AA29B430ED00A674F8 /* HabitCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitCard.swift; sourceTree = "<group>"; };
 		248084AC29B435EC00A674F8 /* HabitDots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDots.swift; sourceTree = "<group>"; };
@@ -298,6 +300,7 @@
 				F1C78F0E29E99FAB00D0E427 /* NotificationViewModel.swift */,
 				2455F30D29EF5CBD00AEE862 /* ProfileViewModel.swift */,
 				F1E760B829F5D98500DF20B6 /* FollowerCardViewModel.swift */,
+				2455F31129F62FDF00AEE862 /* CommentViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -404,6 +407,7 @@
 				1BD3C81629AD432000BFC22F /* RegisterIView.swift in Sources */,
 				143CFDF529E4013600424E66 /* NotificationsPage.swift in Sources */,
 				2484518C29DBCB0F00EA6645 /* RoundedShape.swift in Sources */,
+				2455F31229F62FDF00AEE862 /* CommentViewModel.swift in Sources */,
 				24EB102829D7444900685674 /* FeedViewModel.swift in Sources */,
 				241C969C29A8581700DB1855 /* FriendsPage.swift in Sources */,
 				F135D04129B0413B0025F23B /* Habit.swift in Sources */,
