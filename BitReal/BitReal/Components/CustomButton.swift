@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CustomButton: View {
+    
     var color: Color
     var bgColor: Color?
     var outline: Bool

@@ -11,6 +11,7 @@ class FriendProfileViewModel: ObservableObject {
     
     @Published var user: User
     @Published var posts = [Post]()
+    
     private let postService = PostService()
     private let userService = UserService()
     
@@ -20,18 +21,21 @@ class FriendProfileViewModel: ObservableObject {
         isFriends()
     }
     
+    // makes this other user a friend of the current user
     func beFriends() {
         userService.beFriends(user) {
             self.user.isFriend = true
         }
     }
     
+    // removes this user from this other user's friend's list
     func unfriend() {
         userService.unfriend(user) {
             self.user.isFriend = false
         }
     }
     
+    // checks if this other user and logged in user are friends
     func isFriends() {
         userService.isFriends(user) { result in
             if (result) {
@@ -40,6 +44,7 @@ class FriendProfileViewModel: ObservableObject {
         }
     }
     
+    // fetches all posts made by this user
     func fetchUserPosts() {
         guard let uid = user.id else { return }
         postService.fetchPost(forUid: uid) { posts in

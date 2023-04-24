@@ -35,8 +35,6 @@ struct HabitsPage: View {
                                 } label: {
                                     HabitCard(habit: habit, habitColor: Color(hex: habit.habitColor))
                                         .padding(.leading, 20)
-//                                    HabitCard(habitColor: Color(hex: habit.habitColor))
-//                                        .padding(.leading, 20)
                                 }
                                 .buttonStyle(PlainButtonStyle()).accentColor(.clear)
                                 .onTapGesture {
@@ -82,6 +80,7 @@ struct HabitsPage: View {
     }
 }
 
+// extension to allow Color to accept a String hex value for colors
 extension Color {
     init(hex: String) {
         let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)

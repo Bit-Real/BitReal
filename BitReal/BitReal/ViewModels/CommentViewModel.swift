@@ -18,12 +18,14 @@ class CommentViewModel: ObservableObject {
         fetchComments(postId: postId)
     }
     
+    // fethces all comments under the specified post
     func fetchComments(postId: String) {
         postService.fetchComments(postId: postId) { comments in
             self.comments = comments
         }
     }
     
+    // adds a new comment to the specified post with the given caption
     func addComment(postId: String, caption: String, completion: @escaping (Bool) -> Void) {
         postService.submitComment(postId: postId, caption: caption) { result in
             completion(result)

@@ -9,11 +9,13 @@ import SwiftUI
 
 struct HabitExpand: View {
     
+    @State var showAlert = false
     @State private var text = ""
     private let placeholder = "Post your habit!"
     var description: String
     var habitID: String
     var habitColor: Color
+    
     @ObservedObject var postModel: PostViewModel
     @ObservedObject var habitModel: HabitViewModel
     
@@ -39,7 +41,11 @@ struct HabitExpand: View {
                         Button {
                             // upload post only if textfield is not empty
                             if (!text.isEmpty) {
-                                postModel.uploadPost(withCaption: text, habitId: self.habitID)
+                                postModel.uploadPost(withCaption: text, habitId: self.habitID) { result in
+                                    if !result {
+                                        self.showAlert = true
+                                    }
+                                }
                             }
                             let dayOfweek = Utility.getCurrentDayOfWeek()
                             habitModel.updateHabitProgress(habitID: habitID, dayIndex: dayOfweek, completed: true)
@@ -50,6 +56,9 @@ struct HabitExpand: View {
                                 .fontWeight(.medium)
                         }
                         .foregroundColor(habitColor)
+                        .alert(isPresented: $showAlert) {
+                            Alert(title: Text("Error"), message: Text("Failed to upload post"), dismissButton: .default(Text("OK")))
+                        }
                     }
                 }
             }

@@ -7,6 +7,7 @@
 import Foundation
 
 class FollowerCardViewModel: ObservableObject {
+    
     @Published var userService = UserService()
     @Published var userID: String
     
@@ -14,6 +15,7 @@ class FollowerCardViewModel: ObservableObject {
         self.userID = userID
     }
     
+    // allows user to follow someone back from notification inbox
     func follow() {
         userService.fetchUser(withUID: userID) { (User) in
             self.userService.beFriends(User) {

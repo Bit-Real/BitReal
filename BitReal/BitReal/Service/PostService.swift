@@ -24,7 +24,7 @@ struct PostService {
                     "caption": caption,
                     "likes": 0,
                     "timestamp": Timestamp(date: Date())] as [String: Any]
-        Firestore.firestore().collection("posts").document().setData(data) { error in
+        db.collection("posts").document().setData(data) { error in
             if let error = error {
                 print("ERROR: failed uploading post. Error is: \(error.localizedDescription)")
                 completion(false)
@@ -43,6 +43,7 @@ struct PostService {
                     print("Error getting documents: \(error)")
                     return
                 }
+                
                 guard let documents = snapshot?.documents else { return }
 
                 let dispatchGroup = DispatchGroup()
@@ -72,7 +73,7 @@ struct PostService {
     
     // given a user uid, fetches all posts by the specifed User
     func fetchPost(forUid uid: String, completion: @escaping([Post]) -> Void) {
-        Firestore.firestore().collection("posts")
+        db.collection("posts")
             .whereField("uid", isEqualTo: uid)
             .getDocuments { snapshot, _ in
                 guard let documents = snapshot?.documents else { return }
@@ -101,8 +102,6 @@ struct PostService {
     
     // fetch and return the habit with the specified id
     func fetchHabit(withUID uid: String, completion: @escaping(HabitModel) -> Void) {
-        let db = Firestore.firestore()
-        
         db.collection("habits").document(uid).getDocument { snapshot, _ in
             guard let snapshot = snapshot else { return }
             guard let habit = try? snapshot.data(as: HabitModel.self) else { return }
@@ -112,7 +111,7 @@ struct PostService {
     
     // given a Post, update its like counter in Firestore
     func updateLikes(for post: Post, newLikesCount: Int, completion: @escaping (Error?) -> Void) {
-        let postRef = Firestore.firestore().collection("posts").document(post.id!)
+        let postRef = db.collection("posts").document(post.id!)
         postRef.updateData(["likes": newLikesCount]) { error in
             if let error = error {
                 print("ERROR: failed updating likes for post. Error is: \(error.localizedDescription)")

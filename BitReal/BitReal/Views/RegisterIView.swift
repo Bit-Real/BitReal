@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct RegisterIView: View {
+    
     @State private var email = ""
     @State private var registerSuccess = false
     @State private var showAlert = false

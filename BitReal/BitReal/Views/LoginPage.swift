@@ -10,6 +10,7 @@ import Firebase
 import FirebaseAuth
 
 struct LoginPage: View {
+    
     @State private var userName = ""
     @State private var password = ""
     @State private var loginSuccess = false

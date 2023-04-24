@@ -82,8 +82,7 @@ struct LottieView: UIViewRepresentable {
         return view
     }
 
-    func updateUIView(_ uiView: UIViewType, context: Context) {
-    }
+    func updateUIView(_ uiView: UIViewType, context: Context) { }
 
     class Coordinator: NSObject {
         var parent: LottieView
@@ -92,8 +91,7 @@ struct LottieView: UIViewRepresentable {
         init(_ animationView: LottieView) {
             self.parent = animationView
         }
-
-        // Implement other delegate methods if needed
     }
+    
 }
 

@@ -15,6 +15,7 @@ class AuthViewModel: ObservableObject {
     @Published var tempUserSession: FirebaseAuth.User?
     @Published var didAuthenticateUser = false
     @Published var currentUser: User?
+    
     private let service = UserService()
     
     init() {
@@ -22,6 +23,7 @@ class AuthViewModel: ObservableObject {
         self.fetchUser()
     }
     
+    // with email and password, login the user if it exists
     func login(withEmail email: String,
                password: String,
                completion: @escaping(String) -> Void) {
@@ -39,6 +41,8 @@ class AuthViewModel: ObservableObject {
         }
     }
     
+    // signs up a new user with the given information
+    // Alerts user if incorrect data is entered
     func signup(withEmail email: String,
                 password: String,
                 confirmPassword: String,
@@ -87,6 +91,7 @@ class AuthViewModel: ObservableObject {
         }
     }
     
+    // signs out the current logged in user
     func signout() {
         do {
             try Auth.auth().signOut()
@@ -96,6 +101,7 @@ class AuthViewModel: ObservableObject {
         }
     }
     
+    // uploads a new profile picture for new users
     func uploadProfileImage(_ image: UIImage) {
         guard let uid = tempUserSession?.uid else { return }
         ImageUploader.uploadImage(image: image) { profileImageURL in
@@ -107,6 +113,7 @@ class AuthViewModel: ObservableObject {
         }
     }
     
+    // update the profile picture for current users
     func updateProfileImage(_ image: UIImage, completion: @escaping () -> Void) {
         print("updateProfileImage first line")
         guard let uid = userSession?.uid else { return }
@@ -119,6 +126,7 @@ class AuthViewModel: ObservableObject {
         }
     }
     
+    // fetches the User object of the current user using UserService
     func fetchUser() {
         guard let uid = self.userSession?.uid else { return }
         // once info fetched, set currentUser field

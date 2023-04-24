@@ -11,6 +11,7 @@ import FirebaseFirestore
 import FirebaseAuth
 
 class ProfileViewModel: ObservableObject {
+    
     @Published var user: User?
     private var listener: ListenerRegistration?
 

@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+// round shape used in image selector and habit public view page
 struct RoundedShape: Shape {
     var corners: UIRectCorner
     

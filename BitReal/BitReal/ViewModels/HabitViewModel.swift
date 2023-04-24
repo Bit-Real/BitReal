@@ -93,10 +93,11 @@ class HabitViewModel: ObservableObject {
                 print("Error retrieving progress array")
                 return
             }
+            
             let originalValue = progress[dayIndex]
             progress[dayIndex] = completed
             
-            guard var streak = document.get("streak") as? Int else {
+            guard let streak = document.get("streak") as? Int else {
                 print("Error retrieving streak count")
                 return
             }
@@ -208,11 +209,8 @@ class HabitViewModel: ObservableObject {
             habitRef.updateData(["progress": progress]) { error in
                 if let error = error {
                     print("Error updating habit progress: \(error.localizedDescription)")
-                } else {
-//                    print("Habit progress updated successfully")
                 }
             }
-            
         }
     }
     
@@ -240,8 +238,6 @@ class HabitViewModel: ObservableObject {
         ]) { err in
             if let err = err {
                 print("Error updating habit timestamp: \(err)")
-            } else {
-//                print("Habit timestamp updated successfully")
             }
         }
     }

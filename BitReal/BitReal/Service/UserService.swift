@@ -77,10 +77,6 @@ struct UserService {
             print("DEBUG: Added \(friendUID) as a friend to \(uid)")
             completion()
         }
-        
-        // added friendUser as a friend. send a notification to them
-        //notification.addFollowNotification(followedUserID: friendUID, followedUserName: friendUser.username)
-        
     }
     
     // check if this user is friends with currentUser

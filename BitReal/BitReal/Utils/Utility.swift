@@ -11,6 +11,7 @@ import FirebaseFirestoreSwift
 import UIKit
 import SwiftUI
 
+// contains useful utility functions used throughout the project
 class Utility {
     
     // given a Timestamp, returns how long since it's been created

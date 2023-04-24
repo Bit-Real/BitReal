@@ -12,6 +12,7 @@ import Kingfisher
 import UserNotifications
 
 struct ProfilePage: View {
+    
     @EnvironmentObject var viewModel: AuthViewModel
     @StateObject private var profileViewModel = ProfileViewModel()
     

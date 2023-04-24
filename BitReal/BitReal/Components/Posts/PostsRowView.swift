@@ -76,7 +76,7 @@ struct PostsRowView: View {
                     }
 
                 }) {
-                    
+                    // button label
                     if (isLiked) {
                         HStack {
                             Image(systemName: "heart.fill")

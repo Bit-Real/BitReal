@@ -11,6 +11,7 @@ import Firebase
 class FeedViewModel: ObservableObject {
     
     @Published var posts = [Post]()
+    
     let service = PostService()
     let userService = UserService()
     private var listenerRegistration: ListenerRegistration?

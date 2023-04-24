@@ -42,9 +42,3 @@ struct FriendCard: View {
         }
     }
 }
-
-//struct FriendCard_Previews: PreviewProvider {
-//    static var previews: some View {
-//        FriendCard(name: "String")
-//    }
-//}

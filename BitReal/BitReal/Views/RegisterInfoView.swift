@@ -9,6 +9,7 @@ import Firebase
 import FirebaseAuth
 
 struct RegisterInfoView: View {
+    
     var email: String
     
     @State private var username = ""

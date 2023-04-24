@@ -17,8 +17,7 @@ struct CreateHabitPage: View {
     @State private var freq = 1
     @State private var alarm = Date()
     @State private var isOn = false
-  //  @State private var selectedNumber = 1
-    let frequencies = [1, 2, 3, 4, 5, 6, 7]
+    private let frequencies = [1, 2, 3, 4, 5, 6, 7]
 
     var body: some View {
         VStack {
