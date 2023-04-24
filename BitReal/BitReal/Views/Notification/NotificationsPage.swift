@@ -30,24 +30,33 @@ struct NotificationsPage: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            List(notification.list, id: \.id) { notification in
-                switch notification.type {
-                    case "Like":
-                        LikeNotificationsCard(notification: notification)
-                            .listRowSeparator(.hidden)
-                    case "Comment":
-                        CommentNotificationsCard(notification: notification)
-                            .listRowSeparator(.hidden)
-                    case "Follow":
-                        FollowerNotificationsCard(notification: notification)
-                            .listRowSeparator(.hidden)
-                    default:
-                        EmptyView()
-                    }
-            }
-            .listStyle(PlainListStyle())
-            .onAppear() {
-                fetchNotifications()
+            if notification.list.isEmpty {
+                VStack {
+                    Text("You have no notifications at this time.")
+                    Text("Please check back later.")
+                }
+                .foregroundColor(.gray)
+                .multilineTextAlignment(.center)
+            } else {
+                List(notification.list, id: \.id) { notification in
+                    switch notification.type {
+                        case "Like":
+                            LikeNotificationsCard(notification: notification)
+                                .listRowSeparator(.hidden)
+                        case "Comment":
+                            CommentNotificationsCard(notification: notification)
+                                .listRowSeparator(.hidden)
+                        case "Follow":
+                            FollowerNotificationsCard(notification: notification)
+                                .listRowSeparator(.hidden)
+                        default:
+                            EmptyView()
+                        }
+                }
+                .listStyle(PlainListStyle())
+                .onAppear() {
+                    fetchNotifications()
+                }
             }
         }
         .navigationTitle("Notifications Inbox")
@@ -55,7 +64,7 @@ struct NotificationsPage: View {
             Button(action: {
                 notification.clearData()
             }) {
-                Text("Clear Notifications")
+                Text("Clear")
             }
         }
     }
