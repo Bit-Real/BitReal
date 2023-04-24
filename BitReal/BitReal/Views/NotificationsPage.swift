@@ -12,6 +12,7 @@ import FirebaseFirestore
 import Kingfisher
 
 struct FollowerNotificationsCard: View {
+    @ObservedObject var notifications = NotificationViewModel()
     let notification: NotificationModel
     
     var body: some View {
@@ -39,6 +40,7 @@ struct FollowerNotificationsCard: View {
                     print("Confirm Button Pressed")
                     var followCard = FollowerCardViewModel(userID: notification.friendUserID)
                     followCard.follow()
+                    notifications.addFollowNotification(followedUserID: notification.friendUserID, followedUserName: notification.friendUserName)
                     
                 }, label: {
                     Text("Follow")
@@ -148,6 +150,7 @@ struct CommentNotificationsCard: View {
 
 struct NotificationsPage: View {
     @State var notifications: [NotificationModel] = []
+    @ObservedObject var notification = NotificationViewModel()
     let db = Firestore.firestore()
     let ref = Firestore.firestore().collection("notifications")
     let user = Auth.auth().currentUser
@@ -163,11 +166,7 @@ struct NotificationsPage: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-//            Text("Notifications Inbox")
-//                .font(.system(size: 36, weight: .bold))
-//                .padding()
-            
-            List(notifications, id: \.id) { notification in
+            List(notification.list, id: \.id) { notification in
                 switch notification.type {
                     case "Like":
                         LikeNotificationsCard(notification: notification)
@@ -188,6 +187,13 @@ struct NotificationsPage: View {
             }
         }
         .navigationTitle("Notifications Inbox")
+        .toolbar {
+            Button(action: {
+                notification.clearData()
+            }) {
+                Text("Clear Notifications")
+            }
+        }
     }
     
     func fetchNotifications() {
